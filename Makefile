@@ -68,7 +68,7 @@ all : $(OBJ_DIR) $(NAME)
 $(NAME) : $(OBJ)
 	$(MAKE_SILENT) -C libft
 	echo "$(YELLOW)Making Minishell$(END)"
-	$(CC) $(OBJ) $(INC_LIBFT) -o $(NAME) -g
+	$(CC) $(OBJ) $(INC_LIBFT) -o $(NAME) -lreadline -g
 	echo "$(GREEN)Done$(END)"
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(HEAD_NAME)
