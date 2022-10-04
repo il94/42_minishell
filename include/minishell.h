@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/09/30 11:43:31 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:48:52 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+
+typedef struct s_struct
+{
+	char *command;
+	char **args;
+	
+}
 
 /* main.c */
 int	main(int ac, char **av, char **envp);
