@@ -1,22 +1,19 @@
 <h1 align="center">Minishell de bg</h1>
 
-=====================================NOTES======================================
+<h2 align="center">NOTES</h2>
 
-Ne pas utiliser plus d’une variable globale. Réfléchissez-y car vous devrez
-justifier son utilisation.
-Ne pas interpréter de caractères spéciaux non demandés dans le sujet, tels que \
-(le backslash) ou ; (le point-virgule).
+	Une seule variable globale autorisée, et justifier son utilisation.
+	Ne pas interpréter de caractères spéciaux non demandés dans le sujet, tels que \
+	(le backslash) ou ; (le point-virgule).
 
-
-
-=====================================PROMPT=====================================
+<h2 align="center">PROMPT</h2>
 	
 	Afficher un prompt en l’attente d’une nouvelle commande
 	Posséder un historique fonctionnel
 	Pouvoir quitter le programme proprement
 
 
-====================================SIGNAUX=====================================
+<h2 align="center">SIGNAUX</h2>
 	
 	Se renseigner sur le "mode interactif"
 
@@ -27,7 +24,7 @@ Ne pas interpréter de caractères spéciaux non demandés dans le sujet, tels q
 
 
 
-====================================BUILTINS====================================
+<h2 align="center">BUILTINS</h2>
 
 	[echo et l’option -n] = int echo(char *str, char **args)
 		Vérifier que les arguments sont valides (NULL ou n uniquement)
@@ -58,8 +55,9 @@ Ne pas interpréter de caractères spéciaux non demandés dans le sujet, tels q
 
 
 
-====================================PARSING=====================================
-LEXER
+<h2 align="center">PARSING</h2>
+<h3>LEXER</h3>
+
 	Splitter les elements pour les stocker dans une liste de struct suivante :
 		char *command
 		char **arguments
@@ -76,7 +74,8 @@ LEXER
 			présents dans la séquence entre guillemets sauf le $ (signe dollar).
 			Ne pas interpréter de quotes non fermés
 
-PARSER
+<h3>PARSER</h3>
+
 	Chercher le bon path pour les commandes
 	Definir les entrees et sorties
 
@@ -88,7 +87,8 @@ PARSER
 
 
 
-====================================EXECUTEUR===================================
+<h2 align="center">EXECUTEUR</h2>
+
 	Parcourir la liste de struct
 		Faire les dups
 		Lancer les execve
