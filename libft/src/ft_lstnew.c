@@ -6,20 +6,24 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:43:31 by ilyes             #+#    #+#             */
-/*   Updated: 2022/09/26 15:20:32 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/05 14:13:00 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linked_lists.h"
 
-t_list	*ft_lstnew(void *content)
+t_cmd	*ft_lstnew(void)
 {
-	t_list	*element;
+	t_cmd	*element;
 
 	element = malloc(sizeof(*element));
 	if (element == NULL)
-		return (0);
-	element->content = content;
+		return (NULL);
+	element->input = NULL;
+	element->output = NULL;
+	element->command = NULL;
+	element->args = NULL;
+	// element->delimiter = NULL;
 	element->next = NULL;
 	return (element);
 }

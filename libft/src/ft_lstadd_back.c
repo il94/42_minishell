@@ -6,15 +6,15 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 03:03:59 by ilyes             #+#    #+#             */
-/*   Updated: 2022/09/26 15:20:32 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/05 12:30:13 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linked_lists.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_cmd **lst, t_cmd *new)
 {
-	t_list	*temp;
+	t_cmd	*temp;
 
 	if (*lst != NULL)
 	{

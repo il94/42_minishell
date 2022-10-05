@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 18:35:28 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/05 14:20:46 by ilandols         ###   ########.fr       */
+/*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
+/*   Updated: 2022/10/05 14:19:03 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linked_lists.h"
+#include "../include/minishell.h"
 
-void	ft_lstclear(t_cmd **lst)
+void	lexer(t_cmd *commands, char *input)
 {
-	t_cmd	*temp;
 
-	temp = *lst;
-	if (lst == NULL)
-		return ;
-	else
-	{
-		while (temp != NULL)
-		{
-			temp = (*lst)->next;
-			free(*lst);
-			*lst = temp;
-		}
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/04 14:22:05 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:42:07 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,10 @@
 
 int	main(int ac, char **av, char **envp)
 {
-/*============================================================================*/
+	t_cmd	*commands;
 
-// 	char test[500];
-
-// 	printf("%s\n", getcwd(test, 500));
-
-// /*============================================================================*/
-
-// 	chdir("../..");
-// 	printf("%s\n", getcwd(test, 500));
-
-// /*============================================================================*/
-
-// 	printf("%d\n", stat("/mnt/nfs/homes/ilandols/42/repo_perso/minishell/minishell", test));
-
-/*============================================================================*/
-
-	char *str;
-		
-	while (1)
-	{
-		str = readline("minishellent> ");
-		if (str[0] != '\0')
-			add_history(str);
-	}
-	printf("EXEC 0 \n");
-	return (1);
+	commands = NULL;
+	minishell(commands);
+	free_all_and_exit(commands, NULL);
+	return (0);
 }
