@@ -15,7 +15,6 @@
 
 # include "libft.h"
 
-
 typedef enum e_delimiter
 {
 	NOTHING_D,
@@ -39,6 +38,7 @@ typedef enum e_redi
 
 typedef struct s_fd
 {
+	int			fd;
 	char		*file;
 	t_redi		operator;
 	struct s_fd	*next;
@@ -46,12 +46,13 @@ typedef struct s_fd
 
 typedef struct s_cmd
 {
+	// int				id;
 	t_fd			*input;
 	t_fd			*output;
-	t_redi			delimiter;
+	t_delimiter		delimiter;
 	char			*command;
 	char			**args;
-	struct par		*list;
+	struct s_cmd	*child_cmd;
 	struct s_cmd	*next;
 }					t_cmd;
 

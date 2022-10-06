@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/05 14:21:03 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:18:18 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	minishell(t_cmd *commands)
 {
-	char 		*str;
+	char	*str;
 
 	while (1)
 	{

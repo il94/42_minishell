@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:43:31 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/05 14:13:00 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:17:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_cmd	*ft_lstnew(void)
 	element->output = NULL;
 	element->command = NULL;
 	element->args = NULL;
-	// element->delimiter = NULL;
 	element->next = NULL;
 	return (element);
 }

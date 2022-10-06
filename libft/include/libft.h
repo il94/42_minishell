@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 00:50:41 by ilandols          #+#    #+#             */
-/*   Updated: 2022/09/26 16:44:19 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:16:39 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 typedef enum e_bool {
 	FALSE,
 	TRUE
-}
-			t_bool;
+}			t_bool;
 
 typedef struct s_pos {
 	int	x;
