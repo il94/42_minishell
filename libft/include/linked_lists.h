@@ -18,7 +18,7 @@
 
 typedef enum e_delimiter
 {
-	NULL,
+	NOTHING_D,
 	PIPE,
 	AND,
 	OR,
@@ -29,28 +29,31 @@ typedef enum e_delimiter
 
 typedef enum e_redi
 {
-	NULL,
+	NOTHING_R,
 	L_CHEVRON,
 	R_CHEVRON,
 	L_DOUBLE_CHEVRON,
 	R_DOUBLE_CHEVRON,
 	PIPE_R,
-	AND,
-	OR
 }	t_redi;
+
+typedef struct s_fd
+{
+	char		*file;
+	t_redi		operator;
+	struct s_fd	*next;
+}					t_fd;
 
 typedef struct s_cmd
 {
-	char			*input;
-	t_redi			input_operator;
-	char			*output;
-	t_redi			output_operator;
+	t_fd			*input;
+	t_fd			*output;
 	t_redi			delimiter;
 	char			*command;
 	char			**args;
 	struct par		*list;
 	struct s_cmd	*next;
-}		t_cmd;
+}					t_cmd;
 
 t_cmd		*ft_lstnew(void);
 void		ft_lstclear(t_cmd **lst);

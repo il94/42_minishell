@@ -1,0 +1,111 @@
+ls && (< salut grep bonjour || grep caca) && (./false > ilyes || ./true ) > ahmet | ls | rev > /dev/stdout > file1 > file2 >> file 3
+
+M* = ""
+{
+	input = {file = "", operator = ""} ->
+    output = {file = "", operator = ""} ->
+    delimiter =
+    command =
+    args =
+    list =
+    next =
+}
+
+M1 = "ls &&"
+{
+    input = {file = 0, operator = NULL}
+    output = {file = 1, operator = NULL}
+    delimiter = '&&'
+    command = ls
+    args = NULL
+    list = NULL
+    next = M2
+}
+
+M2 = "(< salut grep bonjour || grep caca) &&"
+{
+    input = {file = 0, operator = NULL}
+    output = {file = 1, operator = NULL}
+    delimiter = '&&'
+    command = ls
+    args = NULL
+    list = M2 CHILDS
+    next = M3
+}
+		M2 CHILD1 = "< salut grep bonjour ||"
+		{
+			input = {file = salut, operator = '<'}
+			output = {file = 1, operator = NULL}
+			delimiter = '||'
+			command = grep
+			args = bonjour
+			list = NULL
+			next = M2 CHILD2
+		}
+		M2 CHILD2 = "grep caca)"
+		{
+			input = {file = 0, operator = NULL}
+			output = {file = 1, operator = NULL}
+			delimiter = ')'
+			command = grep
+			args = caca
+			list = NULL
+			next = NULL
+		}
+
+M3 = "(./false > ilyes || ./true) > ahmet |"
+{
+    input = {file = 0, operator = NULL}
+    output = {file = ahmet, operator = '>'} ->
+			 {file = "pipe" , operator = '|'}
+    delimiter = '|'
+    command = ls
+    args = NULL
+    list = M2 CHILDS
+    next = M3
+}
+		M3 CHILD1 = "./false > ilyes ||"
+		{
+			input = {file = 0, operator = NULL}
+			output = {file = ilyes, operator = '>'}
+			delimiter = '||'
+			command = ./false
+			args = NULL
+			list = NULL
+			next = M3 CHILD2
+		}
+		M3 CHILD2 = "./true)"
+		{
+			input = {file = 0, operator = NULL}
+			output = {file = 1, operator = NULL}
+			delimiter = ')'
+			command = ./true
+			args = NULL
+			list = NULL
+			next = NULL
+		}
+
+M4 = "| ls |"
+{
+    input = {file = "pipe", operator = '|'}
+    output = {file = "pipe", operator = '|'}
+    delimiter = '|'
+    command = ls
+    args = NULL
+    list = NULL
+    next = M5
+}
+
+M5 = "| rev > /dev/stdout > file1 > file2 >> file 3"
+{
+	input = {file = "pipe", operator = "|"}
+    output = {file = "/dev/stdout", operator = ">"} ->
+				{file = "file1", operator = ">"} ->
+					{file = "file2", operator = ">"} ->
+						{file = "file3", operator = ">>"}
+    delimiter = '\0'
+    command = rev
+    args = NULL
+    list = NULL
+    next = NULL
+}
