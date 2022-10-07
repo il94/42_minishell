@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 18:35:28 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/05 14:20:46 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/21 17:02:53 by ilyes             #+#    #+#             */
+/*   Updated: 2022/10/07 18:39:21 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linked_lists.h"
 
-void	ft_lstclear(t_cmd **lst)
+void	ft_lstdelone(t_cmd *lst)
 {
-	t_cmd	*temp;
-
-	temp = *lst;
-	if (lst == NULL)
-		return ;
-	else
-	{
-		while (temp != NULL)
-		{
-			temp = (*lst)->next;
-			free(*lst);
-			*lst = temp;
-		}
-	}
+	if (lst)
+		free(lst);
 }

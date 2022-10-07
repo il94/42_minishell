@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/07 18:20:48 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/21 01:35:09 by ilyes             #+#    #+#             */
+/*   Updated: 2022/10/07 17:10:27 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/linked_lists.h"
 
-void	minishell(t_cmd *commands)
+int	ft_lstsize(t_list *lst)
 {
-	char	*str;
+	int	i;
 
-	while (1)
+	i = 0;
+	while (lst)
 	{
-		str = readline("minishellent> ");
-		if (!ft_strcmp(str, "stop"))
-		{
-			free(str);
-			break ;
-		}
-		if (str[0] != '\0')
-			add_history(str);
-		lexer(commands, str);
-
-		//parsing
-		//exec
-		free(str);
-		if (commands)
-			free_command_struct(commands);
+		lst = lst->next;
+		i++;
 	}
+	return (i);
 }

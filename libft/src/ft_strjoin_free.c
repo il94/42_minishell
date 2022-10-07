@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/07 18:20:48 by ilandols         ###   ########.fr       */
+/*   Created: 2022/05/20 11:08:54 by ilandols          #+#    #+#             */
+/*   Updated: 2022/10/07 15:05:29 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libft.h"
 
-void	minishell(t_cmd *commands)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	char	*str;
+	char	*result;
+	int		i;
+	int		j;
 
-	while (1)
+	result = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1 && s1[i])
 	{
-		str = readline("minishellent> ");
-		if (!ft_strcmp(str, "stop"))
-		{
-			free(str);
-			break ;
-		}
-		if (str[0] != '\0')
-			add_history(str);
-		lexer(commands, str);
-
-		//parsing
-		//exec
-		free(str);
-		if (commands)
-			free_command_struct(commands);
+		result[i] = s1[i];
+		i++;
 	}
+	while (s2[j])
+		result[i++] = s2[j++];
+	result[i] = '\0';
+	free(s1);
+	return (result);
 }

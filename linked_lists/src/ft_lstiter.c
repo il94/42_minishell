@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 03:03:59 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/05 12:30:13 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/21 22:09:05 by ilyes             #+#    #+#             */
+/*   Updated: 2022/10/07 17:09:24 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linked_lists.h"
 
-void	ft_lstadd_back(t_cmd **lst, t_cmd *new)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	t_cmd	*temp;
-
-	if (*lst != NULL)
+	if (lst)
 	{
-		temp = *lst;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		while (lst)
+		{
+			f(lst->content);
+			lst = lst->next;
+		}
 	}
-	else
-		*lst = new;
 }

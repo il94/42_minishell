@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 22:09:05 by ilyes             #+#    #+#             */
-/*   Updated: 2022/09/26 15:20:32 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/21 02:57:18 by ilyes             #+#    #+#             */
+/*   Updated: 2022/10/07 17:09:49 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linked_lists.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+t_list	*ft_lstlast(t_list *lst)
 {
-	if (lst == NULL)
-		return ;
-	else
+	t_list	*temp;
+
+	if (lst)
 	{
-		while (lst != NULL)
-		{
-			f(lst->content);
-			lst = lst->next;
-		}
+		temp = lst;
+		while (temp->next)
+			temp = temp->next;
+		return (temp);
 	}
+	else
+		return (lst);
 }

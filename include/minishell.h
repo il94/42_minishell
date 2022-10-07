@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/06 15:24:42 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:29:46 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	lexer(t_cmd *commands, char *input);
 void	minishell(t_cmd *commands);
 
 /* free_memory.c */
-void	free_commands(t_cmd *commands);
+void	free_fd_struct(t_fd *list);
+void	free_command_struct(t_cmd *commands);
 void	free_all_and_exit(t_cmd *commands, char *str_error);
 
 /* main.c */
