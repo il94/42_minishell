@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstsize copy.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 03:03:59 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/07 17:17:42 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/21 01:35:09 by ilyes             #+#    #+#             */
+/*   Updated: 2022/10/08 18:37:38 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linked_lists.h"
 
-void	ft_lstadd_back(t_cmd **lst, t_cmd *new)
+int	ft_lstsize_lex(t_lex *lst)
 {
-	t_cmd	*temp;
+	int	i;
 
-	if (lst)
+	i = 0;
+	while (lst)
 	{
-		temp = *lst;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		lst = lst->next;
+		i++;
 	}
-	else
-		*lst = new;
+	return (i);
 }

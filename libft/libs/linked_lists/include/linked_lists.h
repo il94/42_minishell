@@ -13,7 +13,7 @@
 #ifndef LINKED_LISTS_H
 # define LINKED_LISTS_H
 
-# include "libft.h"
+# include "../../../include/libft.h"
 
 typedef enum e_delimiter
 {
@@ -44,9 +44,14 @@ typedef struct s_fd
 	struct s_fd	*next;
 }					t_fd;
 
+typedef struct s_lex
+{
+	char			*content;
+	struct s_lex	*next;
+}					t_lex;
+
 typedef struct s_cmd
 {
-	// int				id;
 	t_fd			*input;
 	t_fd			*output;
 	t_delimiter		delimiter;
@@ -56,18 +61,24 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-t_cmd		*ft_lstnew(void);
-void		ft_lstclear(t_cmd **lst);
-void		ft_lstadd_back(t_cmd **lst, t_cmd *new);
-void		ft_lstdelone(t_cmd *lst);
+/* for t_cmd */
+t_cmd		*ft_lstnew_cmd(void);
+void		ft_lstclear_cmd(t_cmd **lst);
+void		ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 
+/* for t_lex */
+t_lex		*ft_lstnew_lex(char *str);
+void		ft_lstclear_lex(t_lex **lst);
+void		ft_lstadd_back_lex(t_lex **lst, t_lex *new);
+t_lex		*ft_lstsplit_charset_lex(char const *s, char *charset);
+int			ft_lstis_correct_lex(t_lex *lst, int size);
+int			ft_lstsize_lex(t_lex *lst);
+void		ft_lstprint_lex(t_lex *lst);
+
+// void		ft_lstdelone(t_cmd *lst);
 // void		ft_lstadd_front(t_list **lst, t_list *new);
-// int			ft_lstsize(t_list *lst);
-// t_list		*ft_lstlast(t_list *lst);
+// t_list	*ft_lstlast(t_list *lst);
 // void		ft_lstiter(t_list *lst, void (*f)(void *));
-// t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-// int			ft_lstis_correct(t_list *lst, int size);
-// void		ft_lstprint(t_list *lst);
-// t_list		*ft_lstsplit_charset(char const *s, char *charset);
+// t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

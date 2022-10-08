@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/08 19:03:57 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/21 18:35:28 by ilyes             #+#    #+#             */
+/*   Updated: 2022/10/08 18:08:50 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/linked_lists.h"
 
-void	minishell(t_cmd *commands)
+void	ft_lstclear_cmd(t_cmd **lst)
 {
-	char	*str;
+	t_cmd	*temp;
 
-	while (1)
+	if (lst)
 	{
-		str = readline("minishellent> ");
-		if (!ft_strcmp(str, "stop"))
+		temp = *lst;
+		while (temp != NULL)
 		{
-			free(str);
-			break ;
+			temp = (*lst)->next;
+			free(*lst);
+			*lst = temp;
 		}
-		if (str[0] != '\0')
-			add_history(str);
-		lexer(commands, str);
-		free(str);
-		if (commands)
-			free_command_struct(commands);
 	}
 }

@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_lex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/08 19:03:57 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/20 15:43:31 by ilyes             #+#    #+#             */
+/*   Updated: 2022/10/08 18:54:18 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/linked_lists.h"
 
-void	minishell(t_cmd *commands)
+t_lex	*ft_lstnew_lex(char *str)
 {
-	char	*str;
+	t_lex	*element;
 
-	while (1)
-	{
-		str = readline("minishellent> ");
-		if (!ft_strcmp(str, "stop"))
-		{
-			free(str);
-			break ;
-		}
-		if (str[0] != '\0')
-			add_history(str);
-		lexer(commands, str);
-		free(str);
-		if (commands)
-			free_command_struct(commands);
-	}
+	element = malloc(sizeof(*element));
+	if (!element)
+		return (NULL);
+	element->content = str;
+	element->next = NULL;
+	return (element);
 }

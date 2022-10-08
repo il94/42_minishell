@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:40:35 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/07 17:04:00 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/08 18:36:15 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,6 @@ t_list	*ft_lstsplit_charset(char const *s, char *charset)
 		}
 		i++;
 	}
-	ft_lstadd_back(&lst, ft_lstnew(NULL));
+	ft_lstadd_back(&lst, ft_lstnew());
 	return (lst);
 }

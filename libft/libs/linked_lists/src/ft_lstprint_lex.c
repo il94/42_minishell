@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstprint_lex.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/08 19:03:57 by ilandols         ###   ########.fr       */
+/*   Created: 2022/10/07 16:38:10 by ilandols          #+#    #+#             */
+/*   Updated: 2022/10/08 18:49:13 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/linked_lists.h"
 
-void	minishell(t_cmd *commands)
+void	ft_lstprint_lex(t_lex *lst)
 {
-	char	*str;
-
-	while (1)
+	while (lst)
 	{
-		str = readline("minishellent> ");
-		if (!ft_strcmp(str, "stop"))
-		{
-			free(str);
-			break ;
-		}
-		if (str[0] != '\0')
-			add_history(str);
-		lexer(commands, str);
-		free(str);
-		if (commands)
-			free_command_struct(commands);
+		ft_printf("%s\n", lst->content);
+		lst = lst->next;
 	}
 }
