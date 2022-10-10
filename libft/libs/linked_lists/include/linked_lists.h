@@ -18,7 +18,6 @@
 typedef enum e_delimiter
 {
 	NOTHING_D,
-	PIPE,
 	AND,
 	OR,
 	PIPE_D,
