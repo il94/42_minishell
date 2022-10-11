@@ -73,7 +73,8 @@ t_lex		*ft_lstsplit_charset_lex(char const *s, char *charset);
 int			ft_lstis_correct_lex(t_lex *lst, int size);
 int			ft_lstsize_lex(t_lex *lst);
 void		ft_lstprint_lex(t_lex *lst);
-
+void		ft_lstadd_back_fd(t_fd **lst, t_fd *new);
+t_fd		*ft_lstnew_fd(int default_fd);
 // void		ft_lstdelone(t_cmd *lst);
 // void		ft_lstadd_front(t_list **lst, t_list *new);
 // t_list	*ft_lstlast(t_list *lst);

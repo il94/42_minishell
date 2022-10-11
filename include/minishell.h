@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/11 14:55:36 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:31:32 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-
-# define AND "&&"
 
 /* lexer_utils.c */
 t_delimiter	define_delimiter(t_lex *element);

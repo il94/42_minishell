@@ -3,14 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/11 16:41:00 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:34:23 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+/*char	*find_file(t_lex **lst, t_redi r)
+{
+	if (r == L_CHEVRON || r == R_CHEVRON || r == R_DOUBLE_CHEVRON)
+	
+}
+
+int		find_redi_info(t_lex **lst, t_cmd *cmd)
+{
+	int	redi;
+
+	
+	redi = define_redi(lst);
+	if (redi == L_CHEVRON
+		|| redi == L_DOUBLE_CHEVRON)
+	{
+		commands->input->operator = redi;
+		command->input->file
+	}
+	else if (redi == R_CHEVRON
+		|| redi == R_DOUBLE_CHEVRON)
+	{
+		commands->output->operator = redi;
+		command->output->file
+	}
+	if (commands->input->operator == L_DOUBLE_CHEVRON
+		|| commands->input->operator == R_DOUBLE_CHEVRON)
+		lst = lst->next;
+	else if (define_file(lst))
+	{
+	
+	}
+}*/
 
 void	lexer(t_cmd *commands, char *input)
 {
@@ -22,11 +55,9 @@ void	lexer(t_cmd *commands, char *input)
 	if (!lst)
 		return ;
 
-
-		
 	commands = ft_lstnew_cmd();
 	start = commands;
-	while (lst)
+	/*while (lst)
 	{
 		if (define_delimiter(lst))
 		{
@@ -69,6 +100,6 @@ void	lexer(t_cmd *commands, char *input)
 			
 		}
 		lst = lst->next;
-	}
+	}*/
 	ft_lstclear_lex(&lst);
 }
