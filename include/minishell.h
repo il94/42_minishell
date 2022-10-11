@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/10 16:18:05 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:55:36 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@
 # define AND "&&"
 
 /* lexer_utils.c */
-int		is_token(t_lex *element, char *c, char *charset);
-int		is_pipe(t_lex *element);
-int		is_or(t_lex *element);
-int		is_and(t_lex *element);
-int		is_there(char *str, char in);
+t_delimiter	define_delimiter(t_lex *element);
+int			is_token(t_lex *element, char *c, char *charset);
+int			is_there(char *str, char in);
 
 /* lexer.c */
 void	lexer(t_cmd *commands, char *input);

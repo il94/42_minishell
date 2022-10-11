@@ -109,3 +109,4 @@ M5 = "| rev > /dev/stdout > file1 > file2 >> file 3"
     list = NULL
     next = NULL
 }
+|

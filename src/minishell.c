@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/10 13:40:45 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:15:56 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	minishell(t_cmd *commands)
 		}
 		if (str[0] != '\0')
 			add_history(str);
-		lexer(commands, str);
+		lexer(commands, str);			
 		free(str);
 		if (commands)
 			free_command_struct(commands);
