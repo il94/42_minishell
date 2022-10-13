@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 22:13:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/11 22:23:18 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/13 16:30:04 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ t_fd	*ft_lstnew_fd(int default_fd)
 	element->file = NULL;
 	element->operator = NOTHING_R;
 	element->next = NULL;
+	element->prev = NULL;
 	return (element);
 }

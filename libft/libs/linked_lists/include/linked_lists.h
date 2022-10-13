@@ -47,6 +47,7 @@ typedef struct s_lex
 {
 	char			*content;
 	struct s_lex	*next;
+	struct s_lex	*prev;
 }					t_lex;
 
 typedef struct s_cmd
@@ -58,7 +59,19 @@ typedef struct s_cmd
 	char			**args;
 	struct s_cmd	*child_cmd;
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }					t_cmd;
+
+typedef struct s_data
+{
+	t_cmd	*commands;
+	t_lex	*lexer;
+	char	*prompt;
+}			t_data;
+
+/* for t_fd */
+void		ft_lstadd_back_fd(t_fd **lst, t_fd *new);
+t_fd		*ft_lstnew_fd(int default_fd);
 
 /* for t_cmd */
 t_cmd		*ft_lstnew_cmd(void);
@@ -73,9 +86,7 @@ t_lex		*ft_lstsplit_charset_lex(char const *s, char *charset);
 int			ft_lstis_correct_lex(t_lex *lst, int size);
 int			ft_lstsize_lex(t_lex *lst);
 void		ft_lstprint_lex(t_lex *lst);
-void		ft_lstadd_back_fd(t_fd **lst, t_fd *new);
-t_fd		*ft_lstnew_fd(int default_fd);
-// void		ft_lstdelone(t_cmd *lst);
+void		ft_lstdelone_lex(t_lex *lst);
 // void		ft_lstadd_front(t_list **lst, t_list *new);
 // t_list	*ft_lstlast(t_list *lst);
 // void		ft_lstiter(t_list *lst, void (*f)(void *));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/11 22:31:32 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/13 13:23:39 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,25 @@
 # include <signal.h>
 
 /* lexer_utils.c */
-t_delimiter	define_delimiter(t_lex *element);
+t_delimiter	get_delimiter(t_lex *element);
 int			is_token(t_lex *element, char *c, char *charset);
 int			is_there(char *str, char in);
 
 /* lexer.c */
-void	lexer(t_cmd *commands, char *input);
+void	define_delimiter(t_data *data);
+void	lexer(t_data *data);
 
 /* minishell.c */
-void	minishell(t_cmd *commands);
+void	minishell(t_data *data);
 
 /* free_memory.c */
+void	free_lexer_struct(t_lex **lexer);
 void	free_fd_struct(t_fd *list);
-void	free_command_struct(t_cmd *commands);
-void	free_all_and_exit(t_cmd *commands, char *str_error);
+void	free_command_struct(t_cmd **commands);
+void	free_all_and_exit(t_data *data, char *str_error);
+
+/* initialize.c */
+void	initialize_data(t_data *data);
 
 /* main.c */
 int		main(int ac, char **av, char **envp);

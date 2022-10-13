@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:10:33 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/11 16:04:38 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/12 16:07:54 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_redi	define_redi(t_lex *element)
 	return (NOTHING_R);	
 }
 
-t_delimiter	define_delimiter(t_lex *element)
+t_delimiter	get_delimiter(t_lex *element)
 {
 	if (is_token(element, "|", "&|"))
 		return (PIPE_D);

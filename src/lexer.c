@@ -3,103 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/11 22:34:23 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/13 16:55:57 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*char	*find_file(t_lex **lst, t_redi r)
+
+void	define_delimiter(t_data *data)
 {
-	if (r == L_CHEVRON || r == R_CHEVRON || r == R_DOUBLE_CHEVRON)
-	
+	data->commands->delimiter = get_delimiter(data->lexer);
+	if (data->commands->delimiter)
+	{
+		ft_lstadd_back_cmd(&data->commands, ft_lstnew_cmd());
+		if (!data->commands->next)
+			free_all_and_exit(data, "malloc");
+		if (data->commands->delimiter == AND || data->commands->delimiter == OR)
+			data->lexer = data->lexer->next;
+		data->commands = data->commands->next;
+	}
 }
 
-int		find_redi_info(t_lex **lst, t_cmd *cmd)
+int	concat_quotes(t_lex **lex, char *quote)
 {
-	int	redi;
 
-	
-	redi = define_redi(lst);
-	if (redi == L_CHEVRON
-		|| redi == L_DOUBLE_CHEVRON)
-	{
-		commands->input->operator = redi;
-		command->input->file
-	}
-	else if (redi == R_CHEVRON
-		|| redi == R_DOUBLE_CHEVRON)
-	{
-		commands->output->operator = redi;
-		command->output->file
-	}
-	if (commands->input->operator == L_DOUBLE_CHEVRON
-		|| commands->input->operator == R_DOUBLE_CHEVRON)
-		lst = lst->next;
-	else if (define_file(lst))
-	{
-	
-	}
-}*/
+	printf("elem = %s\n", (*lex)->content);
 
-void	lexer(t_cmd *commands, char *input)
+	while ((*lex) && (*lex)->next && ft_strcmp((*lex)->next->content, quote))
+	{
+		(*lex)->content = ft_strjoin_free((*lex)->content, (*lex)->next->content);
+		if (!(*lex)->content)
+			return (0);
+		ft_lstdelone_lex((*lex)->next);
+	}
+	if (!(*lex))
+		return (0);
+	(*lex)->content = ft_strjoin_free((*lex)->content, (*lex)->next->content);
+	if (!(*lex)->content)
+		return (0);
+	ft_lstdelone_lex((*lex)->next);
+	// if ((*lex)->next)
+	// 	(*lex) = (*lex)->next;
+	return (1);
+}
+
+void	concat_lexer(t_lex **lexer)
 {
-	t_cmd	*start;
-	t_lex	*lst;
+	t_lex *temp;
 
-	lst = NULL;
-	lst = ft_lstsplit_charset_lex(input, "><&|() \t$\'\"");
-	if (!lst)
+	temp = *lexer;
+	while (*lexer)
+	{
+		if (!ft_strcmp((*lexer)->content, "\'"))
+			concat_quotes(lexer, "\'");
+		if (!ft_strcmp((*lexer)->content, "\""))
+			concat_quotes(lexer, "\"");
+		*lexer = (*lexer)->next;
+	}
+	*lexer = temp;
+}
+
+void	lexer(t_data *data)
+{
+	t_cmd	*start_cmd;
+	t_lex	*start_lex;
+
+	data->lexer = NULL;
+	data->lexer = ft_lstsplit_charset_lex(data->prompt, "><&|() \t$\'\"");
+	if (!data->lexer)
 		return ;
-
-	commands = ft_lstnew_cmd();
-	start = commands;
-	/*while (lst)
+	ft_lstprint_lex(data->lexer);
+	printf("========\n");
+	concat_lexer(&(data->lexer));
+	ft_lstprint_lex(data->lexer);
+	data->commands = ft_lstnew_cmd();
+	if (!data->commands)
+		free_all_and_exit(data, "malloc"); // ne pas oublier le free de str readline
+	start_cmd = data->commands;
+	start_lex = data->lexer;
+	while (data->lexer)
 	{
-		if (define_delimiter(lst))
+		if (is_token(data->lexer, "&", "&"))
 		{
-			commands->delimiter = define_delimiter(lst);
-			if (commands->delimiter == AND || commands->delimiter == OR)
-				lst = lst->next;
-			ft_lstadd_back_cmd(&lst, ft_lstnew_cmd());
-			if (commands->delimiter == PIPE_D)
-				commands->next->input->operator = PIPE_R;
-			commands = commands->next;
-			// child_cmd
+			printf("ERROR\n"); // afficher le bon message
+			break ;
 		}
-		else if (define_redi(lst))
-		{
-			if (define_redi(lst) == L_CHEVRON
-				|| define_redi(lst) == L_DOUBLE_CHEVRON)
-			{
-				
-			}
-			else if (define_redi(lst) == R_CHEVRON
-				|| define_redi(lst) == R_DOUBLE_CHEVRON)
-			{
-				
-			}
-			commands->input->operator = define_redi(lst);
-			if (commands->input->operator == L_DOUBLE_CHEVRON
-				|| commands->input->operator == R_DOUBLE_CHEVRON)
-				lst = lst->next;
-			else if (define_file(lst))
-			{
-			
-			}
-		}
-		else if (define_command(lst))
-		{
-			
-		}
-		else if (define_args(lst))
-		{
-			
-		}
-		lst = lst->next;
-	}*/
-	ft_lstclear_lex(&lst);
+		define_delimiter(data);
+		/* A effectuer dans define files ou redi */
+		// if ((data->data->commands)->delimiter == PIPE_D)
+		// 	(data->data->commands)->next->input->operator = PIPE_R;
+		data->lexer = data->lexer->next;
+	}
+	data->lexer = start_lex;
+	free_lexer_struct(&(data->lexer));
 }

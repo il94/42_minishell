@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 17:02:53 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/13 15:53:09 by ilandols         ###   ########.fr       */
+/*   Created: 2022/10/13 11:56:57 by ilandols          #+#    #+#             */
+/*   Updated: 2022/10/13 11:57:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linked_lists.h"
+#include "../include/minishell.h"
 
-void	ft_lstdelone(t_list *lst)
+void	initialize_data(t_data *data)
 {
-	if (lst)
-	{
-		if (lst->prev)
-			lst->prev->next = lst->next;
-		if (lst->next)
-			lst->next->prev = lst->prev;
-		free(lst);
-	}
+	data->commands = NULL;
+	data->lexer = NULL;
+	data->prompt = NULL;
 }
