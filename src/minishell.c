@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/14 17:25:10 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:43:37 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	minishell(t_data *data)
 		{	
 			add_history(data->prompt);
 			get_lexer(data);
+			ft_lstprint_lex(data->lexer);
 			if (data->lexer)
 				lexer(data);			
 		}

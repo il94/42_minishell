@@ -38,6 +38,7 @@ OBJ_DIR = obj
 #==============================================================================#
 
 SRC = main.c initialize.c free_memory.c minishell.c lexer.c lexer_utils.c \
+		lexer_initialize.c \
 
 #==============================================================================#
 #                                   HEADERS                                    #

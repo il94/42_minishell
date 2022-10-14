@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/14 17:35:54 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/14 21:02:40 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int			is_there(char *str, char in);
 /* lexer_initialize.c */
 int		search_closing_quote(t_lex *lexer, char *quote);
 int		concat_quotes(t_lex **lexer);
+int		concat_tokens(t_lex **lexer);
+int		concat_env_variable(t_lex **lexer);
 int		concat_lexer(t_data *data);
 void	get_lexer(t_data *data);
 
