@@ -41,6 +41,7 @@ typedef struct s_fd
 	char		*file;
 	t_redi		operator;
 	struct s_fd	*next;
+	struct s_fd	*prev;
 }					t_fd;
 
 typedef struct s_lex
@@ -65,7 +66,9 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	t_cmd	*commands;
+	t_cmd	*start_cmd;
 	t_lex	*lexer;
+	t_lex	*start_lex;
 	char	*prompt;
 }			t_data;
 

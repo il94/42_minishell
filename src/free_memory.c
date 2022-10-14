@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:12:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/13 16:51:55 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:19:53 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	free_lexer_struct(t_lex **lexer)
 	(*lexer) = NULL;
 }
 
-void	free_fd_struct(t_fd *list)
+void	free_fd_struct(t_fd **list)
 {
-	if (list->next)
-		free_fd_struct(list->next);
-	if (list->fd != -1)
-		close(list->fd);
-	if (list->file)
-		free(list->file);
-	free(list);
+	if ((*list)->next)
+		free_fd_struct((&(*list)->next));
+	if ((*list)->fd != -1)
+		close((*list)->fd);
+	if ((*list)->file)
+		free((*list)->file);
+	free(*list);
 }
 
 void	free_command_struct(t_cmd **commands)
@@ -38,9 +38,9 @@ void	free_command_struct(t_cmd **commands)
 	if ((*commands)->next)
 		free_command_struct((&(*commands)->next));
 	if ((*commands)->input)
-		free_fd_struct((*commands)->input);
+		free_fd_struct((&(*commands)->input));
 	if ((*commands)->output)
-		free_fd_struct((*commands)->output);
+		free_fd_struct((&(*commands)->output));
 	if ((*commands)->command)
 		free((*commands)->command);
 	if ((*commands)->args)
@@ -51,12 +51,23 @@ void	free_command_struct(t_cmd **commands)
 	(*commands) = NULL;
 }
 
+void	free_data_struct(t_data *data)
+{
+	if (data->start_cmd)
+		free_command_struct(&(data->start_cmd));
+	if (data->start_lex)
+		free_lexer_struct(&(data->start_lex));
+	if (data->prompt)
+		free(data->prompt);
+}
+
+
 void	free_all_and_exit(t_data *data, char *str_error)
 {
-	if (data->commands)
-		free_command_struct(&(data->commands));
-	if (data->lexer)
-		free_lexer_struct(&(data->lexer));
+	if (data->start_cmd)
+		free_command_struct(&(data->start_cmd));
+	if (data->start_lex)
+		free_lexer_struct(&(data->start_lex));
 	if (data->prompt)
 		free(data->prompt);
 	if (str_error)

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/13 13:14:10 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:20:16 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int	main(int ac, char **av, char **envp)
 
 	initialize_data(&data);
 	minishell(&data);
-	free_all_and_exit(&data, NULL);
+	free_data_struct(&data);
 	return (0);
 }

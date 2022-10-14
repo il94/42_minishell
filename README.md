@@ -2,6 +2,8 @@
 
 <h2 align="center">NOTES</h2>
 
+	Remplacer les "ERROR" par les bons message d'erreur
+	
 	Une seule variable globale autorisée, et justifier son utilisation.
 	Ne pas interpréter de caractères spéciaux non demandés dans le sujet, tels que \
 	(le backslash) ou ; (le point-virgule).

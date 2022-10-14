@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/13 13:25:34 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:25:10 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ void	minishell(t_data *data)
 		if (data->prompt[0] != '\0')
 		{	
 			add_history(data->prompt);
-			lexer(data);			
+			get_lexer(data);
+			if (data->lexer)
+				lexer(data);			
 		}
-		free(data->prompt);
-		data->prompt = NULL;
-		if (data->commands)
-			free_command_struct(&(data->commands));
+		free_data_struct(data);
 	}
 }
