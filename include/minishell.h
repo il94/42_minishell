@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/14 21:02:40 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/17 19:48:57 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 
 /* lexer_utils.c */
+t_redi	    define_redi(t_lex *element);
 t_delimiter	get_delimiter(t_lex *element);
 int			is_token(t_lex *element, char *c, char *charset);
 int			is_there(char *str, char in);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_initialize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/14 21:02:04 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:12:38 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ int	concat_tokens(t_lex **lexer)
 		if (!(*lexer)->content)
 			return (-1);
 		ft_lstdelone_lex((*lexer)->next);
-		if ((*lexer)->next && is_there("<>&|", (*lexer)->next->content[0]))
+		/*if ((*lexer)->next && is_there("<>&|", (*lexer)->next->content[0]))
 		{
 			printf("ERROR\n");
 			return (0);
-		}		
+		}*/		
 	}
-	else if ((*lexer)->next && is_there("<>&|", (*lexer)->next->content[0]))
-	{
-		printf("ERROR\n");
-		return (0);
-	}
+	// else if ((*lexer)->next && is_there("<>&|", (*lexer)->next->content[0]))
+	// {
+	// 	printf("ERROR\n");
+	// 	return (0);
+	// }
 	return (1);
 }
 

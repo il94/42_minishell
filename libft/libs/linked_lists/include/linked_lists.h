@@ -74,7 +74,7 @@ typedef struct s_data
 
 /* for t_fd */
 void		ft_lstadd_back_fd(t_fd **lst, t_fd *new);
-t_fd		*ft_lstnew_fd(int default_fd);
+t_fd		*ft_lstnew_fd(void);
 
 /* for t_cmd */
 t_cmd		*ft_lstnew_cmd(void);

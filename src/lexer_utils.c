@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:10:33 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/12 16:07:54 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/17 19:05:53 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,32 @@
 
 t_redi	define_redi(t_lex *element)
 {
-	if (is_token(element, "<", "&|<>"))
+	if (!element || !element->content)
+		return (NOTHING_R);	
+	if (!ft_strcmp(element->content, "<"))
 		return (L_CHEVRON);
-	if (is_token(element, "<<", "&|<>"))
+	if (!ft_strcmp(element->content, "<<"))
 		return (L_DOUBLE_CHEVRON);
-	if (is_token(element, ">", "&|<>"))
+	if (!ft_strcmp(element->content, ">"))
 		return (R_CHEVRON);
-	if (is_token(element, ">>", "&|<>"))
+	if (!ft_strcmp(element->content, ">>"))
 		return (R_DOUBLE_CHEVRON);
-	if (is_token(element, "|", "&|<>"))
+	if (!ft_strcmp(element->content, "|"))
 		return (PIPE_R);
 	return (NOTHING_R);	
 }
 
 t_delimiter	get_delimiter(t_lex *element)
 {
-	if (is_token(element, "|", "&|"))
+	if (!ft_strcmp(element->content, "|"))
 		return (PIPE_D);
-	else if (is_token(element, "&&", "&|"))
+	if (!ft_strcmp(element->content, "&&"))
 		return (AND);
-	else if (is_token(element, "||", "&|"))
+	if (!ft_strcmp(element->content, "||"))
 		return (OR);
-	else if (is_token(element, ")", "\0"))
+	if (!ft_strcmp(element->content, ")"))
 		return (P_CLOSED);
-	else if (is_token(element, "(", "\0"))
+	if (!ft_strcmp(element->content, "("))
 		return (P_OPENED);
 	return (NOTHING_D);
 }

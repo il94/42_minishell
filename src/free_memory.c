@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:12:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/14 17:19:53 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/17 20:02:10 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_fd_struct(t_fd **list)
 	if ((*list)->file)
 		free((*list)->file);
 	free(*list);
+	(*list) = NULL;
 }
 
 void	free_command_struct(t_cmd **commands)
@@ -60,7 +61,6 @@ void	free_data_struct(t_data *data)
 	if (data->prompt)
 		free(data->prompt);
 }
-
 
 void	free_all_and_exit(t_data *data, char *str_error)
 {
