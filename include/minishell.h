@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/17 19:48:57 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/18 19:28:25 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,23 @@
 # include <signal.h>
 
 /* lexer_utils.c */
-t_redi	    define_redi(t_lex *element);
-t_delimiter	get_delimiter(t_lex *element);
-int			is_token(t_lex *element, char *c, char *charset);
-int			is_there(char *str, char in);
+t_redi	get_redi(t_lex *element);
+t_deli	get_delimiter(t_lex *element);
+
+/* lexer_command.c */
+int		define_command(t_data *data);
+
+/* lexer_redi.c */
+char	*find_file(t_data *data);
+t_fd	*define_fd(t_data *data);
+int		define_redi(t_data *data);
+
+/* lexer_delimiter.c */
+void	define_delimiter(t_data *data);
+
+/* lexer.c */
+void	get_lexer(t_data *data);
+void	lexer(t_data *data);
 
 /* lexer_initialize.c */
 int		search_closing_quote(t_lex *lexer, char *quote);
@@ -31,14 +44,13 @@ int		concat_quotes(t_lex **lexer);
 int		concat_tokens(t_lex **lexer);
 int		concat_env_variable(t_lex **lexer);
 int		concat_lexer(t_data *data);
-void	get_lexer(t_data *data);
-
-/* lexer.c */
-void	define_delimiter(t_data *data);
-void	lexer(t_data *data);
 
 /* minishell.c */
 void	minishell(t_data *data);
+
+/* utils.c */
+int		is_there(char *str, char in);
+char	*expand(char *to_find, t_lex *env);
 
 /* free_memory.c */
 void	free_lexer_struct(t_lex **lexer);
@@ -48,7 +60,7 @@ void	free_data_struct(t_data *data);
 void	free_all_and_exit(t_data *data, char *str_error);
 
 /* initialize.c */
-void	initialize_data(t_data *data);
+void	initialize_data(t_data *data, char **envp);
 
 /* main.c */
 int		main(int ac, char **av, char **envp);

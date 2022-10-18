@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 17:02:53 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/18 13:51:06 by ilandols         ###   ########.fr       */
+/*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
+/*   Updated: 2022/10/18 13:32:41 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linked_lists.h"
+#include "../include/minishell.h"
 
-void	ft_lstdelone(t_list *lst)
+int	is_there(char *str, char in)
 {
-	if (lst)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (lst->prev)
-			lst->prev->next = lst->next;
-		if (lst->next)
-			lst->next->prev = lst->prev;
-		free(lst);
+		if (in == str[i])
+			return (str[i]);
+		i++;
 	}
+	return (0);
 }

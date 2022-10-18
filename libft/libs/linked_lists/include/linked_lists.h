@@ -15,7 +15,7 @@
 
 # include "../../../include/libft.h"
 
-typedef enum e_delimiter
+typedef enum e_deli
 {
 	NOTHING_D,
 	AND,
@@ -23,7 +23,7 @@ typedef enum e_delimiter
 	PIPE_D,
 	P_OPENED,
 	P_CLOSED
-}	t_delimiter;
+}	t_deli;
 
 typedef enum e_redi
 {
@@ -46,7 +46,7 @@ typedef struct s_fd
 
 typedef struct s_lex
 {
-	char			*content;
+	char			*str;
 	struct s_lex	*next;
 	struct s_lex	*prev;
 }					t_lex;
@@ -55,7 +55,7 @@ typedef struct s_cmd
 {
 	t_fd			*input;
 	t_fd			*output;
-	t_delimiter		delimiter;
+	t_deli			delimiter;
 	char			*command;
 	char			**args;
 	struct s_cmd	*child_cmd;
@@ -69,6 +69,8 @@ typedef struct s_data
 	t_cmd	*start_cmd;
 	t_lex	*lexer;
 	t_lex	*start_lex;
+	t_lex	*env;
+	t_lex	*start_env;
 	char	*prompt;
 }			t_data;
 
@@ -90,6 +92,7 @@ int			ft_lstis_correct_lex(t_lex *lst, int size);
 int			ft_lstsize_lex(t_lex *lst);
 void		ft_lstprint_lex(t_lex *lst);
 void		ft_lstdelone_lex(t_lex *lst);
+t_lex		*ft_array_to_lst_lex(char **array);
 // void		ft_lstadd_front(t_list **lst, t_list *new);
 // t_list	*ft_lstlast(t_list *lst);
 // void		ft_lstiter(t_list *lst, void (*f)(void *));

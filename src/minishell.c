@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/17 20:07:29 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/18 16:50:40 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ void	minishell(t_data *data)
 		{	
 			add_history(data->prompt);
 			get_lexer(data);
-			// ft_lstprint_lex(data->lexer);
 			if (data->lexer)
-				lexer(data);			
+				lexer(data);
 		}
-		printf("addr = %p\n", data->commands->next->input);
-		printf("addr = %p\n", data->commands->output);
 		free_data_struct(data);
 	}
 }
