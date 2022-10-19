@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_initialize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/18 16:47:38 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:20:04 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,26 @@ int	search_closing_quote(t_lex *lexer, char *quote)
 		lexer = lexer->next;
 	}
 	return (0);
+}
+
+int	search_closing_parenthese(t_lex *lexer)
+{
+	int		opened;
+	int		closed;
+
+	opened = 0;
+	closed = 0;
+	while (lexer)
+	{
+		if (lexer->str[0] == '(')
+			opened++;
+		if (lexer->str[0] == ')')
+			closed++;
+		if (closed > opened)
+			return (0);
+		lexer = lexer->next;
+	}
+	return (closed == opened);
 }
 
 int	concat_quotes(t_lex **lexer)
@@ -78,6 +98,11 @@ int	concat_lexer(t_data *data)
 {
 	int		return_value;
 
+	if (!search_closing_parenthese(data->lexer))
+	{
+		printf("ERROR\n");
+		return (0);
+	}
 	while (data->lexer)
 	{
 		if (!ft_strcmp(data->lexer->str, "\'")

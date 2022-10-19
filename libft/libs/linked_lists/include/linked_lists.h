@@ -18,21 +18,19 @@
 typedef enum e_deli
 {
 	NOTHING_D,
-	AND,
-	OR,
 	PIPE_D,
-	P_OPENED,
-	P_CLOSED
+	AND,
+	OR
 }	t_deli;
 
 typedef enum e_redi
 {
 	NOTHING_R,
+	PIPE_R,
 	L_CHEVRON,
 	R_CHEVRON,
 	L_DOUBLE_CHEVRON,
-	R_DOUBLE_CHEVRON,
-	PIPE_R,
+	R_DOUBLE_CHEVRON
 }	t_redi;
 
 typedef struct s_fd
@@ -57,7 +55,7 @@ typedef struct s_cmd
 	t_fd			*output;
 	t_deli			delimiter;
 	char			*command;
-	char			**args;
+	t_lex			*args;
 	struct s_cmd	*child_cmd;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

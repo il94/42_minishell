@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:12:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/18 18:54:39 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:49:34 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	free_command_struct(t_cmd **commands)
 	if ((*commands)->command)
 		free((*commands)->command);
 	if ((*commands)->args)
-		ft_free_array((*commands)->args);
+		free_lexer_struct(&(*commands)->args);
 	if ((*commands)->child_cmd)
 		free_command_struct((&(*commands)->child_cmd));
 	free((*commands));

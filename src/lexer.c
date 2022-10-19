@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/18 18:38:02 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:48:22 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*expand dans le parser pour plus de faciliter chakalito si redi == $ on voit ca dans le parser 
+si addcmd == $ dans le parser et si il y a plus d'un arg on met le rest au debut de la liste d'argument
+si add arg == $ alors on ajoute dans arg a la fin
+
+verif les '()' non fermes dans lex_init....
+*/
+void	ft_print_fd(t_fd *fd)
+{
+	while (fd)
+	{
+		printf("[%d] %s | ", fd->operator, fd->file);
+		fd = fd->next;
+	}
+}
 void	get_lexer(t_data *data)
 {
 	data->lexer = NULL;
@@ -38,17 +52,12 @@ void	lexer(t_data *data)
 			break ;
 		}
 		define_delimiter(data);
-		if (data->commands->prev && data->commands->prev->delimiter)
-			printf("delimiterent = %d\n", data->commands->prev->delimiter);
 		define_redi(data);
-		if (data->commands->input)
-			printf("inpu = %s\n", data->commands->input->file);
-		if (data->commands->output)
-			printf("outepu = %s\n", data->commands->output->file);
-		else if (data->commands->prev && data->commands->prev->output)
-			printf("prev outepu = %s\n", data->commands->prev->output->file);
-		data->lexer = data->lexer->next;
-		// define_command(data);
+		define_argument(data);
+		define_command(data);
+		define_child(data);
+		if (data->lexer)
+			data->lexer = data->lexer->next;
 	}
 	data->lexer = data->start_lex;
 	data->commands = data->start_cmd;

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/18 19:28:25 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:31:59 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define TOKENS "<>|&()"
 
 # include "../libft/include/libft.h"
 # include <stdio.h>
@@ -19,12 +20,20 @@
 # include <readline/history.h>
 # include <signal.h>
 
+void	print_cmd(t_cmd *commands, char *state);
+
 /* lexer_utils.c */
 t_redi	get_redi(t_lex *element);
 t_deli	get_delimiter(t_lex *element);
 
+/* lexer_child.c */
+int		define_child(t_data *data);
+
 /* lexer_command.c */
 int		define_command(t_data *data);
+
+/* lexer_argument.c */
+int	    define_argument(t_data *data);
 
 /* lexer_redi.c */
 char	*find_file(t_data *data);
@@ -40,6 +49,7 @@ void	lexer(t_data *data);
 
 /* lexer_initialize.c */
 int		search_closing_quote(t_lex *lexer, char *quote);
+int 	search_closing_parenthese(t_lex *lexer);
 int		concat_quotes(t_lex **lexer);
 int		concat_tokens(t_lex **lexer);
 int		concat_env_variable(t_lex **lexer);

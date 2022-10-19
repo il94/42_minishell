@@ -2,6 +2,10 @@
 
 <h2 align="center">NOTES</h2>
 
+	Token "<>"
+	
+	Pour cd : Penser a changer les variables d'environnement PWD et OLDPWD
+	
 	Remplacer les "ERROR" par les bons message d'erreur
 	
 	Faire gaffe aux quotes dans les variables d'emvironnement

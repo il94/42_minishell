@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:10:33 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/18 19:27:44 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:08:31 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_istoken(int c)
+{
+	return (is_there(TOKENS, c));
+}
 
 char	*expand(char *to_find, t_lex *env)
 {
@@ -43,15 +48,13 @@ t_redi	get_redi(t_lex *element)
 
 t_deli	get_delimiter(t_lex *element)
 {
+	if (!element || !element->str)
+		return (NOTHING_D);
 	if (!ft_strcmp(element->str, "|"))
 		return (PIPE_D);
 	if (!ft_strcmp(element->str, "&&"))
 		return (AND);
 	if (!ft_strcmp(element->str, "||"))
 		return (OR);
-	if (!ft_strcmp(element->str, ")"))
-		return (P_CLOSED);
-	if (!ft_strcmp(element->str, "("))
-		return (P_OPENED);
 	return (NOTHING_D);
 }
