@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/19 18:48:22 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/20 19:07:11 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,7 @@ si add arg == $ alors on ajoute dans arg a la fin
 
 verif les '()' non fermes dans lex_init....
 */
-void	ft_print_fd(t_fd *fd)
-{
-	while (fd)
-	{
-		printf("[%d] %s | ", fd->operator, fd->file);
-		fd = fd->next;
-	}
-}
+
 void	get_lexer(t_data *data)
 {
 	data->lexer = NULL;

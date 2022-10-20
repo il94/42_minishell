@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:12:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/19 13:49:34 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/20 15:37:01 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,9 @@ void	free_data_struct(t_data *data)
 
 void	free_all_and_exit(t_data *data, char *str_error)
 {
+	free_data_struct(data);
 	if (data->start_env)
 		free_lexer_struct(&(data->start_env));
-	if (data->start_cmd)
-		free_command_struct(&(data->start_cmd));
-	if (data->start_lex)
-		free_lexer_struct(&(data->start_lex));
-	if (data->prompt)
-		free(data->prompt);
 	if (str_error)
 		perror(str_error);
 	exit (1);

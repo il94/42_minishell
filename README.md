@@ -4,6 +4,8 @@
 
 	Token "<>"
 	
+	Gerer parenthese vides
+
 	Pour cd : Penser a changer les variables d'environnement PWD et OLDPWD
 	
 	Remplacer les "ERROR" par les bons message d'erreur
