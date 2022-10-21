@@ -1,0 +1,28 @@
+2
+"bash: syntax error near
+unexpected token `[Remplacer par le token]'
+$>"
+
+131
+"
+
+
+^\Quit (core dumped)
+$>"
+
+130
+"
+
+
+^\Quit (core dumped)
+$>"           
+
+
+POUR EXPORT
+1
+"bash: export: '[Remplacer par nom de variable d'environnement]': not a valid identifier
+$>"
+
+2
+bash: export: -[Remplacer par option invalide]: invalid option
+

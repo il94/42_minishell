@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_fd.c                                :+:      :+:    :+:   */
+/*   lexer_delimiter.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 22:11:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/17 16:17:52 by auzun            ###   ########.fr       */
+/*   Created: 2022/10/18 13:35:05 by ilandols          #+#    #+#             */
+/*   Updated: 2022/10/19 18:23:28 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linked_lists.h"
+#include "../include/minishell.h"
 
-void	ft_lstadd_back_fd(t_fd **lst, t_fd *new)
+void	define_delimiter(t_data *data)
 {
-	t_fd	*temp;
-
-	if (lst && *lst)
+	data->commands->delimiter = get_delimiter(data->lexer);
+	if (data->commands->delimiter)
 	{
-		temp = *lst;
-		while (temp->next != NULL)
-			temp = temp->next;
-		new->prev = temp;
-		temp->next = new;
+		ft_lstadd_back_cmd(&data->commands, ft_lstnew_cmd());
+		if (!data->commands->next)
+			free_all_and_exit(data, "malloc");
+		data->commands = data->commands->next;
 	}
-	else
-		*lst = new;
 }

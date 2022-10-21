@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 17:02:53 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/18 13:51:06 by ilandols         ###   ########.fr       */
+/*   Created: 2022/10/13 11:56:57 by ilandols          #+#    #+#             */
+/*   Updated: 2022/10/18 18:46:08 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linked_lists.h"
+#include "../include/minishell.h"
 
-void	ft_lstdelone(t_list *lst)
+void	initialize_data(t_data *data, char **envp)
 {
-	if (lst)
+	data->commands = NULL;
+	data->start_cmd = NULL;
+	data->lexer = NULL;
+	data->start_lex = NULL;
+	data->prompt = NULL;
+	data->start_env = NULL;
+	if (envp)
 	{
-		if (lst->prev)
-			lst->prev->next = lst->next;
-		if (lst->next)
-			lst->next->prev = lst->prev;
-		free(lst);
+		data->start_env = ft_array_to_lst_lex(envp);
+		if (!data->start_env)
+			free_all_and_exit(data, "malloc");
 	}
+	data->env = data->start_env;
 }

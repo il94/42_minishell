@@ -3,103 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/11 22:34:23 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/21 17:57:15 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*char	*find_file(t_lex **lst, t_redi r)
+/*expand dans le parser pour plus de faciliter chakalito si redi == $ on voit ca
+dans le parser si addcmd == $ dans le parser et si il y a plus d'un arg on met
+le rest au debut de la liste d'argument
+si add arg == $ alors on ajoute dans arg a la fin
+
+verif les '()' non fermes dans lex_init....
+*/
+
+void	get_lexer(t_data *data)
 {
-	if (r == L_CHEVRON || r == R_CHEVRON || r == R_DOUBLE_CHEVRON)
-	
+	data->lexer = NULL;
+	data->lexer = ft_lstsplit_charset_lex(data->prompt, " \t\n\v\f\r><&|()$\'\"");
+	if (!data->lexer)
+		free_all_and_exit(data, "malloc");
+	data->start_lex = data->lexer;
+	if (!concat_lexer(data))
+		free_lexer_struct(&(data->start_lex));
+	data->lexer = data->start_lex;
 }
 
-int		find_redi_info(t_lex **lst, t_cmd *cmd)
+void	lexer(t_data *data)
 {
-	int	redi;
-
-	
-	redi = define_redi(lst);
-	if (redi == L_CHEVRON
-		|| redi == L_DOUBLE_CHEVRON)
+	data->commands = ft_lstnew_cmd();
+	if (!data->commands)
+		free_all_and_exit(data, "malloc");
+	data->start_cmd = data->commands;
+	while (data->lexer)
 	{
-		commands->input->operator = redi;
-		command->input->file
+		define_delimiter(data);
+		define_redi(data);
+		define_argument(data);
+		define_command(data);
+		define_child(data);
+		if (data->lexer)
+			data->lexer = data->lexer->next;
 	}
-	else if (redi == R_CHEVRON
-		|| redi == R_DOUBLE_CHEVRON)
-	{
-		commands->output->operator = redi;
-		command->output->file
-	}
-	if (commands->input->operator == L_DOUBLE_CHEVRON
-		|| commands->input->operator == R_DOUBLE_CHEVRON)
-		lst = lst->next;
-	else if (define_file(lst))
-	{
-	
-	}
-}*/
-
-void	lexer(t_cmd *commands, char *input)
-{
-	t_cmd	*start;
-	t_lex	*lst;
-
-	lst = NULL;
-	lst = ft_lstsplit_charset_lex(input, "><&|() \t$\'\"");
-	if (!lst)
-		return ;
-
-	commands = ft_lstnew_cmd();
-	start = commands;
-	/*while (lst)
-	{
-		if (define_delimiter(lst))
-		{
-			commands->delimiter = define_delimiter(lst);
-			if (commands->delimiter == AND || commands->delimiter == OR)
-				lst = lst->next;
-			ft_lstadd_back_cmd(&lst, ft_lstnew_cmd());
-			if (commands->delimiter == PIPE_D)
-				commands->next->input->operator = PIPE_R;
-			commands = commands->next;
-			// child_cmd
-		}
-		else if (define_redi(lst))
-		{
-			if (define_redi(lst) == L_CHEVRON
-				|| define_redi(lst) == L_DOUBLE_CHEVRON)
-			{
-				
-			}
-			else if (define_redi(lst) == R_CHEVRON
-				|| define_redi(lst) == R_DOUBLE_CHEVRON)
-			{
-				
-			}
-			commands->input->operator = define_redi(lst);
-			if (commands->input->operator == L_DOUBLE_CHEVRON
-				|| commands->input->operator == R_DOUBLE_CHEVRON)
-				lst = lst->next;
-			else if (define_file(lst))
-			{
-			
-			}
-		}
-		else if (define_command(lst))
-		{
-			
-		}
-		else if (define_args(lst))
-		{
-			
-		}
-		lst = lst->next;
-	}*/
-	ft_lstclear_lex(&lst);
+	data->lexer = data->start_lex;
+	data->commands = data->start_cmd;
 }

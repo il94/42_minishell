@@ -6,29 +6,36 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/11 14:15:56 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:58:19 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	minishell(t_cmd *commands)
+void	minishell(t_data *data)
 {
-	char	*str;
-
 	while (1)
 	{
-		str = readline("minishellent> ");
-		if (!ft_strcmp(str, "stop"))
+		data->prompt = readline("minishellent> ");
+		if (!ft_strcmp(data->prompt, "stop"))
 		{
-			free(str);
+			free(data->prompt);
+			data->prompt = NULL;
 			break ;
 		}
-		if (str[0] != '\0')
-			add_history(str);
-		lexer(commands, str);			
-		free(str);
-		if (commands)
-			free_command_struct(commands);
+		if (data->prompt[0] != '\0')
+		{	
+			add_history(data->prompt);
+			get_lexer(data);
+			ft_lstprint_lex(data->lexer);
+			if (data->lexer)
+			{
+				lexer(data);
+				print_cmd(data->commands, "PARENT");
+				parser(data);
+			}
+			g_exit_status = 0;
+		}
+		free_data_struct(data);
 	}
 }

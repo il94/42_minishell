@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_array_to_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 17:02:53 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/18 13:51:06 by ilandols         ###   ########.fr       */
+/*   Created: 2022/10/18 18:02:33 by ilandols          #+#    #+#             */
+/*   Updated: 2022/10/18 18:21:48 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linked_lists.h"
 
-void	ft_lstdelone(t_list *lst)
+t_list	*ft_array_to_lst(char **array)
 {
-	if (lst)
+	t_list	*lst;
+	int		i;
+
+	i = 0;
+	lst = NULL;
+	while (array[i])
 	{
-		if (lst->prev)
-			lst->prev->next = lst->next;
-		if (lst->next)
-			lst->next->prev = lst->prev;
-		free(lst);
+		ft_lstadd_back(&lst, ft_lstnew(array[i]));
+		i++;
 	}
+	return (lst);
 }

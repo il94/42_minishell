@@ -2,6 +2,16 @@
 
 <h2 align="center">NOTES</h2>
 
+	Token "<>"
+	
+	Gerer parenthese vides
+
+	Pour cd : Penser a changer les variables d'environnement PWD et OLDPWD
+	
+	Remplacer les "ERROR" par les bons message d'erreur
+	
+	Faire gaffe aux quotes dans les variables d'emvironnement
+
 	Une seule variable globale autorisée, et justifier son utilisation.
 	Ne pas interpréter de caractères spéciaux non demandés dans le sujet, tels que \
 	(le backslash) ou ; (le point-virgule).

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:35:28 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/08 19:00:51 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:37:47 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_lstclear_lex(t_lex **lst)
 		while (temp != NULL)
 		{
 			temp = (*lst)->next;
-			free((*lst)->content);
+			free((*lst)->str);
 			free(*lst);
 			*lst = temp;
 		}

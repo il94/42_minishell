@@ -15,24 +15,22 @@
 
 # include "../../../include/libft.h"
 
-typedef enum e_delimiter
+typedef enum e_deli
 {
 	NOTHING_D,
-	AND,
-	OR,
 	PIPE_D,
-	P_OPENED,
-	P_CLOSED
-}	t_delimiter;
+	AND,
+	OR
+}	t_deli;
 
 typedef enum e_redi
 {
 	NOTHING_R,
+	PIPE_R,
 	L_CHEVRON,
 	R_CHEVRON,
 	L_DOUBLE_CHEVRON,
-	R_DOUBLE_CHEVRON,
-	PIPE_R,
+	R_DOUBLE_CHEVRON
 }	t_redi;
 
 typedef struct s_fd
@@ -41,24 +39,42 @@ typedef struct s_fd
 	char		*file;
 	t_redi		operator;
 	struct s_fd	*next;
+	struct s_fd	*prev;
 }					t_fd;
 
 typedef struct s_lex
 {
-	char			*content;
+	char			*str;
 	struct s_lex	*next;
+	struct s_lex	*prev;
 }					t_lex;
 
 typedef struct s_cmd
 {
 	t_fd			*input;
 	t_fd			*output;
-	t_delimiter		delimiter;
+	t_deli			delimiter;
 	char			*command;
-	char			**args;
+	t_lex			*args;
 	struct s_cmd	*child_cmd;
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }					t_cmd;
+
+typedef struct s_data
+{
+	t_cmd	*commands;
+	t_cmd	*start_cmd;
+	t_lex	*lexer;
+	t_lex	*start_lex;
+	t_lex	*env;
+	t_lex	*start_env;
+	char	*prompt;
+}			t_data;
+
+/* for t_fd */
+void		ft_lstadd_back_fd(t_fd **lst, t_fd *new);
+t_fd		*ft_lstnew_fd(void);
 
 /* for t_cmd */
 t_cmd		*ft_lstnew_cmd(void);
@@ -73,9 +89,8 @@ t_lex		*ft_lstsplit_charset_lex(char const *s, char *charset);
 int			ft_lstis_correct_lex(t_lex *lst, int size);
 int			ft_lstsize_lex(t_lex *lst);
 void		ft_lstprint_lex(t_lex *lst);
-void		ft_lstadd_back_fd(t_fd **lst, t_fd *new);
-t_fd		*ft_lstnew_fd(int default_fd);
-// void		ft_lstdelone(t_cmd *lst);
+void		ft_lstdelone_lex(t_lex *lst);
+t_lex		*ft_array_to_lst_lex(char **array);
 // void		ft_lstadd_front(t_list **lst, t_list *new);
 // t_list	*ft_lstlast(t_list *lst);
 // void		ft_lstiter(t_list *lst, void (*f)(void *));

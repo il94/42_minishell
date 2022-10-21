@@ -9,7 +9,7 @@ NAME = minishell
 #==============================================================================#
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 DFLAGS = -MMD
 MKDIR = mkdir -p
 RM = rm -f
@@ -37,7 +37,9 @@ OBJ_DIR = obj
 #                                   SOURCES                                    #
 #==============================================================================#
 
-SRC = main.c free_memory.c minishell.c lexer.c lexer_utils.c \
+SRC = main.c initialize.c free_memory.c minishell.c lexer.c lexer_utils.c \
+		lexer_initialize.c utils.c lexer_delimiter.c lexer_redi.c \
+		lexer_command.c lexer_argument.c lexer_child.c temp.c parser.c \
 
 #==============================================================================#
 #                                   HEADERS                                    #
