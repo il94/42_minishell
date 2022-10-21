@@ -3,30 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:10:33 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/19 18:08:31 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/21 17:56:00 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_istoken(int c)
+int	is_token(t_lex *element)
 {
-	return (is_there(TOKENS, c));
-}
-
-char	*expand(char *to_find, t_lex *env)
-{
-	if (*to_find == '$')
-		to_find++;
-	while (env && (ft_strncmp(to_find, env->str, ft_strlen(to_find))
-			|| env->str[ft_strlen(to_find)] != '='))
-			env = env->next;
-	if (env)
-		return (env->str + ft_strlen(to_find) + 1);
-	return (NULL);
+	return (get_delimiter(element) || get_redi(element));
 }
 
 t_redi	get_redi(t_lex *element)
@@ -57,4 +45,35 @@ t_deli	get_delimiter(t_lex *element)
 	if (!ft_strcmp(element->str, "||"))
 		return (OR);
 	return (NOTHING_D);
+}
+
+int	search_closing_quote(t_lex *lexer, char *quote)
+{
+	while (lexer)
+	{
+		if (!ft_strcmp(lexer->str, quote))
+			return (1);
+		lexer = lexer->next;
+	}
+	return (0);
+}
+
+int	search_closing_parenthese(t_lex *lexer)
+{
+	int		opened;
+	int		closed;
+
+	opened = 0;
+	closed = 0;
+	while (lexer)
+	{
+		if (lexer->str[0] == '(')
+			opened++;
+		if (lexer->str[0] == ')')
+			closed++;
+		if (closed > opened)
+			return (0);
+		lexer = lexer->next;
+	}
+	return (closed == opened);
 }

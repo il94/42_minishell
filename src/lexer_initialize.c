@@ -6,64 +6,65 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/20 18:08:18 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:58:17 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	search_closing_quote(t_lex *lexer, char *quote)
+int	concat_ampersand(t_lex **lexer)
 {
-	while (lexer)
+	if (!ft_strcmp((*lexer)->str, "&"))
 	{
-		if (!ft_strcmp(lexer->str, quote))
-			return (1);
-		lexer = lexer->next;
+		if ((*lexer)->next && (!is_there("<>|()", (*lexer)->next->str[0])
+				&& !ft_iswhitespace((*lexer)->next->str[0])
+				&& ft_strcmp((*lexer)->next->str, "&&")))
+		{
+			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
+			if (!(*lexer)->str)
+				return (0);
+			ft_lstdelone_lex((*lexer)->next);
+		}
+		if ((*lexer)->prev && (!is_there("<>|()", (*lexer)->prev->str[0])
+				&& !ft_iswhitespace((*lexer)->prev->str[0])
+				&& ft_strcmp((*lexer)->prev->str, "&&")))
+		{
+			*lexer = (*lexer)->prev;
+			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
+			if (!(*lexer)->str)
+				return (0);
+			ft_lstdelone_lex((*lexer)->next);
+		}
 	}
-	return (0);
-}
-
-int	search_closing_parenthese(t_lex *lexer)
-{
-	int		opened;
-	int		closed;
-
-	opened = 0;
-	closed = 0;
-	while (lexer)
-	{
-		if (lexer->str[0] == '(')
-			opened++;
-		if (lexer->str[0] == ')')
-			closed++;
-		if (closed > opened)
-			return (0);
-		lexer = lexer->next;
-	}
-	return (closed == opened);
+	return (1);
 }
 
 int	concat_quotes(t_lex **lexer)
 {
 	char	quote[2];
 
-	ft_strlcpy(quote, (*lexer)->str, 2);
-	if (!search_closing_quote((*lexer)->next, quote))
+	if (!ft_strcmp((*lexer)->str, "\'")
+		|| !ft_strcmp((*lexer)->str, "\""))
 	{
-		printf("ERROR\n");
-		return (0);
-	}
-	while (ft_strcmp((*lexer)->next->str, quote))
-	{
+		ft_strlcpy(quote, (*lexer)->str, 2);
+		if (!search_closing_quote((*lexer)->next, quote))
+		{
+			g_exit_status = 2;
+			printf("ERROR\n");
+			return (1);
+		}
+		while (ft_strcmp((*lexer)->next->str, quote))
+		{
+			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
+			if (!(*lexer)->str)
+				return (0);
+			ft_lstdelone_lex((*lexer)->next);
+		}
 		(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
 		if (!(*lexer)->str)
-			return (-1);
+			return (0);
 		ft_lstdelone_lex((*lexer)->next);
 	}
-	(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-	if (!(*lexer)->str)
-		return (-1);
-	ft_lstdelone_lex((*lexer)->next);
 	return (1);
 }
 
@@ -71,25 +72,34 @@ int	concat_tokens(t_lex **lexer)
 {
 	char	token[2];
 
-	ft_strlcpy(token, (*lexer)->str, 2);
-	if ((*lexer)->next && !ft_strcmp((*lexer)->next->str, token))
+	if (!ft_strcmp((*lexer)->str, "&")
+		||!ft_strcmp((*lexer)->str, "|")
+		||!ft_strcmp((*lexer)->str, "<")
+		||!ft_strcmp((*lexer)->str, ">"))
 	{
-		(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-		if (!(*lexer)->str)
-			return (-1);
-		ft_lstdelone_lex((*lexer)->next);
+		ft_strlcpy(token, (*lexer)->str, 2);
+		if ((*lexer)->next && !ft_strcmp((*lexer)->next->str, token))
+		{
+			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
+			if (!(*lexer)->str)
+				return (0);
+			ft_lstdelone_lex((*lexer)->next);
+		}
 	}
 	return (1);
 }
 
-int	concat_env_variable(t_lex **lexer)
+int	concat_env(t_lex **lexer)
 {
-	if ((*lexer)->next && ft_isprint((*lexer)->next->str[0]))
+	if (!ft_strcmp((*lexer)->str, "$"))
 	{
-		(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-		if (!(*lexer)->str)
-			return (-1);
-		ft_lstdelone_lex((*lexer)->next);
+		if ((*lexer)->next && ft_isprint((*lexer)->next->str[0]))
+		{
+			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
+			if (!(*lexer)->str)
+				return (0);
+			ft_lstdelone_lex((*lexer)->next);
+		}
 	}
 	return (1);
 }
@@ -98,42 +108,22 @@ int	concat_lexer(t_data *data)
 {
 	int		return_value;
 
+	return_value = 1;
 	if (!search_closing_parenthese(data->lexer))
 	{
+		// g_exit_status = ?;
 		printf("ERROR\n");
 		return (0);
 	}
 	while (data->lexer)
 	{
-		if (!ft_strcmp(data->lexer->str, "\'")
-			|| !ft_strcmp(data->lexer->str, "\""))
-		{
-			return_value = concat_quotes(&(data->lexer));
-			if (return_value == -1)
-				free_all_and_exit(data, "malloc");
-			else if (return_value == 0)
-				return (0);
-		}
-		else if (!ft_strcmp(data->lexer->str, "&")
-			||!ft_strcmp(data->lexer->str, "|")
-			||!ft_strcmp(data->lexer->str, "<")
-			||!ft_strcmp(data->lexer->str, ">"))
-		{
-			return_value = concat_tokens(&(data->lexer));
-			if (return_value == -1)
-				free_all_and_exit(data, "malloc");
-			else if (return_value == 0)
-				return (0);
-		}
-		else if (!ft_strcmp(data->lexer->str, "$"))
-		{
-			return_value = concat_env_variable(&(data->lexer));
-			if (return_value == -1)
-				free_all_and_exit(data, "malloc");
-			else if (return_value == 0)
-				return (0);
-		}
+		if (!concat_quotes(&(data->lexer)) || !concat_tokens(&(data->lexer))
+			|| !concat_env(&(data->lexer)) || !concat_ampersand(&(data->lexer)))
+			free_all_and_exit(data, "malloc");
+		if (g_exit_status > 0)
+			return (0);
 		data->lexer = (data->lexer)->next;
 	}
+	data->lexer = data->start_lex;
 	return (1);
 }

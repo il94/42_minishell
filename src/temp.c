@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:14:06 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/20 14:14:36 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:56:05 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,16 @@ void	ft_print_fd(t_fd *fd)
 		printf("[%d] %s | ", fd->operator, fd->file);
 		fd = fd->next;
 	}
+}
+
+char	*expand(char *to_find, t_lex *env)
+{
+	if (*to_find == '$')
+		to_find++;
+	while (env && (ft_strncmp(to_find, env->str, ft_strlen(to_find))
+			|| env->str[ft_strlen(to_find)] != '='))
+			env = env->next;
+	if (env)
+		return (env->str + ft_strlen(to_find) + 1);
+	return (NULL);
 }

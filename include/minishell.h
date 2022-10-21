@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/20 14:15:37 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:58:01 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,19 @@
 # include <readline/history.h>
 # include <signal.h>
 
+extern int	g_exit_status;
+
 /* temp.c */
 void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
+char	*expand(char *to_find, t_lex *env);
 
 /* lexer_utils.c */
+int		is_token(t_lex *element);
 t_redi	get_redi(t_lex *element);
 t_deli	get_delimiter(t_lex *element);
+int		search_closing_quote(t_lex *lexer, char *quote);
+int 	search_closing_parenthese(t_lex *lexer);
 
 /* lexer_child.c */
 int		define_child(t_data *data);
@@ -45,17 +51,22 @@ int		define_redi(t_data *data);
 /* lexer_delimiter.c */
 void	define_delimiter(t_data *data);
 
+/* lexer_initialize.c */
+int		concat_ampersand(t_lex **lexer);
+int		concat_quotes(t_lex **lexer);
+int		concat_tokens(t_lex **lexer);
+int		concat_env(t_lex **lexer);
+int		concat_lexer(t_data *data);
+
 /* lexer.c */
 void	get_lexer(t_data *data);
 void	lexer(t_data *data);
 
-/* lexer_initialize.c */
-int		search_closing_quote(t_lex *lexer, char *quote);
-int 	search_closing_parenthese(t_lex *lexer);
-int		concat_quotes(t_lex **lexer);
-int		concat_tokens(t_lex **lexer);
-int		concat_env_variable(t_lex **lexer);
-int		concat_lexer(t_data *data);
+/*============================================================================*/
+
+/* parser.c */
+void	parser(t_data *data);
+
 
 /* minishell.c */
 void	minishell(t_data *data);
