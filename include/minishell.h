@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/21 17:58:01 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 19:03:45 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <dirent.h>
 
 extern int	g_exit_status;
 
@@ -65,6 +66,7 @@ void	lexer(t_data *data);
 /*============================================================================*/
 
 /* parser.c */
+t_lex   *send_dir_content(char *path, t_data *data);
 void	parser(t_data *data);
 
 
