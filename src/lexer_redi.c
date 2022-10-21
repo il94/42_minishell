@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:36:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/18 17:31:46 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:55:39 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ char	*find_file(t_data *data)
 	if (r == NOTHING_R || r == PIPE_R)
 		return (NULL);
 	data->lexer = data->lexer->next;
-	while (data->lexer && is_there(" &|()<>", *(data->lexer->str)))
+	while (data->lexer && ft_iswhitespace(*(data->lexer->str))
+		|| is_token(data->lexer))
 	{
-		if (data->lexer && is_there("&|()<>", *(data->lexer->str)))
+		if (data->lexer && is_token(data->lexer))
 		{
 			data->lexer = temp;
 			return (NULL);

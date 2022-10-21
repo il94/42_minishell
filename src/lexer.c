@@ -6,14 +6,15 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/20 19:07:11 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:57:15 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*expand dans le parser pour plus de faciliter chakalito si redi == $ on voit ca dans le parser 
-si addcmd == $ dans le parser et si il y a plus d'un arg on met le rest au debut de la liste d'argument
+/*expand dans le parser pour plus de faciliter chakalito si redi == $ on voit ca
+dans le parser si addcmd == $ dans le parser et si il y a plus d'un arg on met
+le rest au debut de la liste d'argument
 si add arg == $ alors on ajoute dans arg a la fin
 
 verif les '()' non fermes dans lex_init....
@@ -22,7 +23,7 @@ verif les '()' non fermes dans lex_init....
 void	get_lexer(t_data *data)
 {
 	data->lexer = NULL;
-	data->lexer = ft_lstsplit_charset_lex(data->prompt, "><&|() \t$\'\"");
+	data->lexer = ft_lstsplit_charset_lex(data->prompt, " \t\n\v\f\r><&|()$\'\"");
 	if (!data->lexer)
 		free_all_and_exit(data, "malloc");
 	data->start_lex = data->lexer;
@@ -39,11 +40,6 @@ void	lexer(t_data *data)
 	data->start_cmd = data->commands;
 	while (data->lexer)
 	{
-		if (!ft_strcmp(data->lexer->str, "&"))
-		{
-			printf("ERROR\n");
-			break ;
-		}
 		define_delimiter(data);
 		define_redi(data);
 		define_argument(data);
