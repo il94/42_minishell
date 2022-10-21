@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/20 19:07:39 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:38:08 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	minishell(t_data *data)
 {
+	t_lex *ls = send_dir_content("../test/", data);
 	while (1)
 	{
 		data->prompt = readline("minishellent> ");
+		ft_lstprint_lex(ls);
 		if (!ft_strcmp(data->prompt, "stop"))
 		{
 			free(data->prompt);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/20 14:15:37 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:31:21 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <dirent.h>
 
 /* temp.c */
 void	ft_print_fd(t_fd *fd);
@@ -48,6 +49,9 @@ void	define_delimiter(t_data *data);
 /* lexer.c */
 void	get_lexer(t_data *data);
 void	lexer(t_data *data);
+
+/*parser*/
+t_lex   *send_dir_content(char *path, t_data *data);
 
 /* lexer_initialize.c */
 int		search_closing_quote(t_lex *lexer, char *quote);
