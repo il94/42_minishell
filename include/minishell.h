@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/21 19:03:45 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/22 12:07:59 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 extern int	g_exit_status;
 
+int test_apply(char *find);
 /* temp.c */
 void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
@@ -66,7 +67,7 @@ void	lexer(t_data *data);
 /*============================================================================*/
 
 /* parser.c */
-t_lex   *send_dir_content(char *path, t_data *data);
+t_lex	*send_dir_content(char *path, t_data *data, int only_dir);
 void	parser(t_data *data);
 
 
