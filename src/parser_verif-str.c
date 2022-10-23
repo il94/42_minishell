@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/22 13:31:17 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/23 11:59:05 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ t_lex   *send_dir_content(char *path, t_data *data, int only_dir)
 	{
 		if (!only_dir | (only_dir && dir->d_type == DT_DIR))
 		{
-			new = ft_lstnew_lex(ft_strdup(dir->d_name));
+			if (only_dir)
+				new = ft_lstnew_lex(ft_strjoin(dir->d_name, "/"));
+			else
+				new = ft_lstnew_lex(ft_strdup(dir->d_name));
 			if (!new || !new->str)
 			{
 				closedir(d);
@@ -91,85 +94,167 @@ int	aplly_star(t_lex *to_find, t_lex dir_file)
 	return (1);
 }
 
-int test_apply(char *find)
+t_lex	*lst_of_occurrences(t_data *data, char *path, t_lex *to_find, int dir_only)
+{
+	t_lex	*r_value;
+	t_lex	*dir_file;
+	t_lex	*tmp;
+
+	if (dir_only)
+		r_value = send_dir_content(path, data, 1);
+	else
+		r_value = send_dir_content(path, data, 0);
+	if (!dir_file || !to_find)
+		return (NULL);
+	dir_file = r_value;
+	while (dir_file)
+	{
+		if (!aplly_star(to_find, *dir_file))
+		{
+			if (!dir_file->prev)
+				r_value = r_value->next;
+			tmp = dir_file->next;
+			ft_lstdelone_lex(dir_file);
+			dir_file = tmp;
+		}
+		else
+			dir_file = dir_file->next;
+	}
+	return (r_value);
+}
+
+/*int test_apply(char *find)
 {
 	t_data *test;
 	t_lex	*ls;
 	t_lex	*to_find;
 
-	ls = send_dir_content("src/.", test, 0);
-	ft_lstprint_lex(ls);
-	printf("================\n");
-	to_find = ft_lstsplit_charset_lex(find, "*");
-	ft_lstprint_lex(to_find);
-	printf("================\n");
-	while (ls)
-	{
-		if (aplly_star(test, ls, to_find, *ls))
-		{
-			printf("\n %s IS THERE YOUHOUUUUUU  %s \n", GREEN, ls->str);
-		}
-		ls = ls->next;
-	}
+	printf("%s", GREEN);
+	ft_lstprint_lex(lst_of_occurrences(test, ".", ft_lstsplit_charset_lex(find, "*")));
 	
 	return 0;
-}
+}*/
 
-char	*find_occurrence(t_data *data, char *path, t_lex *str, t_lex *ls, int only_dir)
+/*on a l'addresse du paths qu'on va modif*/
+t_lex	*find_occurrences(t_data *data, t_lex *paths)
 {
-	t_lex	*dir_content;
-	t_lex	*split_star;
-
-	if (path == NULL)
-		*path = '.';
-	dir_content = send_dir_content(path, data, only_dir);
-	if (!dir_content)
-		return (NULL);
-	split_star = ft_lstsplit_charset_lex(str, "*");
-	if (!split_star)
-	{
-		free(path);
-		free_lexer_struct(&split_star);
-		free_lexer_struct(&str);
-		free_lexer_struct(&ls);
-		free_all_and_exit(data, "malloc");
-	}
-	while (dir_content)
-	{
-		if (aplly_star(str->str, *dir_content))
-			
-	}
-}
-
-t_lex	*wildiwonkard(t_data *data, char *str)
-{
-	t_lex	*ls;
-	t_lex	*path_split;
+	int		index;
+	int		index2;
 	char	*path;
+	char	*to_find;
 
-	path_split = ft_lstsplit_charset_lex(str, "/");
-	path = NULL;
-	if (!path_split)
-		free_all_and_exit(data, "malloc");
-	while (path_split)
+	index = -1;
+	index2 = 0;
+	path = malloc(ft_strlen(paths->str) * sizeof(char));
+	to_find = malloc(ft_strlen(paths->str) * sizeof(char));
+	while (paths->str[++index] && paths->str[index] != '*')
+		path[index] = paths->str[index];
+	path[index] = paths->str[index];
+	*(path + (index +1)) = '\0';
+	if (path[index] == '*')
 	{
-		if (strcmp(path_split->str, ".") && strcmp(path_split->str, "..")
-			&& strcmp(path_split->str, "/") && ft_strchr(path_split->str, '*'))
-			{
-				if (path_split->next->str[0] == '/')
-					
-				else
-			}
-		
-		path = ft_strjoin(path, path_split->str);
-		if (!path)
-			free_all_and_exit(data, "malloc");
-		path_split = path_split->next;
+		while (index >= 0 && path[index] != '/')
+			path[index--] = '\0';
+		if (index >= 0 && path[index] == '/')
+			index++;
 	}
-	return (ls);
-	/*if (!strcmp(str, '*'))
-		return (send_dir_content(".", data));*/
+	if (index >= 0)
+	{
+		while (paths->str[index] && !is_there("/", paths->str[index]))
+			to_find[index2++] = paths->str[index++];
+		to_find[index2] = '\0';
+	}
+	if (paths->str[index] && (paths->str[index] == '/') && to_find)
+		return (lst_of_occurrences(data, path, ft_lstsplit_charset_lex(to_find, "*"), 1));
+	else
+		return (lst_of_occurrences(data, path, ft_lstsplit_charset_lex(to_find, "*"), 0));
 }
+
+char	*concate_paths(char *path, char *finded)
+{
+	int		index;
+	char	*rvalue;
+	char	*new_path;
+
+	index = 0;
+	new_path = malloc((ft_strlen(path) + 1) * sizeof(char));
+	if (!new_path)
+		return (NULL);
+	while (path && *path && *path != '*')
+		new_path[index++] = *(path++);
+	new_path[index++] = *path;
+	new_path[index--] = '\0';
+	if (new_path[index] == '*')
+	{
+		while (index >= 0 && new_path[index] != '/')
+			new_path[index--] = '\0';
+	}
+	rvalue = ft_strjoin(new_path, finded);
+	free(new_path);
+	if (!rvalue)
+		return (NULL);
+	while (*path && *path != '/')
+		path++;
+	if (!path)
+		return (rvalue);
+	rvalue = ft_strjoin(rvalue, path);
+	if (!rvalue)
+		return (NULL);
+	return (rvalue);
+}
+
+t_lex	*wildiwonkard(t_data *data, char *path)
+{
+	t_lex	*paths;
+	t_lex	*lst;
+	t_lex	*new;
+	char	*str;
+	
+	paths = ft_lstnew_lex(ft_strdup("./s*/"));
+	lst = find_occurrences(data, paths);
+	ft_lstprint_lex(lst);
+	/*paths = ft_lstnew_lex(ft_strdup(path));
+	while (paths)
+	{
+		if (ft_strchr(paths->str, '*'))
+			lst = find_occurrences(data, paths);
+		while (lst)
+		{
+			str = concate_paths(paths->str, lst->str);
+			if (!str)
+				free_all_and_exit(data, "malloc");
+			new = ft_lstnew_lex(str);
+			if (!new)
+				free_all_and_exit(data, "malloc");
+			ft_lstadd_back_lex(&paths, new);
+			lst = lst->next;
+		}
+		if (lst)
+		{
+			new = paths->next;
+			ft_lstdelone_lex(paths);
+			paths = new;
+			new = NULL;
+			ft_lstclear_lex(&lst);
+			lst = NULL;
+		}
+		if (paths && !ft_strchr(paths->str, '*'))
+			paths = paths->next;
+	}*/
+	return (paths);
+}
+
+/*int test_apply(char *find)
+{
+	t_data *test;
+	t_lex	*ls;
+	t_lex	*to_find;
+
+	printf("%s", GREEN);
+	ft_lstprint_lex(lst_of_occurrences(test, ".", ft_lstsplit_charset_lex(find, "*")));
+	
+	return 0;
+}*/
 
 // void show_dir_content(char * path)
 // {

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/22 12:07:59 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/22 21:02:02 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 
 extern int	g_exit_status;
 
-int test_apply(char *find);
+//int test_apply(char *find);
+t_lex	*wildiwonkard(t_data *data, char *path);
 /* temp.c */
 void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
