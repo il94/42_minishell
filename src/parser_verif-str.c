@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/23 11:59:05 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/23 23:52:00 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ t_lex   *send_dir_content(char *path, t_data *data, int only_dir)
 	{
 		if (!only_dir | (only_dir && dir->d_type == DT_DIR))
 		{
-			if (only_dir)
-				new = ft_lstnew_lex(ft_strjoin(dir->d_name, "/"));
-			else
-				new = ft_lstnew_lex(ft_strdup(dir->d_name));
+			// if (only_dir)
+			// 	new = ft_lstnew_lex(ft_strjoin(dir->d_name, "/"));
+			//else
+			new = ft_lstnew_lex(ft_strdup(dir->d_name));
 			if (!new || !new->str)
 			{
 				closedir(d);
@@ -100,11 +100,14 @@ t_lex	*lst_of_occurrences(t_data *data, char *path, t_lex *to_find, int dir_only
 	t_lex	*dir_file;
 	t_lex	*tmp;
 
+	r_value = NULL;
+	dir_file = NULL;
+	tmp = NULL;
 	if (dir_only)
 		r_value = send_dir_content(path, data, 1);
 	else
 		r_value = send_dir_content(path, data, 0);
-	if (!dir_file || !to_find)
+	if (!r_value || !to_find)
 		return (NULL);
 	dir_file = r_value;
 	while (dir_file)
@@ -195,6 +198,8 @@ char	*concate_paths(char *path, char *finded)
 		return (NULL);
 	while (*path && *path != '/')
 		path++;
+	// if (*path == '/')
+	// 	path++;
 	if (!path)
 		return (rvalue);
 	rvalue = ft_strjoin(rvalue, path);
@@ -206,18 +211,24 @@ char	*concate_paths(char *path, char *finded)
 t_lex	*wildiwonkard(t_data *data, char *path)
 {
 	t_lex	*paths;
+	t_lex	*head_paths;
 	t_lex	*lst;
+	t_lex	*head_lst;
 	t_lex	*new;
 	char	*str;
-	
-	paths = ft_lstnew_lex(ft_strdup("./s*/"));
-	lst = find_occurrences(data, paths);
-	ft_lstprint_lex(lst);
-	/*paths = ft_lstnew_lex(ft_strdup(path));
+
+	lst = NULL;
+	new = NULL;
+	paths = NULL;
+	paths = ft_lstnew_lex(ft_strdup(path));
+	head_paths = paths;
 	while (paths)
 	{
 		if (ft_strchr(paths->str, '*'))
+		{
 			lst = find_occurrences(data, paths);
+			head_lst = lst;
+		}
 		while (lst)
 		{
 			str = concate_paths(paths->str, lst->str);
@@ -229,19 +240,30 @@ t_lex	*wildiwonkard(t_data *data, char *path)
 			ft_lstadd_back_lex(&paths, new);
 			lst = lst->next;
 		}
-		if (lst)
+		if (head_lst)
 		{
+			if (head_paths == paths)
+				head_paths = head_paths->next;
 			new = paths->next;
 			ft_lstdelone_lex(paths);
 			paths = new;
 			new = NULL;
-			ft_lstclear_lex(&lst);
-			lst = NULL;
+			ft_lstclear_lex(&head_lst);
+			head_lst = NULL;
+		}
+		else if(!head_lst && ft_strchr(paths->str, '*'))
+		{
+			if (head_paths == paths)
+				head_paths = head_paths->next;
+			new = paths->next;
+			ft_lstdelone_lex(paths);
+			paths = new;
+			new = NULL;
 		}
 		if (paths && !ft_strchr(paths->str, '*'))
 			paths = paths->next;
-	}*/
-	return (paths);
+	}
+	return (head_paths);
 }
 
 /*int test_apply(char *find)

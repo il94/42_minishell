@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/22 22:46:48 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/23 13:19:10 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	minishell(t_data *data)
 	while (1)
 	{
 		data->prompt = readline("minishellent> ");
-		wildiwonkard(data, data->prompt);
+		ft_lstprint_lex(wildiwonkard(data, data->prompt));
 		//test_apply(data->prompt);
 		//ft_lstprint_lex(wildiwonkard(data, data->prompt));
 		/*t_lex *ls = send_dir_content(data->prompt, data, 0);
