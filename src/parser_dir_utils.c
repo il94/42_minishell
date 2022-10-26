@@ -6,11 +6,36 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:16:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/25 23:18:25 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/26 14:06:16 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static int	verif_dir(DIR **d, struct dirent **dir, char *path, int	*err)
+{
+	*d = opendir(path);
+	if (*d == NULL)
+	{
+		*err = 0;
+		return (0);
+	}
+	*dir = readdir(*d);
+	if (!*dir)
+	{
+		*err = -1;
+		return (0);
+	}
+	return (1);
+}
+
+static void	*exit_loop(DIR *d, t_lex **ls, int *err)
+{
+	closedir(d);
+	free_lexer_struct(ls);
+	*err = -2;
+	return (NULL);
+}
 
 t_lex	*send_dir_content(char *path, int only_dir, int *err)
 {
@@ -20,30 +45,15 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 	struct dirent	*dir;
 
 	ls = NULL;
-	d = opendir(path);
-	if (d == NULL)
-	{
-		*err = 0;
+	if (!verif_dir(&d, &dir, path, err))
 		return (NULL);
-	}
-	dir = readdir(d);
-	if (!dir)
-	{
-		*err = -1;
-		return (NULL);
-	}
 	while (dir)
 	{
 		if (!only_dir | (only_dir && dir->d_type == DT_DIR))
 		{
 			new = ft_lstnew_lex(ft_strdup(dir->d_name));
 			if (!new || !new->str)
-			{
-				closedir(d);
-				free_lexer_struct(&ls);
-				*err = -2;
-				return (NULL);
-			}
+				return (exit_loop(d, &ls, err));
 			ft_lstadd_back_lex(&ls, new);
 		}
 		dir = readdir(d);
@@ -52,7 +62,7 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 	return (ls);
 }
 
-char	*add_el_to_new_path(char *new_path, char *path, char *finded)
+static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 {
 	int		index;
 	char	*rvalue;

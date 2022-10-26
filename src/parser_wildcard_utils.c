@@ -6,13 +6,13 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/25 23:13:58 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/26 14:07:18 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
+static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 {
 	while (to_find)
 	{
@@ -41,7 +41,7 @@ int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 	return (1);
 }
 
-t_lex	*lst_of_occurrences_loop(t_lex *to_find, t_lex *r_value)
+static t_lex	*lst_of_occurrences_loop(t_lex *to_find, t_lex *r_value)
 {
 	t_lex	*dir_file;
 	t_lex	*tmp;
@@ -63,7 +63,7 @@ t_lex	*lst_of_occurrences_loop(t_lex *to_find, t_lex *r_value)
 	return (r_value);
 }
 
-t_lex	*lst_of_occurrences(char *path, int *err, \
+static t_lex	*lst_of_occurrences(char *path, int *err, \
 	t_lex *to_find, int dir_only)
 {
 	t_lex	*r_value;
@@ -86,7 +86,7 @@ t_lex	*lst_of_occurrences(char *path, int *err, \
 	return (lst_of_occurrences_loop(to_find, r_value));
 }
 
-int	add_el_to_var(char *path, char *to_find, t_lex *paths)
+static int	add_el_to_var(char *path, char *to_find, t_lex *paths)
 {
 	int	index;
 	int	index2;

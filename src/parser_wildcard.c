@@ -6,17 +6,14 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/25 23:18:08 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/26 14:21:29 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <dirent.h> 
-#include <stdio.h> 
-#include <string.h>
 #include "../include/minishell.h"
 
-
-void	dell_occur_in_lst(t_lex **head_lst, t_lex **head_paths, t_lex **paths)
+static void	dell_occur_in_lst(t_lex **head_lst, \
+	t_lex **head_paths, t_lex **paths)
 {
 	t_lex	*tmp;
 
@@ -42,7 +39,8 @@ void	dell_occur_in_lst(t_lex **head_lst, t_lex **head_paths, t_lex **paths)
 	}
 }
 
-int	add_occur_to_list(int *err, t_lex **head_lst, t_lex **head_paths, t_lex **paths)
+static int	add_occur_to_list(int *err, t_lex **head_lst, \
+	t_lex **head_paths, t_lex **paths)
 {
 	t_lex	*lst;
 	t_lex	*new;
@@ -64,7 +62,8 @@ int	add_occur_to_list(int *err, t_lex **head_lst, t_lex **head_paths, t_lex **pa
 	return (1);
 }
 
-void	clear_wildi(t_data *data, t_lex *head_paths, t_lex *head_lst, int exit)
+static void	clear_wildi(t_data *data, t_lex *head_paths, \
+	t_lex *head_lst, int exit)
 {
 	if (head_paths)
 		free_lexer_struct(&head_paths);
@@ -72,6 +71,17 @@ void	clear_wildi(t_data *data, t_lex *head_paths, t_lex *head_lst, int exit)
 		free_lexer_struct(&head_lst);
 	if (exit)
 		free_all_and_exit(data, "malloc");
+}
+
+static void	verif_err(t_data *data, t_lex *head_paths, \
+	t_lex *head_lst, int err)
+{
+	if (err == -2)
+		clear_wildi(data, head_paths, head_lst, 1);
+	if (err == -1)
+		ft_printf("empty directory\n");
+	if (err == 0)
+		ft_printf("invalid path\n");
 }
 
 t_lex	*wildiwonkard(t_data *data, char *path)
@@ -91,12 +101,9 @@ t_lex	*wildiwonkard(t_data *data, char *path)
 	{
 		if (ft_strchr(paths->str, '*'))
 			head_lst = find_occurrences(paths, &err);
-		if (err == -2 || !add_occur_to_list(&err, &head_lst, &head_paths, &paths))
+		verif_err(data, head_paths, head_lst, err);
+		if (!add_occur_to_list(&err, &head_lst, &head_paths, &paths))
 			clear_wildi(data, head_paths, head_lst, 1);
-		else if (err == -1)
-				printf("nothing\n");
-		else if (err == 0)
-			printf("invalid path\n");
 		if (paths && !ft_strchr(paths->str, '*'))
 			paths = paths->next;
 	}
