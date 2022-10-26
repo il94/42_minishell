@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:16:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/26 14:06:16 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/26 14:31:12 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 		return (NULL);
 	while (dir)
 	{
-		if (!only_dir | (only_dir && dir->d_type == DT_DIR))
+		if (!only_dir | (only_dir && dir->d_type == DT_DIR
+				&& ft_strcmp(dir->d_name, ".") && ft_strcmp(dir->d_name, "..")))
 		{
 			new = ft_lstnew_lex(ft_strdup(dir->d_name));
 			if (!new || !new->str)
