@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/21 19:03:45 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/26 12:18:08 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ extern int	g_exit_status;
 void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
 char	*expand(char *to_find, t_lex *env);
+
+/* builtins.c */
+int		echo(char **args);
+int		cd(char **args);
+int		pwd(char **args);
 
 /* lexer_utils.c */
 int		is_token(t_lex *element);
