@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/26 14:21:29 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/31 23:59:15 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ t_lex	*wildiwonkard(t_data *data, char *path)
 	head_paths = paths;
 	while (paths)
 	{
+		/*faire boucle pour le wildi in quotes*/
 		if (ft_strchr(paths->str, '*'))
 			head_lst = find_occurrences(paths, &err);
 		verif_err(data, head_paths, head_lst, err);

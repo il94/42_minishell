@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/25 23:20:33 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/29 15:04:22 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,15 @@ t_lex	*wildiwonkard(t_data *data, char *path);
 t_lex	*find_occurrences(t_lex *paths, int *err);
 
 /* parser.c */
-void	parser(t_data *data);
+char	*check_expand(t_data *data, char *str, int quotes, int index);
+//void	parser(t_data *data);
 
 
 /* minishell.c */
 void	minishell(t_data *data);
 
 /* utils.c */
+int		is_in_quotes(char *start, char *now);
 int		is_there(char *str, char in);
 char	*expand(char *to_find, t_lex *env);
 

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/26 14:07:18 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/31 23:58:21 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,21 @@
 
 static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 {
+	int	quotes;
+	
+	quotes = 0;
 	while (to_find)
 	{
+		if (!quotes && is_there("\'\"", to_find->str[0]))
+		{
+			quotes = to_find->str[0];
+			to_find = to_find->next;
+		}
+		else if (quotes && quotes == to_find->str[0])
+		{
+			quotes = to_find->str[0];
+			to_find = to_find->next;
+		}
 		if (index >= ft_strlen(dir_file.str))
 			return (0);
 		if (!ft_strncmp(dir_file.str + index, \
@@ -27,7 +40,7 @@ static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 			to_find = to_find->next;
 			in_star = 0;
 		}
-		else if (!strcmp(to_find->str, "*"))
+		else if (!strcmp(to_find->str, "*") && !quotes)
 		{
 			to_find = to_find->next;
 			index += 1;
@@ -90,26 +103,47 @@ static int	add_el_to_var(char *path, char *to_find, t_lex *paths)
 {
 	int	index;
 	int	index2;
+	int	quotes;
 
 	index = -1;
 	index2 = 0;
-	while (paths->str[++index] && paths->str[index] != '*')
-		path[index] = paths->str[index];
-	path[index] = paths->str[index];
-	*(path + (index + 1)) = '\0';
-	if (path[index] == '*')
+	quotes = 0;
+	while (paths->str[++index] && (paths->str[index] != '*' || quotes))
 	{
-		while (index >= 0 && path[index] != '/')
-			path[index--] = '\0';
-		if (index >= 0 && path[index] == '/')
+		if (!(quotes) && is_there("\'\"", paths->str[index]))
+			quotes = paths->str[index];
+		else if (quotes == paths->str[index])
+			quotes = 0;
+		else
+			path[index2++] = paths->str[index];
+	}
+	if (paths->str[index] == '*' && !quotes)
+		path[index2] = '*';
+	*(path + (index2 + 1)) = '\0';
+	if (path[index2] == '*' && !quotes)
+	{
+		while (index2 >= 0 && path[index2] != '/')
+			path[index2--] = '\0';
+		while (index >= 0 && paths->str[index] != '/')
+			index--;
+		if (index >= 0 && paths->str[index] == '/')
 			index++;
+		else
+			index = 0;
+		if (!*path)
+			*path = '.';
 	}
 	if (index >= 0)
 	{
+		index2 = 0;
+		quotes = is_in_quotes(paths->str, &paths->str[index]);
+		if (quotes)
+			to_find[index2++] = quotes;
 		while (paths->str[index] && !is_there("/", paths->str[index]))
 			to_find[index2++] = paths->str[index++];
 		to_find[index2] = '\0';
 	}
+	printf("[path = %s et to_find %s ]\n", path, to_find);
 	return (index);
 }
 
@@ -137,5 +171,5 @@ t_lex	*find_occurrences(t_lex *paths, int *err)
 		ft_lstsplit_charset_lex(to_find, "*"), 1));
 	else
 		return (lst_of_occurrences(path, err, \
-		ft_lstsplit_charset_lex(to_find, "*"), 0));
+		ft_lstsplit_charset_lex(to_find, "\"\'*"), 0));
 }

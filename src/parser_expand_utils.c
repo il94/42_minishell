@@ -1,44 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parser_expand_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/31 17:03:31 by auzun            ###   ########.fr       */
+/*   Created: 2022/10/29 14:38:39 by auzun             #+#    #+#             */
+/*   Updated: 2022/10/29 14:39:08 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_there(char *str, char in)
+char	*expand(char *to_find, t_lex *env)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (in == str[i])
-			return (str[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	is_in_quotes(char *start, char *now)
-{
-	int	i;
-	int	quotes;
-
-	i = -1;
-	quotes = 0;
-	while (start[++i] && &start[i] != now)
-	{
-		if (!quotes && is_there("\"\'", start[i]))
-			quotes = start[i];
-		else if (quotes && quotes == start[i])
-			quotes = 0;
-	}
-	return (quotes);
+	if (*to_find == '$')
+		to_find++;
+	while (env && (ft_strncmp(to_find, env->str, ft_strlen(to_find))
+			|| env->str[ft_strlen(to_find)] != '='))
+			env = env->next;
+	if (env)
+		return (env->str + ft_strlen(to_find) + 1);
+	return (ft_strdup("\0"));
 }

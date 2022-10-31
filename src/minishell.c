@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/23 13:19:10 by auzun            ###   ########.fr       */
+/*   Updated: 2022/10/29 19:54:08 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	minishell(t_data *data)
 	while (1)
 	{
 		data->prompt = readline("minishellent> ");
-		ft_lstprint_lex(wildiwonkard(data, data->prompt));
-		//test_apply(data->prompt);
 		//ft_lstprint_lex(wildiwonkard(data, data->prompt));
+		//test_apply(data->prompt);
+		ft_lstprint_lex(wildiwonkard(data, data->prompt));
 		/*t_lex *ls = send_dir_content(data->prompt, data, 0);
 		ft_lstprint_lex(ls);
 		ft_lstclear_lex(&ls);*/
-		/*
-		if (!ft_strcmp(data->prompt, "stop"))
+		
+		//printf("str = %s \n", check_expand(data, ft_strdup("\"$\"LANG$LANG-\" \'\"$LANG\'et toi$LANG "), 0, 0));
+		/*if (!ft_strcmp(data->prompt, "stop"))
 		{
 			free(data->prompt);
 			data->prompt = NULL;
@@ -39,10 +40,10 @@ void	minishell(t_data *data)
 			{
 				lexer(data);
 				print_cmd(data->commands, "PARENT");
-				parser(data);
+				//parser(data);
 			}
 			g_exit_status = 0;
-		}*/
-		free_data_struct(data);
+		}
+		free_data_struct(data);*/
 	}
 }
