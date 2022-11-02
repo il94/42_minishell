@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/31 23:58:21 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/01 16:49:06 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 			to_find = to_find->next;
 			in_star = 0;
 		}
-		else if (!strcmp(to_find->str, "*") && !quotes)
+		else if (!ft_strcmp(to_find->str, "*") && !quotes)
 		{
 			to_find = to_find->next;
 			index += 1;
@@ -71,8 +71,19 @@ static t_lex	*lst_of_occurrences_loop(t_lex *to_find, t_lex *r_value)
 			dir_file = tmp;
 		}
 		else
+		{
+			if (ft_strchr(dir_file->str, '*'))
+			{
+				dir_file->str = ft_strjoin(dir_file->str, "\'");
+				dir_file->str = ft_strjoin("\'", dir_file->str);
+				printf("slaut [%s]\n", dir_file->str);
+			}
 			dir_file = dir_file->next;
+		}
 	}
+	printf("\n-----\n");
+	ft_lstprint_lex(r_value);
+	printf("\n----\n");
 	return (r_value);
 }
 
