@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/31 17:03:31 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/02 13:56:10 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,17 @@ int	is_in_quotes(char *start, char *now)
 			quotes = 0;
 	}
 	return (quotes);
+}
+
+int	is_there_wildcard(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '*' && !is_in_quotes(str, &str[i]))
+			return (1);
+	}
+	return (0);
 }

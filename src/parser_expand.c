@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/29 14:42:12 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/02 17:01:25 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,15 @@ char	*check_expand(t_data *data, char *str, int quotes, int index_next)
 		if (!str[index_next])
 			break ;
 		if (str[index_next] == '$' && !is_there("\'\"", str[index_next + 1])
-			&& (!quotes | quotes == '\"'))
+			&& (!quotes || quotes == '\"'))
 		{
 			if (!return_env_var(data, &str[index_next], &index_next, &tmp))
 				exit_loop(data, new_str);
 			free(str);
 			str = tmp;
 		}
-		else if (str[index_next++] == '$')
+		else if (str[index_next++] == '$'
+			&& !is_there("\'\"", str[index_next]))
 			dont_expand(data, &new_str);
 	}
 	return (new_str);

@@ -6,24 +6,11 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/01 17:03:32 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/02 17:51:31 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	is_there_wildcard(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '*' && !is_in_quotes(str, &str[i]))
-			return (1);
-	}
-	return (0);
-}
 
 static void	dell_occur_in_lst(t_lex **head_lst, \
 	t_lex **head_paths, t_lex **paths)
@@ -106,15 +93,20 @@ t_lex	*wildiwonkard(t_data *data, char *path)
 
 	err = 1;
 	head_lst = NULL;
-	if (!ft_strchr(path, '*'))
-		return (NULL);
 	paths = ft_lstnew_lex(ft_strdup(path));
 	head_paths = paths;
+	if (!is_there_wildcard(paths->str))
+	{
+		//clear_wildi(data, )
+		return (NULL);
+	}
 	while (paths)
 	{
-		/*faire boucle pour le wildi in quotes*/
 		if (is_there_wildcard(paths->str))
 			head_lst = find_occurrences(paths, &err);
+		printf("========================\n");
+		ft_lstprint_lex(paths);
+		printf("========================\n");
 		verif_err(data, head_paths, head_lst, err);
 		if (!add_occur_to_list(&err, &head_lst, &head_paths, &paths))
 			clear_wildi(data, head_paths, head_lst, 1);

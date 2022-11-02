@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/01 16:49:06 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/02 17:16:22 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 {
 	int	quotes;
-	
+
 	quotes = 0;
 	while (to_find)
 	{
@@ -24,9 +24,9 @@ static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 			quotes = to_find->str[0];
 			to_find = to_find->next;
 		}
-		else if (quotes && quotes == to_find->str[0])
+		if (quotes && quotes == to_find->str[0])
 		{
-			quotes = to_find->str[0];
+			quotes = 0;
 			to_find = to_find->next;
 		}
 		if (index >= ft_strlen(dir_file.str))
@@ -76,14 +76,10 @@ static t_lex	*lst_of_occurrences_loop(t_lex *to_find, t_lex *r_value)
 			{
 				dir_file->str = ft_strjoin(dir_file->str, "\'");
 				dir_file->str = ft_strjoin("\'", dir_file->str);
-				printf("slaut [%s]\n", dir_file->str);
 			}
 			dir_file = dir_file->next;
 		}
 	}
-	printf("\n-----\n");
-	ft_lstprint_lex(r_value);
-	printf("\n----\n");
 	return (r_value);
 }
 
@@ -154,7 +150,7 @@ static int	add_el_to_var(char *path, char *to_find, t_lex *paths)
 			to_find[index2++] = paths->str[index++];
 		to_find[index2] = '\0';
 	}
-	printf("[path = %s et to_find %s ]\n", path, to_find);
+	printf("to find = %s and path = %s\n", to_find, path);
 	return (index);
 }
 
