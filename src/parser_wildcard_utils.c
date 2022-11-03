@@ -6,11 +6,71 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/02 17:16:22 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/03 17:13:01 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static int	nb_spe_char(char *str)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while(str[++i])
+	{
+		if (is_there("\'\"*",str[i]))
+			count++;
+	}
+	return (count);
+}
+
+char	*verif_name(char *name)
+{
+	char	*rvalue;
+	int		quotes;
+	int		i;
+	int		j;
+
+	quotes = 0;
+	i = -1;
+	j = 0;
+	rvalue = malloc((ft_strlen(name) + \
+		(nb_spe_char(name) * 2)) * sizeof(char));
+	if (!rvalue)
+		return (NULL);
+	while (name[++i])
+	{
+		if (!quotes && name[i] == '\'')
+		{
+			quotes = '\"';
+			rvalue[j++] = '\"';
+			rvalue[j++] = name[i];
+		}
+		else if (!quotes && (name[i] == '\"' || name[i] == '*'))
+		{
+			quotes = '\'';
+			rvalue[j++] = '\'';
+			rvalue[j++] = name[i];
+		}
+		else if (name[i] == quotes)
+		{
+			rvalue[j++] = name[i--];
+			quotes = 0;
+		}
+		else
+			rvalue[j++] = name[i];
+	}
+	if (quotes)
+		rvalue[j++] = quotes;
+	rvalue[j] = '\0';
+	//printf("rvalue = %s and name = %s\n", rvalue, name);
+	//exit(1);
+	free(name);
+	return (rvalue);
+}
 
 static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 {
@@ -72,10 +132,10 @@ static t_lex	*lst_of_occurrences_loop(t_lex *to_find, t_lex *r_value)
 		}
 		else
 		{
-			if (ft_strchr(dir_file->str, '*'))
+			if (ft_strchr(dir_file->str, '*')
+				|| ft_strchr(dir_file->str, '\'') || ft_strchr(dir_file->str, '\"'))
 			{
-				dir_file->str = ft_strjoin(dir_file->str, "\'");
-				dir_file->str = ft_strjoin("\'", dir_file->str);
+				dir_file->str = verif_name(dir_file->str);
 			}
 			dir_file = dir_file->next;
 		}

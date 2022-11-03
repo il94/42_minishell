@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:16:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/26 14:31:12 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/03 17:12:53 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 	t_lex			*new;
 	DIR				*d;
 	struct dirent	*dir;
+	char			*name;
 
 	ls = NULL;
 	if (!verif_dir(&d, &dir, path, err))
@@ -52,7 +53,8 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 		if (!only_dir | (only_dir && dir->d_type == DT_DIR
 				&& ft_strcmp(dir->d_name, ".") && ft_strcmp(dir->d_name, "..")))
 		{
-			new = ft_lstnew_lex(ft_strdup(dir->d_name));
+			name = ft_strdup(dir->d_name);
+			new = ft_lstnew_lex(name);
 			if (!new || !new->str)
 				return (exit_loop(d, &ls, err));
 			ft_lstadd_back_lex(&ls, new);

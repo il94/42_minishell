@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/02 17:51:31 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/02 21:51:56 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,6 @@ t_lex	*wildiwonkard(t_data *data, char *path)
 	{
 		if (is_there_wildcard(paths->str))
 			head_lst = find_occurrences(paths, &err);
-		printf("========================\n");
-		ft_lstprint_lex(paths);
-		printf("========================\n");
 		verif_err(data, head_paths, head_lst, err);
 		if (!add_occur_to_list(&err, &head_lst, &head_paths, &paths))
 			clear_wildi(data, head_paths, head_lst, 1);
