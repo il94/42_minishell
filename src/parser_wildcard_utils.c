@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/03 17:13:01 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/04 15:25:18 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 			quotes = to_find->str[0];
 			to_find = to_find->next;
 		}
-		if (quotes && quotes == to_find->str[0])
+		if (quotes && to_find && quotes == to_find->str[0])
 		{
 			quotes = 0;
 			to_find = to_find->next;
 		}
 		if (index >= ft_strlen(dir_file.str))
 			return (0);
-		if (!ft_strncmp(dir_file.str + index, \
+		if (to_find && !ft_strncmp(dir_file.str + index, \
 			to_find->str, ft_strlen(to_find->str)))
 		{
 			if (!to_find->next && ft_strcmp(dir_file.str + index, to_find->str))
@@ -100,7 +100,7 @@ static int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 			to_find = to_find->next;
 			in_star = 0;
 		}
-		else if (!ft_strcmp(to_find->str, "*") && !quotes)
+		else if (to_find && !ft_strcmp(to_find->str, "*") && !quotes)
 		{
 			to_find = to_find->next;
 			index += 1;
@@ -235,7 +235,7 @@ t_lex	*find_occurrences(t_lex *paths, int *err)
 	index = add_el_to_var(path, to_find, paths);
 	if (paths->str[index] && (paths->str[index] == '/') && to_find)
 		return (lst_of_occurrences(path, err, \
-		ft_lstsplit_charset_lex(to_find, "*"), 1));
+		ft_lstsplit_charset_lex(to_find, "*\"\'"), 1));
 	else
 		return (lst_of_occurrences(path, err, \
 		ft_lstsplit_charset_lex(to_find, "\"\'*"), 0));

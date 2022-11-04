@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:16:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/03 17:12:53 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/04 16:57:11 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,18 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 	char			*name;
 
 	ls = NULL;
-	if (!verif_dir(&d, &dir, path, err))
-		return (NULL);
+	/*if (!verif_dir(&d, &dir, path, err))
+		return (NULL);*/
+	if (!access(path, F_OK))
+	{
+		printf("WEWEWWEE NTMDSFSDALKFJDSALKFJDSL\n");
+		exit(1);
+	}
+	else
+	{
+		printf("fdsafdas\n");
+		exit(2);
+	}
 	while (dir)
 	{
 		if (!only_dir | (only_dir && dir->d_type == DT_DIR
@@ -65,7 +75,7 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 	return (ls);
 }
 
-static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
+/*static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 {
 	int		index;
 	char	*rvalue;
@@ -89,6 +99,51 @@ static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 	if (!path)
 		return (rvalue);
 	rvalue = ft_strjoin(rvalue, path);
+	return (rvalue);
+}*/
+
+static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
+{
+	int		index;
+	int		index2;
+	char	*rvalue;
+	int		quotes;
+
+	index = 0;
+	index2 = 0;
+	while (path && path[index2] && path[index2] != '*')
+		new_path[index++] = path[index2++];
+	new_path[index++] = path[index2];
+	new_path[index--] = '\0';
+	if (new_path[index] == '*')
+	{
+		while (index >= 0 && new_path[index] != '/')
+			new_path[index--] = '\0';
+		quotes = is_in_quotes(new_path, &new_path[index]);
+		if (index >= 0 && quotes)
+		{
+			new_path[index++] = quotes;
+			new_path[index] = '/';
+			quotes = 0;
+		}
+	}
+	rvalue = ft_strjoin(new_path, finded);
+	free(new_path);
+	if (!rvalue)
+		return (NULL);
+	while (path[index2] && path[index2] != '/')
+		index2++;
+	if (!path[index2])
+		return (rvalue);
+	quotes = is_in_quotes(path, &path[index2]);
+	if (quotes)
+	{
+		printf("salut\n\nsalusdafjsd\n\n");
+		path[index2] = quotes;
+		path[--index2] = '/'; 
+	}
+	rvalue = ft_strjoin(rvalue, &path[index2]);
+	printf("%s\n", rvalue);
 	return (rvalue);
 }
 
