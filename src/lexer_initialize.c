@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/21 17:58:17 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:19:12 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,25 @@ int	concat_ampersand(t_lex **lexer)
 int	concat_quotes(t_lex **lexer)
 {
 	char	quote[2];
-
-	if (!ft_strcmp((*lexer)->str, "\'")
-		|| !ft_strcmp((*lexer)->str, "\""))
+	
+	if (is_there(QUOTES, (*lexer)->str[0]))
 	{
+		if ((*lexer)->prev && !is_there(TOKENS, (*lexer)->prev->str[0])
+			&& !ft_iswhitespace((*lexer)->prev->str[0]))
+		{
+			(*lexer) = (*lexer)->prev;
+			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
+			if (!(*lexer)->str)
+				return (0);
+			ft_lstdelone_lex((*lexer)->next);
+		}
 		ft_strlcpy(quote, (*lexer)->str, 2);
 		if (!search_closing_quote((*lexer)->next, quote))
 		{
+			printf("SALUT\n");
 			g_exit_status = 2;
 			printf("ERROR\n");
-			return (1);
+			return (0);
 		}
 		while (ft_strcmp((*lexer)->next->str, quote))
 		{
@@ -65,6 +74,18 @@ int	concat_quotes(t_lex **lexer)
 			return (0);
 		ft_lstdelone_lex((*lexer)->next);
 	}
+	else if ((*lexer)->prev && is_there(QUOTES, (*lexer)->prev->str[ft_strlen((*lexer)->prev->str) - 1]))
+	{
+		// if ((*lexer)->prev && !is_there(TOKENS, (*lexer)->prev->str[0])
+		// 	&& !ft_iswhitespace((*lexer)->prev->str[0]))
+		{
+			(*lexer) = (*lexer)->prev;
+			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
+			if (!(*lexer)->str)
+				return (0);
+			ft_lstdelone_lex((*lexer)->next);
+		}
+	}
 	return (1);
 }
 
@@ -72,10 +93,7 @@ int	concat_tokens(t_lex **lexer)
 {
 	char	token[2];
 
-	if (!ft_strcmp((*lexer)->str, "&")
-		||!ft_strcmp((*lexer)->str, "|")
-		||!ft_strcmp((*lexer)->str, "<")
-		||!ft_strcmp((*lexer)->str, ">"))
+	if (is_there(TOKENS, (*lexer)->str[0]))
 	{
 		ft_strlcpy(token, (*lexer)->str, 2);
 		if ((*lexer)->next && !ft_strcmp((*lexer)->next->str, token))

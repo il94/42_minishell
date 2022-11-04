@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/26 12:18:16 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:22:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,54 @@
 
 int	g_exit_status;
 
-// int	main(int ac, char **av, char **envp)
+// void	minishell_test(t_data *data, char **av)
 // {
-// 	t_data	data;
-
-// 	g_exit_status = 0;
-// 	initialize_data(&data, envp);
-// 	minishell(&data);
-// 	if (data.start_env)
-// 		free_lexer_struct(&(data.start_env));
-// 	free_data_struct(&data);
-// 	return (0);
+// 	while (1)
+// 	{
+// 		data->prompt = readline("minishellent> ");
+// 		if (!ft_strcmp(data->prompt, "stop"))
+// 		{
+// 			free(data->prompt);
+// 			data->prompt = NULL;
+// 			break ;
+// 		}
+// 		if (data->prompt[0] != '\0')
+// 		{	
+// 			add_history(data->prompt);
+// 			get_lexer(data);
+// 			// ft_lstprint_lex(data->lexer);
+// 			if (data->lexer)
+// 			{
+// 				lexer(data);
+// 				print_cmd(data->commands, "PARENT");
+// 				// parser(data);
+// 			}
+// 			if (!ft_strncmp(data->prompt, "echo", 4))
+// 				echo(data->commands->args);
+// 			else if (!ft_strncmp(data->prompt, "cd", 2))
+// 				cd(data->commands->args);
+// 			else if (!ft_strncmp(data->prompt, "pwd", 3))
+// 				pwd(data->commands->args);
+// 			else if (!ft_strncmp(data->prompt, "env", 3))
+// 				env(data);
+// 			else if (!ft_strncmp(data->prompt, "export", 6))
+// 				exporc(data, data->commands->args);
+// 			g_exit_status = 0;
+// 		}
+// 		free_data_struct(data);
+// 	}
 // }
 
 int	main(int ac, char **av, char **envp)
 {
+	t_data	data;
+
 	g_exit_status = 0;
-	pwd(&av[1]);
-	printf("EXIT STATUS = %d\n", g_exit_status);
+	initialize_data(&data, envp);
+	minishell(&data);
+	if (data.start_env)
+		free_lexer_struct(&(data.start_env));
+	free_data_struct(&data);
 	return (0);
 }
+

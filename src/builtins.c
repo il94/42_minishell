@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/26 12:17:58 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:20:11 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	echo(char **args) //cas d'erreurs : syntax error donc a gerer avant
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (!ft_strcmp(args[0], "-n"))
-		i = 1;
+		i = 2;
 	while (args && args[i])
 	{
 		ft_printf("%s", args[i]);
@@ -65,4 +65,51 @@ int	pwd(char **args)
 {
 	printf("%s\n", getcwd(NULL, 0));
 	return (0);
+}
+
+int	env(t_data *data)
+{
+	ft_lstprint_lex(data->env);
+	return (0);
+}
+
+int	exporc(t_data *data, char **args)
+{
+	char	*variable;
+	int		i;
+	int		j;
+	char	quote;
+	
+	variable = malloc(ft_strlen(args[0]) - 1);
+	if (!variable)
+		free_all_and_exit(data, "malloc");
+	i = 0;
+	j = 0;
+	while (args[0][i] && args[0][i] != ' ')
+	{
+		if (args[0][i] == '\"' || args[0][i] != '\'')
+		{
+			quote = args[0][i];
+			i++;
+			while (args[0][i] && args[0][i] != quote && args[0][i] != ' ')
+			{
+				variable[j] = args[0][i];
+				i++;
+				j++;
+			}
+			if (!args[0][i] || args[0][i] == ' ')
+			{
+				// g_exit_status = ?;
+				free(variable);
+				printf("ERROR\n");
+				return (0);
+			}
+		}
+		variable[j] = args[0][i];
+		i++;
+		j++;
+	}
+	ft_lstadd_back_lex(&data->env, ft_lstnew_lex(variable));
+	free(variable);
+	return (1);
 }
