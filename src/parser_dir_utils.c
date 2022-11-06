@@ -6,74 +6,11 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:16:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/04 16:57:11 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/06 23:08:56 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static int	verif_dir(DIR **d, struct dirent **dir, char *path, int	*err)
-{
-	*d = opendir(path);
-	if (*d == NULL)
-	{
-		*err = 0;
-		return (0);
-	}
-	*dir = readdir(*d);
-	if (!*dir)
-	{
-		*err = -1;
-		return (0);
-	}
-	return (1);
-}
-
-static void	*exit_loop(DIR *d, t_lex **ls, int *err)
-{
-	closedir(d);
-	free_lexer_struct(ls);
-	*err = -2;
-	return (NULL);
-}
-
-t_lex	*send_dir_content(char *path, int only_dir, int *err)
-{
-	t_lex			*ls;
-	t_lex			*new;
-	DIR				*d;
-	struct dirent	*dir;
-	char			*name;
-
-	ls = NULL;
-	/*if (!verif_dir(&d, &dir, path, err))
-		return (NULL);*/
-	if (!access(path, F_OK))
-	{
-		printf("WEWEWWEE NTMDSFSDALKFJDSALKFJDSL\n");
-		exit(1);
-	}
-	else
-	{
-		printf("fdsafdas\n");
-		exit(2);
-	}
-	while (dir)
-	{
-		if (!only_dir | (only_dir && dir->d_type == DT_DIR
-				&& ft_strcmp(dir->d_name, ".") && ft_strcmp(dir->d_name, "..")))
-		{
-			name = ft_strdup(dir->d_name);
-			new = ft_lstnew_lex(name);
-			if (!new || !new->str)
-				return (exit_loop(d, &ls, err));
-			ft_lstadd_back_lex(&ls, new);
-		}
-		dir = readdir(d);
-	}
-	closedir(d);
-	return (ls);
-}
 
 /*static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 {
@@ -102,18 +39,16 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 	return (rvalue);
 }*/
 
-static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
+static char	*add_path(char *new_path, char *path, int *index2)
 {
-	int		index;
-	int		index2;
-	char	*rvalue;
-	int		quotes;
+	int	index;
+	int	quotes;
 
+	quotes = 0;
 	index = 0;
-	index2 = 0;
-	while (path && path[index2] && path[index2] != '*')
-		new_path[index++] = path[index2++];
-	new_path[index++] = path[index2];
+	while (path && path[(*index2)] && path[(*index2)] != '*')
+		new_path[index++] = path[(*index2)++];
+	new_path[index++] = path[(*index2)];
 	new_path[index--] = '\0';
 	if (new_path[index] == '*')
 	{
@@ -127,6 +62,19 @@ static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 			quotes = 0;
 		}
 	}
+	return (new_path);
+}
+
+static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
+{
+	int		index;
+	int		index2;
+	char	*rvalue;
+	int		quotes;
+
+	index = 0;
+	index2 = 0;
+	add_path(new_path, path, &index2);
 	rvalue = ft_strjoin(new_path, finded);
 	free(new_path);
 	if (!rvalue)
@@ -138,12 +86,10 @@ static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 	quotes = is_in_quotes(path, &path[index2]);
 	if (quotes)
 	{
-		printf("salut\n\nsalusdafjsd\n\n");
 		path[index2] = quotes;
-		path[--index2] = '/'; 
+		path[--index2] = '/';
 	}
 	rvalue = ft_strjoin(rvalue, &path[index2]);
-	printf("%s\n", rvalue);
 	return (rvalue);
 }
 

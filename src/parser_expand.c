@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/02 17:01:25 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/06 23:26:55 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	exit_loop(t_data *data, char *new_str)
 	free_all_and_exit(data, "malloc");
 }
 
-char	*check_expand(t_data *data, char *str, int quotes, int index_next)
+char	*check_expand(t_data *data, char *str, int quotes, int n)
 {
 	char	*new_str;
 	char	*tmp;
@@ -95,23 +95,22 @@ char	*check_expand(t_data *data, char *str, int quotes, int index_next)
 
 	index_new = 0;
 	new_str = NULL;
-	while (str[index_next])
+	while (str[n])
 	{
-		new_str = add_unsuspect_char(new_str, str, &index_next, &quotes);
+		new_str = add_unsuspect_char(new_str, str, &n, &quotes);
 		if (!new_str)
 			exit_loop(data, new_str);
-		if (!str[index_next])
+		if (!str[n])
 			break ;
-		if (str[index_next] == '$' && !is_there("\'\"", str[index_next + 1])
+		if (str[n] == '$' && !is_there("\'\"", str[n + 1])
 			&& (!quotes || quotes == '\"'))
 		{
-			if (!return_env_var(data, &str[index_next], &index_next, &tmp))
+			if (!return_env_var(data, &str[n], &n, &tmp))
 				exit_loop(data, new_str);
 			free(str);
 			str = tmp;
 		}
-		else if (str[index_next++] == '$'
-			&& !is_there("\'\"", str[index_next]))
+		else if (str[n++] == '$' && !is_there("\'\"", str[n]))
 			dont_expand(data, &new_str);
 	}
 	return (new_str);

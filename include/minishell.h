@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/02 13:56:31 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/06 22:51:28 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,11 @@ char	*concate_paths(char *path, char *finded);
 /*wildcard*/
 t_lex	*wildiwonkard(t_data *data, char *path);
 t_lex	*find_occurrences(t_lex *paths, int *err);
+int		aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star);
 
 /* parser.c */
 char	*check_expand(t_data *data, char *str, int quotes, int index);
+char	*put_in_quotes(char *name, int i, int j, int quotes);
 //void	parser(t_data *data);
 
 
