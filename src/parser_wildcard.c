@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/04 23:08:31 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/07 16:15:02 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,12 @@ t_lex	*wildiwonkard(t_data *data, char *path)
 
 	err = 1;
 	head_lst = NULL;
-	if (!is_there_wildcard(path))
+	if (!is_there_wildcard(path) || !path)
 		return (NULL);
 	paths = ft_lstnew_lex(ft_strdup(path));
 	head_paths = paths;
+	if (!paths || !paths->str)
+		clear_wildi(data, head_paths, head_lst, 1);
 	while (paths)
 	{
 		if (is_there_wildcard(paths->str))
@@ -107,7 +109,5 @@ t_lex	*wildiwonkard(t_data *data, char *path)
 		if (paths && !is_there_wildcard(paths->str))
 			paths = paths->next;
 	}
-	if (head_paths == NULL)
-		printf("no occurr sorry!\n");
 	return (head_paths);
 }

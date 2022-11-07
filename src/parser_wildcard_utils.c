@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/06 22:50:37 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/07 17:00:23 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ static int	add_el_to_var(char *path, char *to_find, t_lex *paths)
 			to_find[index2++] = paths->str[index++];
 		to_find[index2] = '\0';
 	}
-	printf("to find = %s and path = %s\n", to_find, path);
 	return (index);
 }
 
