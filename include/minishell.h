@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/04 16:29:25 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:11:46 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 extern int	g_exit_status;
 
+
+
 /* temp.c */
 void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
@@ -37,6 +39,7 @@ int		env(t_data *data);
 int		exporc(t_data *data, char **args);
 
 /* lexer_utils.c */
+int		concat_element(t_lex **lexer, t_bool is_prev);
 int		is_token(t_lex *element);
 t_redi	get_redi(t_lex *element);
 t_deli	get_delimiter(t_lex *element);
