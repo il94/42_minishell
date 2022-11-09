@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/07 16:58:10 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/08 13:18:57 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char	*put_in_quotes(char *name, int i, int j, int quotes);
 void	minishell(t_data *data);
 
 /* utils.c */
+int		is_there_el_outside_quotes(char *str, char el);
 int		is_there_wildcard(char *str);
 int		is_in_quotes(char *start, char *now);
 int		is_there(char *str, char in);

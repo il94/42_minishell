@@ -6,13 +6,13 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:34:12 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/07 18:33:51 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/08 12:49:52 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	take_off_quotes_in_lst(t_data *data, t_lex **lst)
+static void	take_off_quotes_in_lst(t_data *data, t_lex **lst, char *path)
 {
 	t_lex	*tmp;
 
@@ -23,6 +23,7 @@ static void	take_off_quotes_in_lst(t_data *data, t_lex **lst)
 			tmp->str = take_off_quotes(tmp->str);
 		if (!tmp->str)
 		{
+			free(path);
 			free_lexer_struct(lst);
 			free_all_and_exit(data, "malloc");
 		}
@@ -59,7 +60,7 @@ t_lex	*ft_wildcard(t_data *data, char *path)
 	matches = wildiwonkard(data, path);
 	if (!matches)
 		return (NULL);
-	take_off_quotes_in_lst(data, &matches);
+	take_off_quotes_in_lst(data, &matches, path);
 	take_off_invalid_matches(&matches);
 	return (matches);
 }

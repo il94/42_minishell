@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/02 13:56:10 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/08 13:18:25 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,19 @@ int	is_there_wildcard(char *str)
 	while (str[++i])
 	{
 		if (str[i] == '*' && !is_in_quotes(str, &str[i]))
+			return (1);
+	}
+	return (0);
+}
+
+int	is_there_el_outside_quotes(char *str, char el)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == el && !is_in_quotes(str, &str[i]))
 			return (1);
 	}
 	return (0);
