@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/10 14:51:09 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/08 18:27:06 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define TOKENS "<>|&()"
+# define TOKENS "<>|&"
+# define QUOTES "\"\'"
 
 # include "../libft/include/libft.h"
 # include <stdio.h>
@@ -23,12 +24,22 @@
 
 extern int	g_exit_status;
 
+
+
 /* temp.c */
 void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
 char	*expand(char *to_find, t_lex *env);
 
+/* builtins.c */
+int		echo(t_lex *args);
+int		cd(t_lex *args);
+int		pwd(t_lex *args);
+int		env(t_data *data);
+int		exporc(t_data *data, t_lex *args);
+
 /* lexer_utils.c */
+int		concat_element(t_lex **lexer, t_bool is_prev);
 int		is_token(t_lex *element);
 t_redi	get_redi(t_lex *element);
 t_deli	get_delimiter(t_lex *element);

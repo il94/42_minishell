@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:56:57 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/18 18:46:08 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:54:00 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	initialize_data(t_data *data, char **envp)
 	data->start_lex = NULL;
 	data->prompt = NULL;
 	data->start_env = NULL;
-	if (envp)
+	if (envp && envp[0])
 	{
 		data->start_env = ft_array_to_lst_lex(envp);
 		if (!data->start_env)

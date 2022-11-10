@@ -6,11 +6,22 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:10:33 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/21 17:56:00 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:20:56 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	concat_element(t_lex **lexer, t_bool is_prev)
+{
+	if (is_prev)
+		(*lexer) = (*lexer)->prev;
+	(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
+	if (!(*lexer)->str)
+		return (0);
+	ft_lstdelone_lex((*lexer)->next);
+	return (1);
+}
 
 int	is_token(t_lex *element)
 {

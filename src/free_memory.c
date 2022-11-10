@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:12:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/20 15:37:01 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:51:23 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	free_lexer_struct(t_lex **lexer)
 	if ((*lexer)->next)
 		free_lexer_struct(&((*lexer)->next));
 	if ((*lexer)->str)
+	{
+		// printf("str = %s\n", (*lexer)->str);
 		free((*lexer)->str);
+		// printf("str = %s\n", (*lexer)->str);
+	}
 	free((*lexer));
 	(*lexer) = NULL;
 }

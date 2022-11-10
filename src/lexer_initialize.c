@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/26 17:58:21 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/07 16:12:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,27 @@ int	concat_quotes(t_lex **lexer)
 {
 	char	quote[2];
 
-	if (!ft_strcmp((*lexer)->str, "\'")
-		|| !ft_strcmp((*lexer)->str, "\""))
+	if (*lexer && (is_there(QUOTES, (*lexer)->str[0]) || is_there(QUOTES,
+				(*lexer)->str[ft_strlen((*lexer)->str) - 1])))
 	{
-		ft_strlcpy(quote, (*lexer)->str, 2);
+		if ((*lexer)->prev && !is_there(TOKENS, (*lexer)->prev->str[0])
+			&& !ft_iswhitespace((*lexer)->prev->str[0]))
+			concat_element(lexer, TRUE);
+		ft_strlcpy(quote, &(*lexer)->str[ft_strlen((*lexer)->str) - 1], 2);
 		if (!search_closing_quote((*lexer)->next, quote))
 		{
 			g_exit_status = 2;
-			printf("ERROR\n");
+			printf("ERROR AUOTE\n");
 			return (1);
 		}
 		while (ft_strcmp((*lexer)->next->str, quote))
-		{
-			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-			if (!(*lexer)->str)
-				return (0);
-			ft_lstdelone_lex((*lexer)->next);
-		}
-		(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-		if (!(*lexer)->str)
-			return (0);
-		ft_lstdelone_lex((*lexer)->next);
+			concat_element(lexer, FALSE);
+		concat_element(lexer, FALSE);
 	}
+	else if ((*lexer)->prev && !ft_iswhitespace((*lexer)->str[0])
+		&& is_there(QUOTES,
+			(*lexer)->prev->str[ft_strlen((*lexer)->prev->str) - 1]))
+		concat_element(lexer, TRUE);
 	return (1);
 }
 
@@ -72,10 +71,7 @@ int	concat_tokens(t_lex **lexer)
 {
 	char	token[2];
 
-	if (!ft_strcmp((*lexer)->str, "&")
-		||!ft_strcmp((*lexer)->str, "|")
-		||!ft_strcmp((*lexer)->str, "<")
-		||!ft_strcmp((*lexer)->str, ">"))
+	if (is_there(TOKENS, (*lexer)->str[0]))
 	{
 		ft_strlcpy(token, (*lexer)->str, 2);
 		if ((*lexer)->next && !ft_strcmp((*lexer)->next->str, token))
@@ -93,6 +89,7 @@ int	concat_env(t_lex **lexer)
 {
 	if (!ft_strcmp((*lexer)->str, "$"))
 	{
+		concat_quotes(lexer);
 		if ((*lexer)->next && ft_isprint((*lexer)->next->str[0]))
 		{
 			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
@@ -117,8 +114,9 @@ int	concat_lexer(t_data *data)
 	}
 	while (data->lexer)
 	{
-		if (!concat_quotes(&(data->lexer)) || !concat_tokens(&(data->lexer))
-			|| !concat_env(&(data->lexer)) || !concat_ampersand(&(data->lexer)))
+		if (!concat_env(&(data->lexer)) || !concat_quotes(&(data->lexer))
+			|| !concat_tokens(&(data->lexer))
+			|| !concat_ampersand(&(data->lexer)))
 			free_all_and_exit(data, "malloc");
 		if (g_exit_status > 0)
 			return (0);
