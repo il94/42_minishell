@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:16:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/06 23:08:56 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/10 20:21:06 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,11 @@ static char	*add_path(char *new_path, char *path, int *index2)
 
 static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 {
-	int		index;
 	int		index2;
-	char	*rvalue;
 	int		quotes;
+	char	*rvalue;
+	char	*tmp;
 
-	index = 0;
 	index2 = 0;
 	add_path(new_path, path, &index2);
 	rvalue = ft_strjoin(new_path, finded);
@@ -89,8 +88,9 @@ static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 		path[index2] = quotes;
 		path[--index2] = '/';
 	}
-	rvalue = ft_strjoin(rvalue, &path[index2]);
-	return (rvalue);
+	tmp = ft_strjoin(rvalue, &path[index2]);
+	free(rvalue);
+	return (tmp);
 }
 
 char	*concate_paths(char *path, char *finded)

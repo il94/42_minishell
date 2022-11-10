@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/07 17:00:23 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/10 20:32:07 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_lex	*lst_of_occurrences_loop(t_lex *to_find, t_lex *r_value)
 	t_lex	*tmp;
 
 	dir_file = r_value;
-	while (dir_file)
+	while (dir_file && to_find)
 	{
 		if (!aplly_star(to_find, *dir_file, 0, 0))
 		{
@@ -37,6 +37,7 @@ static t_lex	*lst_of_occurrences_loop(t_lex *to_find, t_lex *r_value)
 			dir_file = dir_file->next;
 		}
 	}
+	free_lexer_struct(&to_find);
 	return (r_value);
 }
 
@@ -122,6 +123,7 @@ t_lex	*find_occurrences(t_lex *paths, int *err)
 	int		index;
 	char	*path;
 	char	*to_find;
+	t_lex	*to_find_lex;
 
 	path = malloc((ft_strlen(paths->str) + 1) * sizeof(char));
 	if (!path)
@@ -136,10 +138,10 @@ t_lex	*find_occurrences(t_lex *paths, int *err)
 		return (NULL);
 	}
 	index = add_el_to_var(path, to_find, paths);
+	to_find_lex = ft_lstsplit_charset_lex(to_find, "*\"\'");
+	free(to_find);
 	if (paths->str[index] && (paths->str[index] == '/') && to_find)
-		return (lst_of_occurrences(path, err, \
-		ft_lstsplit_charset_lex(to_find, "*\"\'"), 1));
+		return (lst_of_occurrences(path, err, to_find_lex, 1));
 	else
-		return (lst_of_occurrences(path, err, \
-		ft_lstsplit_charset_lex(to_find, "\"\'*"), 0));
+		return (lst_of_occurrences(path, err, to_find_lex, 0));
 }

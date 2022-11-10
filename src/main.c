@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/10 16:44:20 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/10 20:28:18 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ void	minishell_test(t_data *data, char **av)
 				env(data);
 			else if (!ft_strncmp(data->prompt, "export", 6))
 				exporc(data, data->commands->args);
-			else if (!ft_strncmp(data->prompt, "*", 1))
+			else if (ft_strchr(data->prompt, '*'))
 			{
-				new = ft_lstnew_lex(data->prompt);
-				ft_lstprint_lex(ft_wildcard(data, new));
-				// free_lexer_struct(&new);
+				new = ft_lstnew_lex(ft_strdup(data->prompt));
+				new = ft_wildcard(data, new);
+				ft_lstprint_lex(new);
+				if (new)
+					free_lexer_struct(&new);
 			}
 			g_exit_status = 0;
 		}
