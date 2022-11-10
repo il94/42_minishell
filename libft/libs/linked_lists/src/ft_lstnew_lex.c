@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:43:31 by ilyes             #+#    #+#             */
-/*   Updated: 2022/11/10 16:00:19 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:36:57 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_lex	*ft_lstnew_lex(char *str)
 {
 	t_lex	*element;
 
-	if (!element->str)
+	if (!str)
 		return (NULL);
 	element = malloc(sizeof(*element));
 	if (!element)
