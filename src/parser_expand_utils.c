@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_expand_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/02 14:11:33 by auzun            ###   ########.fr       */
+/*   Created: 2022/10/29 14:38:39 by auzun             #+#    #+#             */
+/*   Updated: 2022/11/06 23:27:12 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	g_exit_status;
-
-int	main(int ac, char **av, char **envp)
+char	*expand(char *to_find, t_lex *env)
 {
-	t_data	data;
-
-	g_exit_status = 0;
-	initialize_data(&data, envp);
-	minishell(&data);
-	if (data.start_env)
-		free_lexer_struct(&(data.start_env));
-	free_data_struct(&data);
-	return (0);
+	if (*to_find == '$')
+		to_find++;
+	while (env && (ft_strncmp(to_find, env->str, ft_strlen(to_find))
+			|| env->str[ft_strlen(to_find)] != '='))
+			env = env->next;
+	if (env)
+		return (env->str + ft_strlen(to_find) + 1);
+	return (ft_strdup("\0"));
 }

@@ -3,16 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:14:05 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/21 17:27:38 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:02:43 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*expand :
+	si entre double quotes on va chercher la variable dans env
+	si entre simple quotes on fait rien
+	*/
+
+char	*check_str(t_data *data, char *str)
+{
+	char	*new_str;
+
+	if (!str)
+		return (NULL);
+	new_str = NULL;
+	if (ft_strchr(str, '$'))
+		new_str = check_expand(data, str, 0, 0);
+}
+/*
 void	parser(t_data *data)
 {
-	
-}
+	return ;
+}*/
