@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/07 15:11:46 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:27:06 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	print_cmd(t_cmd *commands, char *state);
 char	*expand(char *to_find, t_lex *env);
 
 /* builtins.c */
-int		echo(char **args);
-int		cd(char **args);
-int		pwd(char **args);
+int		echo(t_lex *args);
+int		cd(t_lex *args);
+int		pwd(t_lex *args);
 int		env(t_data *data);
-int		exporc(t_data *data, char **args);
+int		exporc(t_data *data, t_lex *args);
 
 /* lexer_utils.c */
 int		concat_element(t_lex **lexer, t_bool is_prev);

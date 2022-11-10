@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/07 16:41:28 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:25:58 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	g_exit_status;
 // 			if (data->lexer)
 // 			{
 // 				lexer(data);
-// 				print_cmd(data->commands, "PARENT");
+// 				// print_cmd(data->commands, "PARENT");
 // 				// parser(data);
 // 			}
 // 			if (!ft_strncmp(data->prompt, "echo", 4))
@@ -59,9 +59,9 @@ int	main(int ac, char **av, char **envp)
 	g_exit_status = 0;
 	initialize_data(&data, envp);
 	minishell(&data);
+	// minishell_test(&data, av);
 	if (data.start_env)
-		free_lexer_struct(&(data.start_env));
+		free_lexer_struct(&data.start_env);
 	free_data_struct(&data);
 	return (0);
 }
-

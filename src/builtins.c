@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/01 15:20:11 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:03:57 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,41 +18,41 @@ en ayant pour case[0] le premier argument. Donc pour "ls -a", args[0] == -a.*/
 /* Faire gaffe au code d'erreur, a bien retourner dans le parent si on est dans
 un child et aussi si on retourne 1 ou 0*/
 
-int	echo(char **args) //cas d'erreurs : syntax error donc a gerer avant
+int	echo(t_lex *args) //cas d'erreurs : syntax error donc a gerer avant
 {
-	int	i;
+	t_lex	*start;
 
-	i = 1;
-	if (!ft_strcmp(args[0], "-n"))
-		i = 2;
-	while (args && args[i])
+	start = args;
+	if (args && !ft_strcmp(args->str, "-n"))
+		args = args->next;
+	while (args && args->str)
 	{
-		ft_printf("%s", args[i]);
-		if (args[i + 1])
+		ft_printf("%s", args->str);
+		if (args->next)
 			ft_printf(" ");
-		i++;
+		args = args->next;
 	}
-	if (!args || !args[0] || ft_strcmp(args[0], "-n"))
+	if (!start || (start && ft_strcmp(start->str, "-n")))
 		ft_printf("\n");
 	return (0);		
 }
 
 
-int	cd(char **args)
+int	cd(t_lex *args)
 {
-	if (!args || !args[0])
+	if (!args)
 	{
 		g_exit_status = 1; //code d'erreur a definir
 		ft_printf("ERROR : need path in argument\n"); //a paufiner
 		return (1);
 	}
-	if (args[1])
+	if (args->next)
 	{
 		g_exit_status = 1;
 		ft_printf("ERROR : to many arguments\n");	//paufined
 		return (1);
 	}
-	if (!chdir(args[0]))
+	if (!chdir(args->str))
 		return (0);
 	g_exit_status = 1;
 	perror("chdir");
@@ -61,9 +61,9 @@ int	cd(char **args)
 /* Cd doit fonctionner qu'avec un chemin relatif ou absolu, donc pas de cd seul
 */
 
-int	pwd(char **args)
+int	pwd(t_lex *args)
 {
-	printf("%s\n", getcwd(NULL, 0));
+	ft_printf("%s\n", getcwd(NULL, 0));
 	return (0);
 }
 
@@ -73,43 +73,21 @@ int	env(t_data *data)
 	return (0);
 }
 
-int	exporc(t_data *data, char **args)
+int	exporc(t_data *data, t_lex *args)
 {
-	char	*variable;
-	int		i;
-	int		j;
-	char	quote;
-	
-	variable = malloc(ft_strlen(args[0]) - 1);
-	if (!variable)
-		free_all_and_exit(data, "malloc");
-	i = 0;
-	j = 0;
-	while (args[0][i] && args[0][i] != ' ')
+	t_lex	*element;
+
+	element = ft_lstnew_lex(ft_strdup(args->str));
+	if (!element || !element->str)
 	{
-		if (args[0][i] == '\"' || args[0][i] != '\'')
-		{
-			quote = args[0][i];
-			i++;
-			while (args[0][i] && args[0][i] != quote && args[0][i] != ' ')
-			{
-				variable[j] = args[0][i];
-				i++;
-				j++;
-			}
-			if (!args[0][i] || args[0][i] == ' ')
-			{
-				// g_exit_status = ?;
-				free(variable);
-				printf("ERROR\n");
-				return (0);
-			}
-		}
-		variable[j] = args[0][i];
-		i++;
-		j++;
+		// g_exit_status = ?; //code d'erreur a definir
+		return (0);
 	}
-	ft_lstadd_back_lex(&data->env, ft_lstnew_lex(variable));
-	free(variable);
+	// ft_lstprint_lex(data->env);
+	// printf("==================================================\n");
+	ft_lstadd_back_lex(&data->env, ft_lstnew_lex(ft_strdup(args->str)));
+	// env(data);
+	// env(data);
+	// ft_lstadd_back_lex(&data->start_env, NULL);
 	return (1);
 }
