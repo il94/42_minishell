@@ -32,7 +32,7 @@ void	minishell(t_data *data)
 			{
 				lexer(data);
 				print_cmd(data->commands, "PARENT");
-				parser(data);
+				//parser(data);
 			}
 			g_exit_status = 0;
 		}

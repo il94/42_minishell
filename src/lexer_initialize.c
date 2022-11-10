@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_initialize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
 /*   Updated: 2022/11/07 16:12:55 by ilandols         ###   ########.fr       */
