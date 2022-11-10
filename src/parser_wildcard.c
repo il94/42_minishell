@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/07 16:15:02 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/10 14:43:12 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	verif_err(t_data *data, t_lex *head_paths, \
 		ft_printf("invalid path\n");
 }
 
-t_lex	*wildiwonkard(t_data *data, char *path)
+t_lex	*wildiwonkard(t_data *data, t_lex *path)
 {
 	int		err;
 	t_lex	*head_paths;
@@ -93,9 +93,9 @@ t_lex	*wildiwonkard(t_data *data, char *path)
 
 	err = 1;
 	head_lst = NULL;
-	if (!is_there_wildcard(path) || !path)
+	if (!path || !path->str || !is_there_wildcard(path->str))
 		return (NULL);
-	paths = ft_lstnew_lex(ft_strdup(path));
+	paths = path;
 	head_paths = paths;
 	if (!paths || !paths->str)
 		clear_wildi(data, head_paths, head_lst, 1);

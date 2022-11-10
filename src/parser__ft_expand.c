@@ -6,23 +6,25 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/08 14:01:12 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/10 15:51:31 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*cut_there(char *str, *index)
+char	*cut_there(char *str, int start, int end)
 {
 	char	*cuted;
 	int		i;
 
-	cuted = malloc((index + 1) * sizeof(char));
+	if (!str[start] || !str[end])
+		return (NULL);
+	cuted = malloc(((end - start) + 1) * sizeof(char));
 	if (!cuted)
 		return (NULL);
 	i = -1;
-	while (++i < index)
-		cuted[i] = str[i];
+	while (++i < (end - start))
+		cuted[i] = str[start + i];
 	cuted[i] = '\0';
 	return (cuted);
 }
@@ -31,18 +33,22 @@ t_lex	*split_str(t_data *data, char *str)
 {
 	t_lex	*lst;
 	t_lex	*new;
-	int		i;
+	int		start;
+	int		end;
 
-	i = -1;
+	start = 0;
+	end = -1;
 	lst = NULL;
-	while (str[++i])
+	printf("%s salut\n", str);
+	while (str[++end])
 	{
-		if (str[i] == ' ' && !is_in_quotes(str, &str[i]))
+		if ((str[end] == ' ' || !str[end + 1]) && !is_in_quotes(str, &str[end]))
 		{
-			new = ft_lstnew_lex(cut_there(str, i));
-			if (!new || new->str)
+			new = ft_lstnew_lex(cut_there(str, start, end));
+			start = end + 1;
+			if (!new || !new->str)
 			{
-				ft_lstclear_lex(lst);
+				ft_lstclear_lex(&lst);
 				free(str);
 				free_all_and_exit(data, "malloc");
 			}
@@ -60,14 +66,14 @@ t_lex	*ft_expand(t_data *data, char *str)
 	if (!is_there_el_outside_quotes(str, '$'))
 		return (NULL);
 	expanded = check_expand(data, str, 0, 0);
-	free(str);
+	//free(str);
 	lst = split_str(data, expanded);
 	if (!lst)
 	{
 		lst = ft_lstnew_lex(expanded);
 		if (!lst)
 		{
-			free(expand);
+			free(expanded);
 			free_all_and_exit(data, "malloc");
 		}
 	}
