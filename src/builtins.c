@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/10 16:03:57 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:06:09 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ int	cd(t_lex *args)
 
 int	pwd(t_lex *args)
 {
-	ft_printf("%s\n", getcwd(NULL, 0));
+	char	*str;
+
+	str = getcwd(NULL, 0);
+	ft_printf("%s\n", str);
+	free(str);
 	return (0);
 }
 

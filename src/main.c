@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/10 20:28:18 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 14:27:56 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	g_exit_status;
 void	minishell_test(t_data *data, char **av)
 {
 	t_lex	*new;
+	t_lex	*lst;
+
 	while (1)
 	{
 		data->prompt = readline("minishellent> ");
@@ -50,10 +52,14 @@ void	minishell_test(t_data *data, char **av)
 			else if (ft_strchr(data->prompt, '*'))
 			{
 				new = ft_lstnew_lex(ft_strdup(data->prompt));
-				new = ft_wildcard(data, new);
-				ft_lstprint_lex(new);
-				if (new)
-					free_lexer_struct(&new);
+				lst = ft_wildcard(data, new);
+				if (lst)
+				{
+					ft_lstprint_lex(lst);
+					free_lexer_struct(&lst);
+				}
+				/*else if (new)
+					free_lexer_struct(&new);*/
 			}
 			g_exit_status = 0;
 		}

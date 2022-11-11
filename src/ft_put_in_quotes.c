@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 22:57:27 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/06 23:19:57 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 14:30:07 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*put_in_quotes(char *name, int i, int j, int quotes)
 	char	*rvalue;
 
 	rvalue = malloc((ft_strlen(name) + \
-		(nb_spe_char(name) * 2)) * sizeof(char));
+		(nb_spe_char(name) * 2) + 1) * sizeof(char));
 	if (!rvalue)
 		return (NULL);
 	while (name[++i])

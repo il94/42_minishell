@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:50:11 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/06 22:52:24 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 14:57:50 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	is_in_star(t_lex **to_find, int quotes, int *in_star, int *index)
 {
 	if (*to_find && !ft_strcmp((*to_find)->str, "*") && !quotes)
 	{
-		*to_find = (*to_find)->next;
+		while (*to_find && !ft_strcmp((*to_find)->str, "*"))
+			*to_find = (*to_find)->next;
 		*in_star = 1;
 		(*index)--;
 		return (1);
