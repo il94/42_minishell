@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:14:05 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/08 13:02:43 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 22:59:03 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 	si entre simple quotes on fait rien
 	*/
 
-char	*check_str(t_data *data, char *str)
-{
-	char	*new_str;
+// char	*check_str(t_data *data, char *str)
+// {
+// 	char	*new_str;
 
-	if (!str)
-		return (NULL);
-	new_str = NULL;
-	if (ft_strchr(str, '$'))
-		new_str = check_expand(data, str, 0, 0);
-}
+// 	if (!str)
+// 		return (NULL);
+// 	new_str = NULL;
+// 	if (ft_strchr(str, '$'))
+// 		new_str = check_expand(data, str, 0, 0);
+// }
 /*
 void	parser(t_data *data)
 {

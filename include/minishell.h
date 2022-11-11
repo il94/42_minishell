@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/08 18:27:06 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/11 22:58:22 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_lex	*find_occurrences(t_lex *paths, int *err);
 int		aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star);
 
 /*expand*/
-char	*check_expand(t_data *data, char *str, int quotes, int index);
+char	*check_expand(t_data *data, char **str, int quotes, int index);
 char	*expand(char *to_find, t_lex *env);
 
 /* parser.c */
