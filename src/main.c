@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/11 14:27:56 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:03:53 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ void	minishell_test(t_data *data, char **av)
 				}
 				/*else if (new)
 					free_lexer_struct(&new);*/
+			}
+			else if (ft_strchr(data->prompt, '$'))
+			{
+				new = ft_expand(data, ft_strdup(data->prompt));
+				if (new)
+				{
+					ft_lstprint_lex(new);
+					free_lexer_struct(&new);
+				}
 			}
 			g_exit_status = 0;
 		}

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:39 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/06 23:27:12 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 16:09:53 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ char	*expand(char *to_find, t_lex *env)
 			env = env->next;
 	if (env)
 		return (env->str + ft_strlen(to_find) + 1);
-	return (ft_strdup("\0"));
+	return (NULL);
 }

@@ -2,6 +2,8 @@
 
 <h2 align="center">NOTES</h2>
 
+	"$var" = marche pas
+	$"salut"
 	Token "<>"
 	
 	Gerer parenthese vides
