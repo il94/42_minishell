@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/11 16:49:49 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:21:56 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*add_unsuspect_char(char *last, char *next, int *index, int *quotes)
 	}
 	new[index_new] = '\0';
 	rvalue = ft_strjoin(last, new);
+	printf("test %s\n", rvalue);
 	free(new);
 	if (!rvalue)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/11 17:03:47 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:14:44 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ t_lex	*ft_expand(t_data *data, char *str)
 	t_lex	*lst;
 	char	*expanded;
 
-	if (!is_there_el_outside_quotes(str, '$'))
+	if (!ft_strchr(data->prompt, '$'))
 		return (NULL);
 	expanded = check_expand(data, str, 0, 0);
-
+	printf("sdf %s safd\n", expanded);
 	lst = split_str(data, expanded);
 	if (!lst)
 	{
