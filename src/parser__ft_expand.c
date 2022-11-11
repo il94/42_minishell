@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/11 17:14:44 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/11 23:00:48 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,16 @@ t_lex	*ft_expand(t_data *data, char *str)
 	t_lex	*lst;
 	char	*expanded;
 
-	if (!ft_strchr(data->prompt, '$'))
+	if (!str || !ft_strchr(str, '$'))
 		return (NULL);
-	expanded = check_expand(data, str, 0, 0);
-	printf("sdf %s safd\n", expanded);
+	expanded = check_expand(data, &str, 0, 0);
+	if (str)
+		free(str);
 	lst = split_str(data, expanded);
 	if (!lst)
 	{
-		lst = ft_lstnew_lex(expanded);
-		if (!lst)
+		lst = ft_lstnew_lex(ft_strdup(expanded));
+		if (!lst || !lst->str)
 		{
 			if (expanded)
 				free(expanded);
