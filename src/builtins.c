@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/11 15:06:09 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/12 17:09:31 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ en ayant pour case[0] le premier argument. Donc pour "ls -a", args[0] == -a.*/
 
 /* Faire gaffe au code d'erreur, a bien retourner dans le parent si on est dans
 un child et aussi si on retourne 1 ou 0*/
+
+/*code d'erreur set a 0 par defaut*/
 
 int	echo(t_lex *args) //cas d'erreurs : syntax error donc a gerer avant
 {
@@ -80,16 +82,27 @@ int	env(t_data *data)
 int	exporc(t_data *data, t_lex *args)
 {
 	t_lex	*element;
+	int		i;
 
+	i = 0;
+	while (args->str[i] && args->str[i] != '=')
+		i++;
+	if (!args->str[i])
+		return (1);
 	element = ft_lstnew_lex(ft_strdup(args->str));
 	if (!element || !element->str)
 	{
 		// g_exit_status = ?; //code d'erreur a definir
 		return (0);
 	}
+	if (!ft_lststrncmp_lex(data->env, element->str, i))
+	{
+		printf("addr elem = %p\naddr comp = \n", ft_lststrncmp_lex(data->env, element->str, i));
+		ft_lstdelone_lex(ft_lststrncmp_lex(data->env, element->str, i));
+		ft_lstadd_back_lex(&data->env, element);
+	}
 	// ft_lstprint_lex(data->env);
 	// printf("==================================================\n");
-	ft_lstadd_back_lex(&data->env, ft_lstnew_lex(ft_strdup(args->str)));
 	// env(data);
 	// env(data);
 	// ft_lstadd_back_lex(&data->start_env, NULL);
