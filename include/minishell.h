@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/11 22:58:22 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/13 21:48:38 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,26 @@
 
 extern int	g_exit_status;
 
-
-
 /* temp.c */
 void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
 char	*expand(char *to_find, t_lex *env);
+
+/*============================================================================*/
+
+/* builtins_export.c */
+
+int		exporc_normal_mode(t_data *data, t_lex *args, int i);
+int		exporc_append_mode(t_data *data, t_lex *args, int i);
+int		exporc(t_data *data, t_lex *args);
 
 /* builtins.c */
 int		echo(t_lex *args);
 int		cd(t_lex *args);
 int		pwd(t_lex *args);
 int		env(t_data *data);
-int		exporc(t_data *data, t_lex *args);
+
+/*============================================================================*/
 
 /* lexer_utils.c */
 int		concat_element(t_lex **lexer, t_bool is_prev);
@@ -101,6 +108,7 @@ char	*put_in_quotes(char *name, int i, int j, int quotes);
 void	minishell(t_data *data);
 
 /* utils.c */
+void	define_exit_status(char *to_print, int error_code);
 int		is_there_el_outside_quotes(char *str, char el);
 int		is_there_wildcard(char *str);
 int		is_in_quotes(char *start, char *now);

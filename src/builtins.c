@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/12 17:09:31 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/13 21:46:48 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ int	echo(t_lex *args) //cas d'erreurs : syntax error donc a gerer avant
 	}
 	if (!start || (start && ft_strcmp(start->str, "-n")))
 		ft_printf("\n");
-	return (0);		
+	return (1);
 }
-
 
 int	cd(t_lex *args)
 {
@@ -51,11 +50,11 @@ int	cd(t_lex *args)
 	if (args->next)
 	{
 		g_exit_status = 1;
-		ft_printf("ERROR : to many arguments\n");	//paufined
+		ft_printf("ERROR : to many arguments\n");//paufined
 		return (1);
 	}
 	if (!chdir(args->str))
-		return (0);
+		return (1);
 	g_exit_status = 1;
 	perror("chdir");
 	return (1);
@@ -70,41 +69,11 @@ int	pwd(t_lex *args)
 	str = getcwd(NULL, 0);
 	ft_printf("%s\n", str);
 	free(str);
-	return (0);
+	return (1);
 }
 
 int	env(t_data *data)
 {
 	ft_lstprint_lex(data->env);
-	return (0);
-}
-
-int	exporc(t_data *data, t_lex *args)
-{
-	t_lex	*element;
-	int		i;
-
-	i = 0;
-	while (args->str[i] && args->str[i] != '=')
-		i++;
-	if (!args->str[i])
-		return (1);
-	element = ft_lstnew_lex(ft_strdup(args->str));
-	if (!element || !element->str)
-	{
-		// g_exit_status = ?; //code d'erreur a definir
-		return (0);
-	}
-	if (!ft_lststrncmp_lex(data->env, element->str, i))
-	{
-		printf("addr elem = %p\naddr comp = \n", ft_lststrncmp_lex(data->env, element->str, i));
-		ft_lstdelone_lex(ft_lststrncmp_lex(data->env, element->str, i));
-		ft_lstadd_back_lex(&data->env, element);
-	}
-	// ft_lstprint_lex(data->env);
-	// printf("==================================================\n");
-	// env(data);
-	// env(data);
-	// ft_lstadd_back_lex(&data->start_env, NULL);
 	return (1);
 }

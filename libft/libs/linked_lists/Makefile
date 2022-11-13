@@ -41,7 +41,7 @@ SRC = ft_lstnew_cmd.c ft_lstadd_back_cmd.c ft_lstclear_cmd.c \
 		ft_lstnew_lex.c ft_lstadd_back_lex.c ft_lstclear_lex.c \
 		ft_lstsplit_charset_lex.c ft_lstsize_lex.c ft_lstis_correct_lex.c \
 		ft_lstprint_lex.c ft_lstdelone_lex.c ft_lstnew_fd.c ft_lstadd_back_fd.c\
-		ft_array_to_lst_lex.c ft_lststrncmp_lex.c \
+		ft_array_to_lst_lex.c ft_lststrncmp_lex.c ft_lstlast_lex.c \
 
 SRC_UNUSED =  ft_lstadd_front.c  ft_lstlast.c \
 			  ft_lstiter.c \

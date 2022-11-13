@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/11 22:40:12 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/13 18:49:15 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	minishell_test(t_data *data, char **av)
 
 	while (1)
 	{
-		data->prompt = readline("minishellent> ");
+		data->prompt = readline("\x1b[33msalam khey> \x1b[0m");
 		if (!ft_strcmp(data->prompt, "stop"))
 		{
 			free(data->prompt);
@@ -48,7 +48,7 @@ void	minishell_test(t_data *data, char **av)
 			else if (!ft_strncmp(data->prompt, "env", 3))
 				env(data);
 			else if (!ft_strncmp(data->prompt, "export", 6))
-				exporc(data, data->commands->args);
+				printf("CODE = %d\n", exporc(data, data->commands->args));
 			else if (ft_strchr(data->prompt, '*'))
 			{
 				new = ft_lstnew_lex(ft_strdup(data->prompt));

@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcut_left.c                                   :+:      :+:    :+:   */
+/*   ft_lstlast_lex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 17:59:13 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/13 15:35:03 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/21 02:57:18 by ilyes             #+#    #+#             */
+/*   Updated: 2022/11/13 15:06:24 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/linked_lists.h"
 
-char	*ft_strcut_left(char const *s, int c)
+t_lex	*ft_lstlast_lex(t_lex *lst)
 {
-	char	*result;
-	int		i;
+	t_lex	*temp;
 
-	if (!s)
-		return (NULL);
-	result = malloc((ft_strlen(s) + 1) * sizeof(char));
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (s[i] && s[i] != c)
+	if (lst)
 	{
-		result[i] = s[i];
-		i++;
+		temp = lst;
+		while (temp->next)
+			temp = temp->next;
+		return (temp);
 	}
-	result[i] = '\0';
-	return (result);
+	else
+		return (lst);
 }
