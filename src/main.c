@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/13 18:49:15 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/13 22:07:30 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	minishell_test(t_data *data, char **av)
 			else if (!ft_strncmp(data->prompt, "env", 3))
 				env(data);
 			else if (!ft_strncmp(data->prompt, "export", 6))
-				printf("CODE = %d\n", exporc(data, data->commands->args));
+				exporc(data, data->commands->args);
 			else if (ft_strchr(data->prompt, '*'))
 			{
 				new = ft_lstnew_lex(ft_strdup(data->prompt));

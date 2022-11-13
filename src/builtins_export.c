@@ -6,7 +6,7 @@
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:46:50 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/13 21:46:59 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/13 22:37:36 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	exporc(t_data *data, t_lex *args)
 	i = 0;
 	while (args->str[i] && args->str[i] != '=')
 	{
-		if (!ft_isalnum(args->str[i])
-			&& (args->str[i] == '+' && args->str[i + 1] != '='))
+		if ((!ft_isalnum(args->str[i]) && args->str[i] != '+')
+			|| (args->str[i] == '+' && args->str[i + 1] != '='))
 			return (define_exit_status("ERROR\n", 1), 1);
 		i++;
 	}
