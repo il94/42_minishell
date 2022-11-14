@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/14 02:14:33 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 15:36:06 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*cut_there(char *str, int start, int end)
 	if (!cuted)
 		return (NULL);
 	i = -1;
-	while (++i <= (end - start) && str[start + i])
+	while (++i <= (end - start) && str[start + i]
+		&& (&str[start + i] != &str[end] || !str[end + 1]))
 		cuted[i] = str[start + i];
 	cuted[i] = '\0';
 	return (cuted);
@@ -41,7 +42,8 @@ t_lex	*split_str(t_data *data, char *str)
 	lst = NULL;
 	while (str[++end])
 	{
-		if ((str[end] == ' ' || !str[end + 1]) && !is_in_quotes(str, &str[end]))
+		if ((str[end] == ' ' || !str[end + 1])
+			&& (!is_in_quotes(str, &str[end]) || !str[end + 1]))
 		{
 			new = ft_lstnew_lex_dup(cut_there(str, start, end));
 			start = end + 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/14 00:06:14 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 14:49:35 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_lex	*check_str(t_data *data, char *str);
 t_lex	*ft_wildcard(t_data *data, t_lex *path, t_lex *lst_str);
 t_lex	*ft_expand(t_data *data, char *str);
 char	*take_off_quotes(char *str);
+t_lex	*split_str(t_data *data, char *str);
 char	*put_in_quotes(char *name, int i, int j, int quotes);
 //void	parser(t_data *data);
 

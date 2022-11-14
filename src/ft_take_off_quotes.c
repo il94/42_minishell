@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:40:50 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/07 18:32:53 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 15:50:28 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ char	*take_off_quotes(char *str)
 
 	quoteless = malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (!quoteless)
+	{
+		free(str);
 		return (NULL);
+	}
 	put_str_without_quotes(str, quoteless);
 	free(str);
 	return (quoteless);

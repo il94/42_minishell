@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:14:05 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/14 02:15:08 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 16:11:17 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static t_lex	*check_wildcard(t_data *data, t_lex *lst_str)
 	lst = lst_str;
 	while (lst)
 	{
-		if (is_there_wildcard(lst->str))
+		if (ft_strchr(lst->str, '*'))
 		{
 			path = ft_lstnew_lex_dup(ft_strdup(lst->str));
 			if (!path || !path->str)
@@ -95,6 +95,28 @@ static t_lex	*check_wildcard(t_data *data, t_lex *lst_str)
 	return (lst_str);
 }
 
+static t_lex	*take_off_quotes_in_lst(t_data *data, t_lex *lst)
+{
+	t_lex	*tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		if (tmp && tmp->str && ft_strchr(tmp->str, '\'')
+			|| ft_strchr(tmp->str, '\"') && !ft_strchr(tmp->str, '*'))
+		{
+			tmp->str = take_off_quotes(tmp->str);
+			if (!tmp->str)
+			{
+				free_lexer_struct(&lst);
+				free_all_and_exit(data, "malloc");
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (lst);
+}
+
 t_lex	*check_str(t_data *data, char *str)
 {
 	t_lex	*lst_str;
@@ -102,8 +124,14 @@ t_lex	*check_str(t_data *data, char *str)
 	if (!str)
 		return (NULL);
 	lst_str = NULL;
-	/*lst_str = ft_lstsplit_charset_lex("*e", " "); test...*/
 	lst_str = ft_expand(data, str);
+	/*lst_str = ft_lstsplit_charset_lex("*e", " "); test...*/
+	if (!lst_str)
+	{
+		lst_str = split_str(data, str);
+		if (lst_str)
+			free(str);
+	}
 	if (!lst_str && str)
 	{
 		lst_str = ft_lstnew_lex_dup(ft_strdup(str));
@@ -111,6 +139,7 @@ t_lex	*check_str(t_data *data, char *str)
 		if (!lst_str || !lst_str->str)
 			free_all_and_exit(data, "malloc");
 	}
+	lst_str = take_off_quotes_in_lst(data, lst_str);
 	lst_str = check_wildcard(data, lst_str);
 	return (lst_str);
 }

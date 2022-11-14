@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/14 02:18:02 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 16:14:51 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	clear_wildi(t_data *data, t_lex *head_paths, \
 	free_all_and_exit(data, "malloc");
 }
 
-// static void	verif_err(t_data *data, t_lex *head_paths, \
+// static void	verif_err(t_data *data, t_lex *head_paths,
 // 	t_lex *head_lst, int err)
 // {
 // 	if (err == -2)

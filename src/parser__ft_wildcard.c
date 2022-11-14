@@ -6,13 +6,14 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:34:12 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/14 00:40:32 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 16:14:28 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	take_off_quotes_in_lst(t_data *data, t_lex **lst, t_lex **path)
+void	take_off_quotes_in_lst(t_data *data, t_lex **lst, \
+		t_lex **path, t_lex **lst_lst)
 {
 	t_lex	*tmp;
 
@@ -23,6 +24,7 @@ static void	take_off_quotes_in_lst(t_data *data, t_lex **lst, t_lex **path)
 			tmp->str = take_off_quotes(tmp->str);
 		if (!tmp->str)
 		{
+			free_lexer_struct(lst_lst);
 			free_lexer_struct(path);
 			free_lexer_struct(lst);
 			free_all_and_exit(data, "malloc");
@@ -57,10 +59,21 @@ t_lex	*ft_wildcard(t_data *data, t_lex *path, t_lex *lst_str)
 	t_lex	*matches;
 	t_lex	*tmp;
 
+	if (!is_there_wildcard(path->str))
+	{
+		path->str = take_off_quotes(path->str);
+		if (!path->str)
+		{
+			free(path);
+			free_lexer_struct(&lst_str);
+			free_all_and_exit(data, "malloc");
+		}
+		return (path);
+	}
 	matches = wildiwonkard(data, path, lst_str);
 	if (!matches)
 		return (NULL);
-	take_off_quotes_in_lst(data, &matches, &path);
+	take_off_quotes_in_lst(data, &matches, &path, &lst_str);
 	take_off_invalid_matches(&matches);
 	return (matches);
 }

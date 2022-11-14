@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/13 22:07:30 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:36:26 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_exit_status;
 
-/*void	minishell_test(t_data *data, char **av)
+void	minishell_test(t_data *data, char **av)
 {
 	t_lex	*new;
 	t_lex	*lst;
@@ -49,32 +49,20 @@ int	g_exit_status;
 				env(data);
 			else if (!ft_strncmp(data->prompt, "export", 6))
 				exporc(data, data->commands->args);
-			else if (ft_strchr(data->prompt, '*'))
+			else
 			{
-				new = ft_lstnew_lex(ft_strdup(data->prompt));
-				lst = ft_wildcard(data, new);
+				lst = check_str(data, ft_strdup(data->prompt));
 				if (lst)
 				{
 					ft_lstprint_lex(lst);
 					free_lexer_struct(&lst);
-				}
-				else if (new)
-					free_lexer_struct(&new);
-			}
-			else if (ft_strchr(data->prompt, '$'))
-			{
-				new = ft_expand(data, ft_strdup(data->prompt));
-				if (new)
-				{
-					ft_lstprint_lex(new);
-					free_lexer_struct(&new);
 				}
 			}
 			g_exit_status = 0;
 		}
 		free_data_struct(data);
 	}
-}*/
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -82,8 +70,8 @@ int	main(int ac, char **av, char **envp)
 
 	g_exit_status = 0;
 	initialize_data(&data, envp);
-	// minishell(&data);
-	//minishell_test(&data, av);
+	//minishell(&data);
+	minishell_test(&data, av);
 	if (data.start_env)
 		free_lexer_struct(&data.start_env);
 	free_data_struct(&data);
