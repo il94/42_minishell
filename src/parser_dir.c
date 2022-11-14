@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:08:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/06 23:09:12 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 02:16:39 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_lex	*send_dir_content(char *path, int only_dir, int *err)
 				&& ft_strcmp(dir->d_name, ".") && ft_strcmp(dir->d_name, "..")))
 		{
 			name = ft_strdup(dir->d_name);
-			new = ft_lstnew_lex(name);
+			new = ft_lstnew_lex_dup(name);
 			if (!new || !new->str)
 				return (exit_loop(d, &ls, err));
 			ft_lstadd_back_lex(&ls, new);

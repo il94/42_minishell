@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/11 23:00:48 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 02:14:33 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_lex	*split_str(t_data *data, char *str)
 	{
 		if ((str[end] == ' ' || !str[end + 1]) && !is_in_quotes(str, &str[end]))
 		{
-			new = ft_lstnew_lex(cut_there(str, start, end));
+			new = ft_lstnew_lex_dup(cut_there(str, start, end));
 			start = end + 1;
 			if (!new || !new->str)
 			{
@@ -62,7 +62,7 @@ t_lex	*ft_expand(t_data *data, char *str)
 	t_lex	*lst;
 	char	*expanded;
 
-	if (!str || !ft_strchr(str, '$'))
+	if (!str || !ft_strchr(str, '$') || !data->env)
 		return (NULL);
 	expanded = check_expand(data, &str, 0, 0);
 	if (str)
@@ -70,7 +70,7 @@ t_lex	*ft_expand(t_data *data, char *str)
 	lst = split_str(data, expanded);
 	if (!lst)
 	{
-		lst = ft_lstnew_lex(ft_strdup(expanded));
+		lst = ft_lstnew_lex_dup(ft_strdup(expanded));
 		if (!lst || !lst->str)
 		{
 			if (expanded)

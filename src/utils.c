@@ -75,3 +75,8 @@ int	is_there_el_outside_quotes(char *str, char el)
 	}
 	return (0);
 }
+
+// t_lex	*add_lst_to_lst(t_lex *lst, t_lex *to_add)
+// {
+	
+// }

@@ -43,7 +43,7 @@ SRC = main.c initialize.c free_memory.c minishell.c lexer.c lexer_utils.c \
 		parser.c parser_wildcard_utils.c parser_dir_utils.c parser_expand_utils.c\
 		parser_expand.c ft_put_in_quotes.c parser_wildcard_algo.c parser_dir.c\
 		parser__ft_wildcard.c ft_take_off_quotes.c parser__ft_expand.c builtins.c\
-		builtins_export.c \
+		parser_check_str.c builtins_export.c \
 
 #==============================================================================#
 #                                   HEADERS                                    #

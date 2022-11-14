@@ -82,6 +82,7 @@ void		ft_lstclear_cmd(t_cmd **lst);
 void		ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 
 /* for t_lex */
+t_lex		*ft_lstnew_lex_dup(char *str);
 t_lex		*ft_lstnew_lex(char *str);
 void		ft_lstclear_lex(t_lex **lst);
 void		ft_lstadd_back_lex(t_lex **lst, t_lex *new);
@@ -90,6 +91,8 @@ int			ft_lstis_correct_lex(t_lex *lst, int size);
 int			ft_lstsize_lex(t_lex *lst);
 void		ft_lstprint_lex(t_lex *lst);
 void		ft_lstdelone_lex(t_lex *lst);
+t_lex		**first_el(t_lex **lst);
+t_lex		**last_el(t_lex **lst);
 t_lex		*ft_array_to_lst_lex(char **array);
 t_lex		*ft_lststrncmp_lex(t_lex **lst, char *to_find, int n);
 t_lex		*ft_lstlast_lex(t_lex *lst);
