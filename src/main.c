@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/11 22:40:12 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/14 02:03:59 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_exit_status;
 
-void	minishell_test(t_data *data, char **av)
+/*void	minishell_test(t_data *data, char **av)
 {
 	t_lex	*new;
 	t_lex	*lst;
@@ -58,8 +58,8 @@ void	minishell_test(t_data *data, char **av)
 					ft_lstprint_lex(lst);
 					free_lexer_struct(&lst);
 				}
-				/*else if (new)
-					free_lexer_struct(&new);*/
+				else if (new)
+					free_lexer_struct(&new);
 			}
 			else if (ft_strchr(data->prompt, '$'))
 			{
@@ -74,7 +74,7 @@ void	minishell_test(t_data *data, char **av)
 		}
 		free_data_struct(data);
 	}
-}
+}*/
 
 int	main(int ac, char **av, char **envp)
 {
@@ -83,7 +83,7 @@ int	main(int ac, char **av, char **envp)
 	g_exit_status = 0;
 	initialize_data(&data, envp);
 	// minishell(&data);
-	minishell_test(&data, av);
+	//minishell_test(&data, av);
 	if (data.start_env)
 		free_lexer_struct(&data.start_env);
 	free_data_struct(&data);

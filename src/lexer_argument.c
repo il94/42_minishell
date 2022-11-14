@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_argument.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:25:21 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/10 15:58:30 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/14 02:12:50 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	define_argument(t_data *data)
 			temp = temp->prev;
 		if ((get_redi(temp) != NOTHING_R && get_redi(temp) != PIPE_R))
 			return (0);
-		new = ft_lstnew_lex(ft_strdup(data->lexer->str));
+		new = ft_lstnew_lex_dup(ft_strdup(data->lexer->str));
 		if (!new || !new->str)
 			free_all_and_exit(data, "malloc");
 		ft_lstadd_back_lex(&(data->commands->args), new);

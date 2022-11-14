@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/11 17:14:20 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/13 19:36:38 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,8 @@ int	is_there_el_outside_quotes(char *str, char el)
 	}
 	return (0);
 }
+
+// t_lex	*add_lst_to_lst(t_lex *lst, t_lex *to_add)
+// {
+	
+// }
