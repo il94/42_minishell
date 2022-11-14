@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcut_left.c                                   :+:      :+:    :+:   */
+/*   ft_delete_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 17:59:13 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/13 15:35:03 by ilandols         ###   ########.fr       */
+/*   Created: 2022/11/13 16:00:24 by ilandols          #+#    #+#             */
+/*   Updated: 2022/11/13 18:11:12 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-char	*ft_strcut_left(char const *s, int c)
+char	*ft_delete_char(char *str, size_t index)
 {
 	char	*result;
-	int		i;
+	size_t	i;
+	size_t	j;
 
-	if (!s)
+	if (!str)
 		return (NULL);
-	result = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (index >= ft_strlen(str))
+		return (str);
+	result = malloc(ft_strlen(str) * sizeof(char));
 	if (!result)
 		return (NULL);
 	i = 0;
-	while (s[i] && s[i] != c)
+	j = 0;
+	while (str && str[j])
 	{
-		result[i] = s[i];
-		i++;
+		if (j == index)
+			j++;
+		if (!str[j])
+			break ;
+		result[i++] = str[j++];
 	}
 	result[i] = '\0';
 	return (result);

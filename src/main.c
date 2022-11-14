@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/14 02:03:59 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/13 22:07:30 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	g_exit_status;
 
 	while (1)
 	{
-		data->prompt = readline("minishellent> ");
+		data->prompt = readline("\x1b[33msalam khey> \x1b[0m");
 		if (!ft_strcmp(data->prompt, "stop"))
 		{
 			free(data->prompt);

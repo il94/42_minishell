@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/13 19:36:38 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/13 18:50:24 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	define_exit_status(char *to_print, int error_code)
+{
+	if (to_print)
+		printf("%s", to_print);
+	g_exit_status = error_code;
+}
 
 int	is_there(char *str, char in)
 {
