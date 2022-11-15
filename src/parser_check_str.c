@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:14:05 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/15 12:31:00 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:11:08 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ static t_lex	*put_lst_in_lst(t_lex **new, t_lex **curr, int is_last)
 	return (*(first_el(&new_lst)));
 }
 
-static void	add_matches_to_lst(t_lex **lst, t_lex **matches, t_lex **lst_str)
+static void	add_matches_to_lst(t_lex **lst, t_lex **matches, \
+			t_lex **lst_str, int is_last)
 {
 	t_lex	*tmp;
-	int		is_last;
 
 	tmp = *lst;
-	is_last = 0;
 	if (!(*lst)->next)
 	{
 		tmp = (*lst)->prev;
@@ -64,6 +63,8 @@ static void	add_matches_to_lst(t_lex **lst, t_lex **matches, t_lex **lst_str)
 	}
 	(*lst) = tmp;
 	*lst_str = put_lst_in_lst(matches, lst, is_last);
+	if (is_last)
+		(*lst) = NULL;
 }
 
 static t_lex	*check_wildcard(t_data *data, t_lex *lst_str)
@@ -85,7 +86,7 @@ static t_lex	*check_wildcard(t_data *data, t_lex *lst_str)
 			}
 			path_lst = ft_wildcard(data, path, lst_str);
 			if (path_lst)
-				add_matches_to_lst(&lst, &path_lst, &lst_str);
+				add_matches_to_lst(&lst, &path_lst, &lst_str, 0);
 			else
 				lst = lst->next;
 		}
@@ -102,8 +103,8 @@ static t_lex	*take_off_quotes_in_lst(t_data *data, t_lex *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		if (tmp && tmp->str && ft_strchr(tmp->str, '\'')
-			|| ft_strchr(tmp->str, '\"') && !ft_strchr(tmp->str, '*'))
+		if (tmp && tmp->str && (ft_strchr(tmp->str, '\'')
+				|| ft_strchr(tmp->str, '\"')) && !ft_strchr(tmp->str, '*'))
 		{
 			tmp->str = take_off_quotes(tmp->str);
 			if (!tmp->str)
