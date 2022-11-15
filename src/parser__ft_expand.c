@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/14 15:36:06 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/15 12:30:16 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,65 @@ char	*cut_there(char *str, int start, int end)
 {
 	char	*cuted;
 	int		i;
+	int		len;
 
 	if (!str || !str[start] || !str[end])
 		return (NULL);
 	cuted = malloc(((end + 2)) * sizeof(char));
 	if (!cuted)
 		return (NULL);
-	i = -1;
-	while (++i <= (end - start) && str[start + i]
-		&& (&str[start + i] != &str[end] || !str[end + 1]))
+	i = 0;
+	while (&str[start + i] <= &str[end])
+	{
 		cuted[i] = str[start + i];
+		i++;
+	}
 	cuted[i] = '\0';
 	return (cuted);
 }
 
-t_lex	*split_str(t_data *data, char *str)
+t_lex	*create_new_el(char *str, int *start, int *end)
+{
+	t_lex	*new;
+
+	new = NULL;
+	if (!str[(*end) + 1]
+		|| (str[*end] == ' ') && !is_in_quotes(str, &str[*end]))
+	{
+		if ((str[*end] == ' ') && !is_in_quotes(str, &str[*end]))
+			new = ft_lstnew_lex_dup(cut_there(str, *start, (*end) - 1));
+		else
+			new = ft_lstnew_lex_dup(cut_there(str, *start, *end));
+		while (str[(*end) + 1] && str[(*end) + 1] == ' ')
+			(*end)++;
+		*start = (*end) + 1;
+	}
+	return (new);
+}
+
+/*t_lex	*split_str(t_data *data, char *str)
 {
 	t_lex	*lst;
 	t_lex	*new;
 	int		start;
 	int		end;
 
-	start = 0;
-	end = -1;
+	end = 0;
+	while (str[end] && str[end] == ' ')
+		end++;
+	start = end;
 	lst = NULL;
-	while (str[++end])
+	while (str[end])
 	{
-		if ((str[end] == ' ' || !str[end + 1])
-			&& (!is_in_quotes(str, &str[end]) || !str[end + 1]))
+		if (!str[end + 1]
+			|| (str[end] == ' ') && !is_in_quotes(str, &str[end]))
 		{
-			new = ft_lstnew_lex_dup(cut_there(str, start, end));
+			if ((str[end] == ' ') && !is_in_quotes(str, &str[end]))
+				new = ft_lstnew_lex_dup(cut_there(str, start, end - 1));
+			else
+				new = ft_lstnew_lex_dup(cut_there(str, start, end));
+			while (str[end + 1] && str[end + 1] == ' ')
+				end++;
 			start = end + 1;
 			if (!new || !new->str)
 			{
@@ -55,6 +84,43 @@ t_lex	*split_str(t_data *data, char *str)
 			}
 			ft_lstadd_back_lex(&lst, new);
 		}
+		end++;
+	}
+	return (lst);
+}*/
+t_lex	*add_new_el_to_lst(t_data *data, t_lex **new, t_lex **lst, char *str)
+{
+	if (!(*new) || !(*new)->str)
+	{
+		ft_lstclear_lex(lst);
+		free(str);
+		free_all_and_exit(data, "malloc");
+	}
+	ft_lstadd_back_lex(lst, *new);
+}
+
+t_lex	*split_str(t_data *data, char *str)
+{
+	t_lex	*lst;
+	t_lex	*new;
+	int		start;
+	int		end;
+
+	end = 0;
+	while (str[end] && str[end] == ' ')
+		end++;
+	start = end;
+	lst = NULL;
+	new = NULL;
+	while (str[end])
+	{
+		if (!str[end + 1]
+			|| (str[end] == ' ') && !is_in_quotes(str, &str[end]))
+		{
+			new = create_new_el(str, &start, &end);
+			add_new_el_to_lst(data, &new, &lst, str);
+		}
+		end++;
 	}
 	return (lst);
 }
