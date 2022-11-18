@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/15 12:30:16 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 04:08:28 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,11 @@ t_lex	*create_new_el(char *str, int *start, int *end)
 	}
 	return (lst);
 }*/
-t_lex	*add_new_el_to_lst(t_data *data, t_lex **new, t_lex **lst, char *str)
+t_lex	*add_new_el_to_lst(t_data *data, t_lex **new, t_lex **lst)
 {
 	if (!(*new) || !(*new)->str)
 	{
 		ft_lstclear_lex(lst);
-		free(str);
 		free_all_and_exit(data, "malloc");
 	}
 	ft_lstadd_back_lex(lst, *new);
@@ -118,7 +117,7 @@ t_lex	*split_str(t_data *data, char *str)
 			|| (str[end] == ' ') && !is_in_quotes(str, &str[end]))
 		{
 			new = create_new_el(str, &start, &end);
-			add_new_el_to_lst(data, &new, &lst, str);
+			add_new_el_to_lst(data, &new, &lst);
 		}
 		end++;
 	}
@@ -129,12 +128,16 @@ t_lex	*ft_expand(t_data *data, char *str)
 {
 	t_lex	*lst;
 	char	*expanded;
+	char	*dup_str;
 
 	if (!str || !ft_strchr(str, '$') || !data->env)
 		return (NULL);
-	expanded = check_expand(data, &str, 0, 0);
-	if (str)
-		free(str);
+	dup_str = ft_strdup(str);
+	if (!dup_str)
+		free_all_and_exit(data, "malloc");
+	expanded = check_expand(data, &dup_str, 0, 0);
+	if (dup_str)
+		free(dup_str);
 	lst = split_str(data, expanded);
 	if (!lst)
 	{

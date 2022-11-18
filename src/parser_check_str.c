@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:14:05 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/15 13:11:08 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/16 12:05:35 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,15 +128,10 @@ t_lex	*check_str(t_data *data, char *str)
 	lst_str = ft_expand(data, str);
 	/*lst_str = ft_lstsplit_charset_lex("*e", " "); test...*/
 	if (!lst_str)
-	{
 		lst_str = split_str(data, str);
-		if (lst_str)
-			free(str);
-	}
 	if (!lst_str && str)
 	{
 		lst_str = ft_lstnew_lex_dup(ft_strdup(str));
-		free(str);
 		if (!lst_str || !lst_str->str)
 			free_all_and_exit(data, "malloc");
 	}

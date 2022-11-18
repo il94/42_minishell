@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/18 04:37:51 by auzun            ###   ########.fr       */
+/*   Created: 2022/11/16 11:56:55 by auzun             #+#    #+#             */
+/*   Updated: 2022/11/16 11:58:00 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	parser(t_data *data, t_cmd *command)
+int	msg_error(char *err)
 {
-	t_cmd	*cmd;
-
-	cmd = command;
-	if (!data || !cmd || g_exit_status)
-		return ;
-	while (cmd)
-	{
-		parser_input_output(data, cmd);
-		if (g_exit_status)
-			return ; 
-		parser_cmd_arg(data, cmd);
-		if (cmd->child_cmd)
-			parser(data, cmd->child_cmd);
-		cmd = cmd->next;
-	}
+	write(2, err, ft_strlen(err));
+	return (1);
 }
