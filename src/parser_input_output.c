@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:03:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/18 10:49:45 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 13:10:56 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ static void	parsing_file_name(t_data *data, t_fd *file)
 	if (lst->next)
 	{
 		g_exit_status = 1;
+		msg_error("minishell: ");
 		msg_error(file->file);
-		msg_error(": ambiguous redirect");
+		msg_error(": ambiguous redirect\n");
 		ft_lstclear_lex(&lst);
 		return ;
 	}

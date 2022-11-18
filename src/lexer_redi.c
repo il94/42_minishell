@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:36:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/18 13:00:56 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 13:08:16 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	*near_unexpected_token(t_data *data, t_lex *temp, char *token)
 
 static void	*reload_lexer(t_data *data, t_lex *temp)
 {
+	near_unexpected_token(data, temp, "newline");
 	data->lexer = temp;
 	return (NULL);
 }
