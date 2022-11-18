@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:03:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/18 05:06:09 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 10:49:45 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static void	parsing_file_name(t_data *data, t_fd *file)
 	lst = NULL;
 	if (!file)
 		return ;
-	if (file->file && (ft_strchr(file->file, '\"') || ft_strchr(file->file, '\'')
-		|| ft_strchr(file->file, '$') || ft_strchr(file->file, '*')))
+	if (file->file
+		&& (ft_strchr(file->file, '\"') || ft_strchr(file->file, '\'')
+			|| ft_strchr(file->file, '$') || ft_strchr(file->file, '*')))
 		lst = check_str(data, file->file);
 	if (!lst)
 		return ;
@@ -30,11 +31,9 @@ static void	parsing_file_name(t_data *data, t_fd *file)
 		msg_error(file->file);
 		msg_error(": ambiguous redirect");
 		ft_lstclear_lex(&lst);
-		//free_data_struct(data);
 		return ;
 	}
-	else
-		free(file->file);
+	free(file->file);
 	file->file = ft_strdup(lst->str);
 	ft_lstclear_lex(&lst);
 	if (!file->file)

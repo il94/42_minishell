@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/18 04:37:51 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 10:18:17 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parser(t_data *data, t_cmd *command)
 	{
 		parser_input_output(data, cmd);
 		if (g_exit_status)
-			return ; 
+			return ;
 		parser_cmd_arg(data, cmd);
 		if (cmd->child_cmd)
 			parser(data, cmd->child_cmd);

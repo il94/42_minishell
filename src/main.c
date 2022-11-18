@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/18 04:43:19 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 12:38:38 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	minishell_test(t_data *data, char **av)
 			{
 				lexer(data);
 				parser(data, data->commands);
-				print_cmd(data->commands, "PARENT");
+				if (!g_exit_status)
+					print_cmd(data->commands, "PARENT");
 				// parser(data);
 			}
 			if (!ft_strncmp(data->prompt, "echo", 4))

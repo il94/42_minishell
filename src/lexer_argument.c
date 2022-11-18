@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:25:21 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/18 05:23:23 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 11:03:37 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	define_argument(t_data *data)
 
 	if (!data->commands || !data->commands->command)
 		return (0);
-	if (!is_token(data->lexer) && !ft_iswhitespace(data->lexer->str[0]) 
+	if (!is_token(data->lexer) && !ft_iswhitespace(data->lexer->str[0])
 		&& ft_strcmp(data->lexer->str, "(") && ft_strcmp(data->lexer->str, ")"))
 	{
 		temp = data->lexer->prev;

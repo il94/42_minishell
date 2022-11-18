@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:14:05 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/16 12:05:35 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 10:14:53 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ t_lex	*check_str(t_data *data, char *str)
 		return (NULL);
 	lst_str = NULL;
 	lst_str = ft_expand(data, str);
-	/*lst_str = ft_lstsplit_charset_lex("*e", " "); test...*/
 	if (!lst_str)
 		lst_str = split_str(data, str);
 	if (!lst_str && str)
@@ -139,9 +138,3 @@ t_lex	*check_str(t_data *data, char *str)
 	lst_str = check_wildcard(data, lst_str);
 	return (lst_str);
 }
-
-/*
-void	parser(t_data *data)
-{
-	return ;
-}*/

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:21:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/18 04:58:22 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 10:40:41 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_lex	*parsing_cmd(t_data *data, t_cmd *command, char *cmd)
 	if (!cmd)
 		return (NULL);
 	if (cmd && (ft_strchr(cmd, '\"') || ft_strchr(cmd, '\'')
-		|| ft_strchr(cmd, '$') || ft_strchr(cmd, '*')))
+			|| ft_strchr(cmd, '$') || ft_strchr(cmd, '*')))
 		lst = check_str(data, cmd);
 	if (!lst)
 		return (NULL);
@@ -40,7 +40,7 @@ t_lex	*parsing_cmd(t_data *data, t_cmd *command, char *cmd)
 
 static void	add_el_to_arg(t_lex **el, t_lex **cur, t_lex **args)
 {
-	t_lex *tmp;
+	t_lex	*tmp;
 
 	if ((*cur)->prev)
 		(*cur)->prev->next = (*first_el(el));
@@ -61,7 +61,16 @@ static void	add_el_to_arg(t_lex **el, t_lex **cur, t_lex **args)
 	*cur = tmp;
 }
 
-t_lex	*parsing_args(t_data *data, t_cmd *command, t_lex *args, t_lex *before)
+static void	add_before_to_args(t_lex *before, t_lex **args, t_lex **lst)
+{
+	(*args)->prev = (*last_el(&before));
+	(*last_el(&before))->next = *args;
+	*lst = *args;
+	*args = before;
+}
+
+static t_lex	*parsing_args(t_data *data, t_cmd *command, \
+	t_lex *args, t_lex *before)
 {
 	t_lex	*lst;
 	t_lex	*tmp;
@@ -70,23 +79,19 @@ t_lex	*parsing_args(t_data *data, t_cmd *command, t_lex *args, t_lex *before)
 	if (!args && before)
 		return (before);
 	if (before && args)
-	{
-		args->prev = (*last_el(&before));
-		(*last_el(&before))->next = args;
-		lst = args;
-		args = before;
-	}
+		add_before_to_args(before, &args, &lst);
 	else
 		lst = args;
 	tmp_arg = NULL;
 	while (lst)
 	{
-		if (lst && lst->str && (ft_strchr(lst->str, '\"') || ft_strchr(lst->str, '\'')
-			|| ft_strchr(lst->str, '$') || ft_strchr(lst->str, '*')))
+		if (lst && lst->str && (ft_strchr(lst->str, '\"')
+				|| ft_strchr(lst->str, '\'') || ft_strchr(lst->str, '$')
+				|| ft_strchr(lst->str, '*')))
 		{
-				tmp_arg = check_str(data, lst->str);
-				if (tmp_arg)
-					add_el_to_arg(&tmp_arg, &lst, &args);
+			tmp_arg = check_str(data, lst->str);
+			if (tmp_arg)
+				add_el_to_arg(&tmp_arg, &lst, &args);
 		}
 		else
 			lst = lst->next;

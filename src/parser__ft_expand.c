@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/18 04:08:28 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 11:00:56 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,11 @@ t_lex	*create_new_el(char *str, int *start, int *end)
 	}
 	return (lst);
 }*/
-t_lex	*add_new_el_to_lst(t_data *data, t_lex **new, t_lex **lst)
+t_lex	*add_new_el_to_lst(t_data *data, t_lex **new, t_lex **lst, char *str)
 {
 	if (!(*new) || !(*new)->str)
 	{
+		free(str);
 		ft_lstclear_lex(lst);
 		free_all_and_exit(data, "malloc");
 	}
@@ -117,7 +118,7 @@ t_lex	*split_str(t_data *data, char *str)
 			|| (str[end] == ' ') && !is_in_quotes(str, &str[end]))
 		{
 			new = create_new_el(str, &start, &end);
-			add_new_el_to_lst(data, &new, &lst);
+			add_new_el_to_lst(data, &new, &lst, str);
 		}
 		end++;
 	}
@@ -144,8 +145,7 @@ t_lex	*ft_expand(t_data *data, char *str)
 		lst = ft_lstnew_lex_dup(ft_strdup(expanded));
 		if (!lst || !lst->str)
 		{
-			if (expanded)
-				free(expanded);
+			free(expanded);
 			free_all_and_exit(data, "malloc");
 		}
 	}

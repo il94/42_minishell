@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/26 17:57:07 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 12:38:09 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	lexer(t_data *data)
 	{
 		define_delimiter(data);
 		define_redi(data);
+		if (g_exit_status)
+			break;
 		define_argument(data);
 		define_command(data);
 		define_child(data);

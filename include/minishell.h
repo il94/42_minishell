@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/18 04:39:51 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/18 11:48:04 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ void	minishell(t_data *data);
 /* error.c */
 int		msg_error(char *err);
 /* utils.c */
+int		is_there_el_outside_quotes_v2(char *str, char *el);
+int		is_there_v2(char *is, char *there);
 void	define_exit_status(char *to_print, int error_code);
 int		is_there_el_outside_quotes(char *str, char el);
 int		is_there_wildcard(char *str);
