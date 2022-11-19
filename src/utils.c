@@ -6,11 +6,23 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/18 12:35:56 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/19 13:20:59 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char	*get_deli_char(t_deli r)
+{
+	if (r == PIPE_D)
+		return ("|");
+	else if (r == AND)
+		return ("&&");
+	else if (r == OR)
+		return ("||");
+	else
+		return (NULL);
+}
 
 void	define_exit_status(char *to_print, int error_code)
 {

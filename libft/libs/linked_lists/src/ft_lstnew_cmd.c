@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:43:31 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/17 16:35:45 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/19 23:56:18 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ t_cmd	*ft_lstnew_cmd(void)
 	element->child_cmd = NULL;
 	element->next = NULL;
 	element->prev = NULL;
+	element->delimiter = NOTHING_D;
 	return (element);
 }
