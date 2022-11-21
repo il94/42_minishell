@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/15 21:23:44 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:14:02 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,23 @@ void	minishell_test(t_data *data, char **av)
 			if (data->lexer)
 			{
 				lexer(data);
-				print_cmd(data->commands, "PARENT");
+				// print_cmd(data->commands, "PARENT");
 				// parser(data);
 			}
 			if (!ft_strncmp(data->prompt, "echo", 4))
 				echo(data->commands->args);
 			else if (!ft_strncmp(data->prompt, "cd", 2))
-				cd(data->commands->args);
+				cd(data, data->commands->args);
 			else if (!ft_strncmp(data->prompt, "pwd", 3))
 				pwd(data->commands->args);
 			else if (!ft_strncmp(data->prompt, "env", 3))
-				env(data);
+				env(data, data->commands->args);
 			else if (!ft_strncmp(data->prompt, "export", 6))
 				exporc(data, data->commands->args);
+			else if (!ft_strncmp(data->prompt, "unset", 5))
+				unset(data, data->commands->args);
+			else if (!ft_strncmp(data->prompt, "exit", 4))
+				ixit(data, data->commands->args);
 			else
 			{
 				lst = check_str(data, ft_strdup(data->prompt));
@@ -70,7 +74,7 @@ int	main(int ac, char **av, char **envp)
 
 	g_exit_status = 0;
 	initialize_data(&data, envp);
-	//minishell(&data);
+	// minishell(&data);
 	minishell_test(&data, av);
 	if (data.start_env)
 		free_lexer_struct(&data.start_env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/14 14:49:35 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:12:10 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,20 @@ char	*expand(char *to_find, t_lex *env);
 
 /*============================================================================*/
 
-/* builtins_export.c */
-
+/* builtins_env.c */
 int		exporc_normal_mode(t_data *data, t_lex *args, int i);
 int		exporc_append_mode(t_data *data, t_lex *args, int i);
 int		exporc(t_data *data, t_lex *args);
+int		unset(t_data *data, t_lex *args);
 
 /* builtins.c */
+int		echo_detect_n_flag(t_lex *args);
 int		echo(t_lex *args);
-int		cd(t_lex *args);
+void	cd_modify_pwd_values(t_data *data);
+int		cd(t_data *data, t_lex *args);
 int		pwd(t_lex *args);
-int		env(t_data *data);
+int		env(t_data *data, t_lex *args);
+int		ixit(t_data *data, t_lex *args);
 
 /*============================================================================*/
 

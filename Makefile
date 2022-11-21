@@ -1,3 +1,12 @@
+# Compilation flags
+ifeq ($(DMEM),1)
+MEM 		= -fsanitize=address
+endif
+
+ifeq ($(DTHREAD),1)
+MEM 		= -fsanitize=thread
+endif
+
 #==============================================================================#
 #                                   TARGETS                                    #
 #==============================================================================#
@@ -29,51 +38,59 @@ END = \033[0m
 #                                    PATHS                                     #
 #==============================================================================#
 
-SRC_DIR = src
-HEADER_DIR = include
-OBJ_DIR = obj
+SRC_DIR = src/
+HEADER_DIR = include/
+OBJ_DIR = obj/
 
 #==============================================================================#
 #                                   SOURCES                                    #
 #==============================================================================#
 
-SRC = main.c initialize.c free_memory.c minishell.c lexer.c lexer_utils.c \
-		lexer_initialize.c utils.c lexer_delimiter.c lexer_redi.c \
-		lexer_command.c lexer_argument.c lexer_child.c temp.c parser_wildcard.c\
-		parser.c parser_wildcard_utils.c parser_dir_utils.c parser_expand_utils.c\
-		parser_expand.c ft_put_in_quotes.c parser_wildcard_algo.c parser_dir.c\
-		parser__ft_wildcard.c ft_take_off_quotes.c parser__ft_expand.c builtins.c\
-		parser_check_str.c builtins_export.c \
+SRC =	main.c initialize.c free_memory.c minishell.c utils.c temp.c \
+		\
+		lexer/lexer.c lexer/lexer_utils.c lexer/lexer_initialize.c \
+		lexer/lexer_delimiter.c lexer/lexer_redi.c lexer/lexer_command.c \
+		lexer/lexer_argument.c lexer/lexer_child.c \
+		\
+		parser/parser_wildcard.c parser/parser.c parser/parser_wildcard_utils.c \
+		parser/parser_dir_utils.c parser/parser_expand_utils.c \
+		parser/parser_expand.c parser/parser_wildcard_algo.c parser/parser_dir.c \
+		parser/parser__ft_wildcard.c parser/parser__ft_expand.c \
+		parser/parser_check_str.c \
+		\
+		builtins/builtins.c builtins/builtins_env.c \
+		\
+		ft_put_in_quotes.c ft_take_off_quotes.c
 
 #==============================================================================#
 #                                   HEADERS                                    #
 #==============================================================================#
 
 HEAD_NAME = $(HEADER_DIR)/minishell.h
+INC = -I./$(HEADER_DIR)
 
 #==============================================================================#
 #                                   OBJECTS                                    #
 #==============================================================================#
 
-OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
+OBJ = $(addprefix ${OBJ_DIR}, ${SRC:.c=.o})
 
 #==============================================================================#
 #                                   MAKEFILE                                   #
 #==============================================================================#
 
-all : $(OBJ_DIR) $(NAME)
+all : $(NAME)
+
+
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEAD_NAME)
+	mkdir -p ${@D}
+	$(CC) $(DFLAGS) $(MEM) $(INC) -c $< -o $@
 
 $(NAME) : $(OBJ)
 	$(MAKE_SILENT) -C libft
 	echo "$(YELLOW)Making Minishell$(END)"
-	$(CC) $(OBJ) $(INC_LIBFT) -o $(NAME) -lreadline -g
+	$(CC) $(OBJ) $(INC_LIBFT) $(INC) $(MEM) -o $(NAME) -lreadline -g
 	echo "$(GREEN)Done$(END)"
-
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(HEAD_NAME)
-	$(CC) $(DFLAGS) -c $< -o $@
-
-$(OBJ_DIR) :
-	$(MKDIR) $(OBJ_DIR)
 
 clean :
 	$(MAKE_SILENT) fclean -C libft

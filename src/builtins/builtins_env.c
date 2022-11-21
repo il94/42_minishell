@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:46:50 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/13 22:37:36 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/21 16:10:05 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,19 @@ int	exporc(t_data *data, t_lex *args)
 	if (args->str[i - 1] == '+')
 		return (exporc_append_mode(data, args, i));
 	return (exporc_normal_mode(data, args, i));
+}
+
+int	unset(t_data *data, t_lex *args)
+{
+	t_lex	*target;
+	
+	if (!args || !args->str) //si il n'y a pas d'argument, à reverifier
+		return (define_exit_status(NULL, 0), 1);
+	target = NULL;
+	target = ft_lststrncmp_lex(&data->env, args->str, ft_strlen(args->str));
+	if (target && !target->next && !target->prev)
+		ft_lstclear_lex(&data->env);
+	else if (target)
+		ft_lstdelone_lex(target);
+	return (1);
 }
