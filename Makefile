@@ -46,7 +46,8 @@ OBJ_DIR = obj/
 #                                   SOURCES                                    #
 #==============================================================================#
 
-SRC =	main.c initialize.c free_memory.c minishell.c utils.c temp.c \
+SRC =	main.c initialize.c free_memory.c minishell.c utils.c error.c \
+		temp.c \
 		\
 		lexer/lexer.c lexer/lexer_utils.c lexer/lexer_initialize.c \
 		lexer/lexer_delimiter.c lexer/lexer_redi.c lexer/lexer_command.c \
@@ -56,7 +57,8 @@ SRC =	main.c initialize.c free_memory.c minishell.c utils.c temp.c \
 		parser/parser_dir_utils.c parser/parser_expand_utils.c \
 		parser/parser_expand.c parser/parser_wildcard_algo.c parser/parser_dir.c \
 		parser/parser__ft_wildcard.c parser/parser__ft_expand.c \
-		parser/parser_check_str.c \
+		parser/parser_check_str.c parser/parser_cmd_arg.c\
+		parser/parser_input_output.c \
 		\
 		builtins/builtins.c builtins/builtins_env.c \
 		\

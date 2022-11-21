@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:12:10 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/21 16:51:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <dirent.h>
+# include <fcntl.h>
+
 
 extern int	g_exit_status;
 
@@ -100,6 +102,9 @@ char	*check_expand(t_data *data, char **str, int quotes, int index);
 char	*expand(char *to_find, t_lex *env);
 
 /* parser.c */
+void	parser(t_data *data, t_cmd *command);
+void	parser_input_output(t_data *data, t_cmd *cmd);
+void	parser_cmd_arg(t_data *data, t_cmd *cmd);
 t_lex	*check_str(t_data *data, char *str);
 t_lex	*ft_wildcard(t_data *data, t_lex *path, t_lex *lst_str);
 t_lex	*ft_expand(t_data *data, char *str);
@@ -112,7 +117,13 @@ char	*put_in_quotes(char *name, int i, int j, int quotes);
 /* minishell.c */
 void	minishell(t_data *data);
 
+/* error.c */
+int		msg_error(char *err);
+
 /* utils.c */
+char	*get_deli_char(t_deli r);
+int		is_there_el_outside_quotes_v2(char *str, char *el);
+int		is_there_v2(char *is, char *there);
 void	define_exit_status(char *to_print, int error_code);
 int		is_there_el_outside_quotes(char *str, char el);
 int		is_there_wildcard(char *str);

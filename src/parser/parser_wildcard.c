@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_wildcard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/14 16:14:51 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:48:42 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ t_lex	*wildiwonkard(t_data *data, t_lex *path, t_lex *lst_str)
 
 	err = 1;
 	head_lst = NULL;
-	/*if (!path || !path->str || !is_there_wildcard(path->str))
-		return (NULL);*/
 	paths = path;
 	head_paths = paths;
 	if (!paths || !paths->str)

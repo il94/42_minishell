@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser__ft_expand.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/15 12:30:16 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:46:26 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ t_lex	*add_new_el_to_lst(t_data *data, t_lex **new, t_lex **lst, char *str)
 {
 	if (!(*new) || !(*new)->str)
 	{
-		ft_lstclear_lex(lst);
 		free(str);
+		ft_lstclear_lex(lst);
 		free_all_and_exit(data, "malloc");
 	}
 	ft_lstadd_back_lex(lst, *new);
@@ -129,20 +129,23 @@ t_lex	*ft_expand(t_data *data, char *str)
 {
 	t_lex	*lst;
 	char	*expanded;
+	char	*dup_str;
 
 	if (!str || !ft_strchr(str, '$') || !data->env)
 		return (NULL);
-	expanded = check_expand(data, &str, 0, 0);
-	if (str)
-		free(str);
+	dup_str = ft_strdup(str);
+	if (!dup_str)
+		free_all_and_exit(data, "malloc");
+	expanded = check_expand(data, &dup_str, 0, 0);
+	if (dup_str)
+		free(dup_str);
 	lst = split_str(data, expanded);
 	if (!lst)
 	{
 		lst = ft_lstnew_lex_dup(ft_strdup(expanded));
 		if (!lst || !lst->str)
 		{
-			if (expanded)
-				free(expanded);
+			free(expanded);
 			free_all_and_exit(data, "malloc");
 		}
 	}

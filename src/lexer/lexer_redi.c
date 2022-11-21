@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_redi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:36:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/21 17:55:39 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/21 16:45:39 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static void	*near_unexpected_token(t_data *data, t_lex *temp, char *token)
+{
+	msg_error("minishell: syntax error near unexpected token `");
+	msg_error(token);
+	msg_error("'\n");
+	define_exit_status(NULL, 2);
+	data->lexer = temp;
+	return (NULL);
+}
+
+static void	*reload_lexer(t_data *data, t_lex *temp)
+{
+	near_unexpected_token(data, temp, "newline");
+	data->lexer = temp;
+	return (NULL);
+}
 
 char	*find_file(t_data *data)
 {
@@ -23,21 +40,17 @@ char	*find_file(t_data *data)
 	if (r == NOTHING_R || r == PIPE_R)
 		return (NULL);
 	data->lexer = data->lexer->next;
-	while (data->lexer && ft_iswhitespace(*(data->lexer->str))
-		|| is_token(data->lexer))
+	while (data->lexer && (ft_iswhitespace(*(data->lexer->str))
+			|| is_token(data->lexer)
+			|| is_there_el_outside_quotes_v2(data->lexer->str, "()")))
 	{
-		if (data->lexer && is_token(data->lexer))
-		{
-			data->lexer = temp;
-			return (NULL);
-		}
+		if (data->lexer && (is_token(data->lexer)
+				|| is_there_v2("()", data->lexer->str)))
+			return (near_unexpected_token(data, temp, data->lexer->str));
 		data->lexer = data->lexer->next;
 	}
 	if (!data->lexer || !data->lexer->str)
-	{
-		data->lexer = temp;
-		return (NULL);
-	}
+		return (reload_lexer(data, temp));
 	file = ft_strdup(data->lexer->str);
 	if (!file)
 		free_all_and_exit(data, "malloc");

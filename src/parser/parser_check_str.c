@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_check_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:14:05 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/15 13:11:08 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:46:45 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,17 +126,11 @@ t_lex	*check_str(t_data *data, char *str)
 		return (NULL);
 	lst_str = NULL;
 	lst_str = ft_expand(data, str);
-	/*lst_str = ft_lstsplit_charset_lex("*e", " "); test...*/
 	if (!lst_str)
-	{
 		lst_str = split_str(data, str);
-		if (lst_str)
-			free(str);
-	}
 	if (!lst_str && str)
 	{
 		lst_str = ft_lstnew_lex_dup(ft_strdup(str));
-		free(str);
 		if (!lst_str || !lst_str->str)
 			free_all_and_exit(data, "malloc");
 	}
@@ -144,9 +138,3 @@ t_lex	*check_str(t_data *data, char *str)
 	lst_str = check_wildcard(data, lst_str);
 	return (lst_str);
 }
-
-/*
-void	parser(t_data *data)
-{
-	return ;
-}*/

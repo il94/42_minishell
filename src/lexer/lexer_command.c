@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:54:26 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/21 17:54:52 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/21 16:44:43 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	define_command(t_data *data)
 	if (!data->lexer || !data->commands
 		|| (data->commands && data->commands->command))
 		return (0);
-	if (!is_token(data->lexer) && !ft_iswhitespace(data->lexer->str[0]))
+	if (!is_token(data->lexer) && !ft_iswhitespace(data->lexer->str[0])
+		&& ft_strcmp(data->lexer->str, "(") && ft_strcmp(data->lexer->str, ")"))
 	{
 		temp = data->lexer->prev;
 		while (temp && temp->str[0] == ' ')

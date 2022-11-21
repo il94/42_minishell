@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:43:31 by ilyes             #+#    #+#             */
-/*   Updated: 2022/10/17 16:35:45 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:41:17 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ t_cmd	*ft_lstnew_cmd(void)
 	element->child_cmd = NULL;
 	element->next = NULL;
 	element->prev = NULL;
+	element->delimiter = NOTHING_D;
 	return (element);
 }
