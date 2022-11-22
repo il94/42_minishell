@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/22 14:07:58 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:18:48 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	minishell_test(t_data *data, char **av)
 			{
 				lexer(data);
 				parser(data, data->commands);
-				get_all_paths(data);
 				if (!g_exit_status)
 					print_cmd(data->commands, "PARENT");
 			}

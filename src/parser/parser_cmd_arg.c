@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:21:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/21 16:47:19 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:31:09 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	parser_cmd_arg(t_data *data, t_cmd *cmd)
 
 	lst_cmd_arg = NULL;
 	lst_cmd_arg = parsing_cmd(data, cmd, cmd->command);
+	get_all_paths(data);
 	if (cmd->args || lst_cmd_arg)
 		cmd->args = parsing_args(data, cmd, cmd->args, lst_cmd_arg);
 }

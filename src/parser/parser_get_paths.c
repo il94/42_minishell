@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser__get_paths.c                                :+:      :+:    :+:   */
+/*   parser_get_paths.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:11:29 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/22 14:19:43 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:21:10 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,14 @@ void	get_all_paths(t_data *data)
 	i = 0;
 	while (bin_paths && data->commands)
 	{
-		data->commands->command = get_command_path(data->commands->command, bin_paths);
-		if (!data->commands->command)
+		if (data->commands->command)
 		{
-			ft_free_array(bin_paths);
-			free_all_and_exit(data, "malloc");
+			data->commands->command = get_command_path(data->commands->command, bin_paths);
+			if (!data->commands->command)
+			{
+				ft_free_array(bin_paths);
+				free_all_and_exit(data, "malloc");
+			}
 		}
 		data->commands = data->commands->next;
 	}

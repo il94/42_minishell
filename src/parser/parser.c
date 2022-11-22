@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/21 16:46:11 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:34:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	parser(t_data *data, t_cmd *command)
 		parser_cmd_arg(data, cmd);
 		if (cmd->child_cmd)
 			parser(data, cmd->child_cmd);
+		open_files(data, cmd);
 		cmd = cmd->next;
 	}
+	get_all_paths(data);
 }

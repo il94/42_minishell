@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/22 14:11:53 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:54:14 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,13 @@ t_lex	*wildiwonkard(t_data *data, t_lex *path, t_lex *lst_str);
 t_lex	*find_occurrences(t_lex *paths, int *err);
 int		aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star);
 
-/* parser__get_paths.c */
+/* parser_get_paths.c */
 char	*get_command_path(char *path, char **bin_paths);
 char	**get_bin_paths(t_data *data);
 void	get_all_paths(t_data *data);
+
+/* parser_open_files.c */
+void    open_files(t_data *data, t_cmd *cmd);
 
 
 /*expand*/
