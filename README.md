@@ -3,11 +3,10 @@
 <h2 align="center">NOTES</h2>
 
 	Token "<>"
-	on open pas si unexpected token
 	a voir la fonction emptychild
 	()  == unexpected token "("
 	Gerer parenthese vides
-
+	"(" == ERROR
 	
 	Remplacer les "ERROR" par les bons message d'erreur
 

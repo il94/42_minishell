@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_child.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:02:18 by auzun             #+#    #+#             */
-/*   Updated: 2022/10/21 17:54:30 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/22 22:13:27 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int	define_child(t_data *data)
 		while (data->lexer && data->lexer->str[0] != ')')
 		{
 			data->lexer = data->lexer->next;
+			define_child(data);
 			define_delimiter(data);
 			define_redi(data);
 			define_argument(data);
 			define_command(data);
-			define_child(data);
 		}
+		if (data->lexer->str[0] == ')')
+			data->lexer = data->lexer->next;
 		data->commands = current_cmd;
 	}
 	return (0);

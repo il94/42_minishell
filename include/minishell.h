@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/22 16:54:14 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/22 23:07:24 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*check_expand(t_data *data, char **str, int quotes, int index);
 char	*expand(char *to_find, t_lex *env);
 
 /* parser.c */
-void	parser(t_data *data, t_cmd *command);
+void	parser(t_data *data, t_cmd *command, int is_child);
 void	parser_input_output(t_data *data, t_cmd *cmd);
 void	parser_cmd_arg(t_data *data, t_cmd *cmd);
 t_lex	*check_str(t_data *data, char *str);
