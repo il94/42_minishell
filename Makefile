@@ -56,13 +56,13 @@ SRC =	main.c initialize.c free_memory.c minishell.c utils.c error.c \
 		parser/parser_wildcard.c parser/parser.c parser/parser_wildcard_utils.c \
 		parser/parser_dir_utils.c parser/parser_expand_utils.c \
 		parser/parser_expand.c parser/parser_wildcard_algo.c parser/parser_dir.c \
-		parser/parser__ft_wildcard.c parser/parser__ft_expand.c \
-		parser/parser_check_str.c parser/parser_cmd_arg.c\
-		parser/parser_input_output.c \
+		parser/parser_ft_wildcard.c parser/parser_ft_expand.c \
+		parser/parser_check_str.c parser/parser_cmd_arg.c \
+		parser/parser_input_output.c parser/parser_get_paths.c \
+		parser/parser_ft_put_in_quotes.c parser/parser_ft_take_off_quotes.c \
 		\
 		builtins/builtins.c builtins/builtins_env.c \
 		\
-		ft_put_in_quotes.c ft_take_off_quotes.c
 
 #==============================================================================#
 #                                   HEADERS                                    #
