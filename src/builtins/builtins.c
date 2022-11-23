@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:10:21 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:35:26 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@ int	echo(t_lex *args)
 	}
 	while (args && args->str)
 	{
-		ft_printf("%s", args->str);
-		if (args->next)
-			ft_printf(" ");
+		if (args->str[0])
+		{
+			ft_printf("%s", args->str);
+			if (args->next && args->next->str[0])
+				ft_printf(" ");
+		}
 		args = args->next;
 	}
 	if (newline)

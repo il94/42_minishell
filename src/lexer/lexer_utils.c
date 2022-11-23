@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilyes@student.42.fr>             +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:10:33 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/07 15:20:56 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/23 11:12:31 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int	search_closing_parenthese(t_lex *lexer)
 	closed = 0;
 	while (lexer)
 	{
-		if (lexer->str[0] == '(')
+		if (!is_there(QUOTES, lexer->str[0]) && is_there(lexer->str, '('))
 			opened++;
-		if (lexer->str[0] == ')')
+		if (!is_there(QUOTES, lexer->str[0]) && is_there(lexer->str, ')'))
 			closed++;
 		if (closed > opened)
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:45:15 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/23 11:10:30 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,6 @@ int	concat_lexer(t_data *data)
 	int		return_value;
 
 	return_value = 1;
-	if (!search_closing_parenthese(data->lexer))
-	{
-		// g_exit_status = ?;
-		printf("ERROR\n");
-		return (0);
-	}
 	while (data->lexer)
 	{
 		if (!concat_env(&(data->lexer)) || !concat_quotes(&(data->lexer))
@@ -123,5 +117,11 @@ int	concat_lexer(t_data *data)
 		data->lexer = (data->lexer)->next;
 	}
 	data->lexer = data->start_lex;
+	if (!search_closing_parenthese(data->lexer))
+	{
+		// g_exit_status = ?;
+		printf("ERROR\n");
+		return (0);
+	}
 	return (1);
 }

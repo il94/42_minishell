@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/22 23:07:24 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/23 18:23:56 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <fcntl.h>
-
+# include <sys/wait.h>
 
 extern int	g_exit_status;
 
@@ -30,6 +30,8 @@ extern int	g_exit_status;
 void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
 char	*expand(char *to_find, t_lex *env);
+void	replace_sig_int(int signum);
+void	replace_sig_int_heredoc(int signum);
 
 /*============================================================================*/
 
@@ -122,6 +124,8 @@ t_lex	*split_str(t_data *data, char *str);
 char	*put_in_quotes(char *name, int i, int j, int quotes);
 //void	parser(t_data *data);
 
+/* parser_here_doc.c */
+void	generate_here_doc(t_data *data, t_fd *file);
 
 /* minishell.c */
 void	minishell(t_data *data);

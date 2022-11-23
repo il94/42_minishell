@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:12:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:42:59 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:05:19 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void	free_all_and_exit(t_data *data, char *str_error)
 	if (data->start_env)
 		free_lexer_struct(&(data->start_env));
 	if (str_error)
-		perror(str_error);
+	{
+		if (!ft_strcmp(str_error, "exit"))
+			exit (g_exit_status);
+		else
+			perror(str_error);
+	}
 	exit (1);
 }

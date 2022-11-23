@@ -2,11 +2,21 @@
 
 <h2 align="center">NOTES</h2>
 
+(fonction): cannot open directory '.': Stale file handle (si le repertoire dans lequel on est est delete)
+
+	parser--> si operator == herdoc --> file != expand
+	$$
+	$'$'
+	$"$"
+
+builtin export autoriser le _
+		exit = exit aund meme si on a exit "lettre" "code"
 	Token "<>"
 	a voir la fonction emptychild
 	()  == unexpected token "("
 	Gerer parenthese vides
 	"(" == ERROR
+	exit : revoir sorties (erreurs / code)
 	
 	Remplacer les "ERROR" par les bons message d'erreur
 
