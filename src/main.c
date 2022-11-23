@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/23 18:23:56 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:58:33 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	g_exit_status;
 void	replace_sig_int_heredoc(int signum)
 {
 	(void)signum;
-	rl_on_new_line();
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_redisplay();
+	write(2, "\n", 1);
+	close(0);
 	g_exit_status = 130;
 }
 
