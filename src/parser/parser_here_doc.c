@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 06:12:24 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/24 21:54:25 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/24 22:27:13 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static char	*expand_in_hd(t_data *data, char **buffer)
 	g_exit_status = 42;
 	tmp = check_expand(data, buffer, 0, 0);
 	free(*buffer);
-	// tmp = ft_strjoin(tmp, "\n");
-	// if (!tmp)
-	// 	free_all_and_exit(data, "malloc");
+	/*
+	tmp = ft_strjoin(tmp, "\n");
+	if (!tmp)
+		free_all_and_exit(data, "malloc");
+	*/
 	g_exit_status = last_status;
 	return (tmp);
 }
