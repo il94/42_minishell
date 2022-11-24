@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/21 16:48:00 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/24 21:01:08 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,15 @@ char	*check_expand(t_data *data, char **str, int quotes, int n)
 			exit_loop(data, new_str, (*str));
 		if (!(*str)[n])
 			break ;
-		if ((*str)[n] == '$' && ((*str)[n + 1]
-			&& !is_there("\'\"", (*str)[n + 1])) && (!quotes || quotes == '\"'))
+		if ((*str)[n] == '$' && ((*str)[n + 1] && !is_there("\'\" ", (*str)[n + 1]))
+			&& ((!quotes || quotes == '\"') || g_exit_status == 42))
 		{
 			if (!return_env_var(data, &(*str)[n], &n, &tmp))
 				exit_loop(data, new_str, (*str));
 			free((*str));
 			(*str) = tmp;
 		}
-		else if ((*str)[n++] == '$' && !is_there("\'\"", (*str)[n]))
+		else if (/*(*str)[n++] == '$' && !is_there("\'\"", (*str)[n])*/ (*str)[n++] == '$' && (!is_there("\'\"", (*str)[n]) || quotes))
 			dont_expand(data, &new_str);
 	}
 	return (new_str);

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 06:12:24 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/23 21:59:54 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/24 21:54:25 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,26 @@ void	sig_unexpected_eof(char *delimiter)
 	msg_error("')\n");
 }
 
-static void	writing_here_doc(char *delimiter, int fd)
+static char	*expand_in_hd(t_data *data, char **buffer)
+{
+	char	*tmp;
+	int		last_status;
+
+	last_status = g_exit_status;
+	g_exit_status = 42;
+	tmp = check_expand(data, buffer, 0, 0);
+	free(*buffer);
+	// tmp = ft_strjoin(tmp, "\n");
+	// if (!tmp)
+	// 	free_all_and_exit(data, "malloc");
+	g_exit_status = last_status;
+	return (tmp);
+}
+
+static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 {
 	char	*buffer;
+	char	*tmp;
 
 	buffer = NULL;
 	while (1)
@@ -39,6 +56,8 @@ static void	writing_here_doc(char *delimiter, int fd)
 		buffer[ft_strlen(buffer) - 1] = '\0';
 		if (!ft_strcmp(delimiter, buffer))
 			break ;
+		if (ft_strchr(buffer, '$'))
+			buffer = expand_in_hd(data, &buffer);
 		write(fd, buffer, ft_strlen(buffer));
 		free(buffer);
 	}
@@ -55,16 +74,15 @@ void	generate_here_doc(t_data *data, t_fd *file)
 	if (pipe(fd_here_doc) == -1)
 		free_all_and_exit(data, "pipe");
 	file->fd = fd_here_doc[0];
-	// delimiter = ft_strdup(file->file);
 	pid_here_doc = fork();
 	if (pid_here_doc == -1)
 		free_all_and_exit(data, "pipe");
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, sig_int_heredoc_parent);
 	if (pid_here_doc == 0)
 	{
-		signal(SIGINT, replace_sig_int_heredoc);
-		writing_here_doc(file->file, fd_here_doc[1]);
-		close(fd_here_doc[1]);
+		close(fd_here_doc[0]);
+		signal(SIGINT, sig_int_heredoc_child);
+		writing_here_doc(data, file->file, fd_here_doc[1]);
 		free_all_and_exit(data, NULL);
 	}
 	wait(NULL);

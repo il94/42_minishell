@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/22 23:13:10 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/24 21:52:32 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,7 @@ void	parser(t_data *data, t_cmd *command, int is_child)
 		cmd = cmd->next;
 	}
 	open_files(data, command);
+	if (g_exit_status)
+		return ;
 	get_all_paths(data);
 }

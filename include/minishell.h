@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/23 18:23:56 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/24 21:15:37 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
 char	*expand(char *to_find, t_lex *env);
 void	replace_sig_int(int signum);
-void	replace_sig_int_heredoc(int signum);
+void	sig_int_heredoc_child(int signum);
+void	sig_int_heredoc_parent(int signum);
 
 /*============================================================================*/
 

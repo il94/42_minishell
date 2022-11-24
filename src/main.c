@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/23 21:58:33 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/24 21:15:43 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 int	g_exit_status;
 
-void	replace_sig_int_heredoc(int signum)
+void	sig_int_heredoc_child(int signum)
 {
 	(void)signum;
 	write(2, "\n", 1);
 	close(0);
+	g_exit_status = 130;
+}
+
+void	sig_int_heredoc_parent(int signum)
+{
+	(void)signum;
 	g_exit_status = 130;
 }
 
