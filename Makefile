@@ -61,7 +61,8 @@ SRC =	main.c initialize.c free_memory.c minishell.c utils.c error.c \
 		parser/parser_input_output.c parser/parser_get_paths.c \
 		parser/parser_ft_put_in_quotes.c parser/parser_ft_take_off_quotes.c \
 		parser/parser_open_files.c parser/parser_here_doc.c \
-		\
+		parser/parser_pipe.c\
+		exec/exec.c\
 		builtins/builtins.c builtins/builtins_env.c \
 		\
 

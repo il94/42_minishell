@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/24 21:15:37 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/25 17:53:29 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ char	**get_bin_paths(t_data *data);
 void	get_all_paths(t_data *data);
 
 /* parser_open_files.c */
-void    open_files(t_data *data, t_cmd *cmd);
+void	generate_pipe(t_data *data, t_fd *file, t_cmd *cmd);
+void	open_files(t_data *data, t_cmd *cmd);
 
 
 /*expand*/

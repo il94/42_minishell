@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:14:06 by ilandols          #+#    #+#             */
-/*   Updated: 2022/10/27 14:36:49 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/25 17:56:32 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_print_fd(t_fd *fd)
 {
 	while (fd)
 	{
-		printf("[%d] %s | ", fd->operator, fd->file);
+		printf("[%d] {%s} {fd = %d} | ", fd->operator, fd->file, fd->fd);
 		fd = fd->next;
 	}
 }
