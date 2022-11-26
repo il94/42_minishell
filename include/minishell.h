@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/25 23:43:55 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/26 20:16:13 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,28 @@ char	*put_in_quotes(char *name, int i, int j, int quotes);
 
 /* parser_here_doc.c */
 void	generate_here_doc(t_data *data, t_fd *file);
+
+/*exec_redir.c*/
+void	dup2_r_and_w(t_fd *in, t_fd *out);
+void	close_all_fd(t_cmd *command);
+void	close_fd(t_cmd *command);
+int		verif_files_fd (t_fd *in, t_fd *out);
+
+/*exec_wait.c*/
+int		wait_process(t_cmd *commands);
+
+/*exec_builtins.c*/
+int		builtins_parent(t_data *data, t_cmd *cmd);
+int		builtins_child(t_data *data, t_cmd *cmd);
+int		is_builtin(char *cmd);
+
+/*exec_launch_command_utils.c*/
+char	**get_env_in_array(t_data *data);
+char	**get_args_in_array(t_data *data, t_lex *lst_args, char **free_if_l);
+int		check_cmd_and_fds(t_cmd *command);
+
+/*exec_launch_command.c*/
+int	launch_command(t_data *data, t_cmd *command);
 
 /* exec.c */
 void	exec(t_data *data, t_cmd *commands);

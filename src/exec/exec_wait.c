@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   wait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 17:25:42 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 18:27:09 by auzun            ###   ########.fr       */
+/*   Created: 2022/11/26 18:24:02 by auzun             #+#    #+#             */
+/*   Updated: 2022/11/26 19:04:03 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*void	is_builtin(t_data )*/
-
-void	exec(t_data *data, t_cmd *commands)
+int	wait_process(t_cmd *commands)
 {
 	t_cmd	*cmd;
+	int		return_v;
 
+	return_v = 0;
+	if (!commands)
+		return (0);
 	cmd = commands;
 	while (cmd)
 	{
-		if (!launch_command(data, cmd))
-			break ;
+		if (cmd->child_cmd)
+			wait_process(cmd->child_cmd);
+		if (cmd->pid != -42)
+		{
+			//printf("%d\n", cmd->pid);
+			waitpid(cmd->pid, &g_exit_status, 0);
+			if (WIFEXITED(g_exit_status))
+				g_exit_status = WEXITSTATUS(g_exit_status);
+			printf("[%d]\n", g_exit_status);
+			/*if (return_v)
+				return (return_v);*/
+			//printf("exit status is [%d]\n", g_exit_status);
+			cmd->pid = -42;
+		}
 		cmd = cmd->next;
 	}
-	close_fd(commands);
-	wait_process(commands);
+	return (1);
 }
