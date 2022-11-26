@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 21:18:25 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/26 21:32:13 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	green_light(t_data *data, t_cmd *command)
 		signal(SIGINT, SIG_DFL);
 		exec_command(data, command);
 		free_data_struct(data);
-		if (data->start_cmd)
+		if (data->start_env)
 			free_lexer_struct(&(data->start_env));
 		exit (0);
 	}

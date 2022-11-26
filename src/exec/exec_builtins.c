@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:13:17 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 21:14:54 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/26 21:24:25 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	is_builtin(char *cmd)
 
 int	builtins_parent(t_data *data, t_cmd *cmd)
 {
+	if (!cmd->command)
+		return (0);
 	if (!ft_strcmp(cmd->command, "export"))
 		return (exporc(data, cmd->args->next));
 	else if (!ft_strcmp(cmd->command, "unset"))
@@ -46,6 +48,8 @@ int	builtins_parent(t_data *data, t_cmd *cmd)
 
 int	builtins_child(t_data *data, t_cmd *cmd)
 {
+	if (!cmd->command)
+		return (0);
 	if (!ft_strcmp(cmd->command, "env"))
 		return (env(data, cmd->args->next));
 	else if (!ft_strcmp(cmd->command, "pwd"))
