@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/25 17:53:29 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/25 23:43:55 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 extern int	g_exit_status;
 
@@ -128,6 +129,9 @@ char	*put_in_quotes(char *name, int i, int j, int quotes);
 
 /* parser_here_doc.c */
 void	generate_here_doc(t_data *data, t_fd *file);
+
+/* exec.c */
+void	exec(t_data *data, t_cmd *commands);
 
 /* minishell.c */
 void	minishell(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/24 21:15:43 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/25 23:24:35 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,22 @@ void	minishell_test(t_data *data, char **av)
 				parser(data, data->commands, 0);
 				if (!g_exit_status)
 					print_cmd(data->commands, "PARENT");
+				exec(data, data->commands);
 			}
-			if (!ft_strncmp(data->prompt, "echo", 4))
-				echo(data->commands->args);
-			else if (!ft_strncmp(data->prompt, "cd", 2))
-				cd(data, data->commands->args);
-			else if (!ft_strncmp(data->prompt, "pwd", 3))
-				pwd(data->commands->args);
-			else if (!ft_strncmp(data->prompt, "env", 3))
-				env(data, data->commands->args);
-			else if (!ft_strncmp(data->prompt, "export", 6))
-				exporc(data, data->commands->args);
-			else if (!ft_strncmp(data->prompt, "unset", 5))
-				unset(data, data->commands->args);
-			else if (!ft_strncmp(data->prompt, "exit", 4))
-				ixit(data, data->commands->args);
+			// if (!ft_strncmp(data->prompt, "echo", 4))
+			// 	echo(data->commands->args);
+			// else if (!ft_strncmp(data->prompt, "cd", 2))
+			// 	cd(data, data->commands->args);
+			// else if (!ft_strncmp(data->prompt, "pwd", 3))
+			// 	pwd(data->commands->args);
+			// else if (!ft_strncmp(data->prompt, "env", 3))
+			// 	env(data, data->commands->args);
+			// else if (!ft_strncmp(data->prompt, "export", 6))
+			// 	exporc(data, data->commands->args);
+			// else if (!ft_strncmp(data->prompt, "unset", 5))
+			// 	unset(data, data->commands->args);
+			// else if (!ft_strncmp(data->prompt, "exit", 4))
+			// 	ixit(data, data->commands->args);
 			// else if (!ft_strncmp(data->prompt, "boucle", 4))
 			// {
 			// 	signal(SIGINT, SIG_DFL);

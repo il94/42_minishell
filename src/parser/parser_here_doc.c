@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 06:12:24 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/24 22:47:28 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/26 01:14:27 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,20 @@ static char	*expand_in_hd(t_data *data, char **buffer)
 	g_exit_status = 42;
 	tmp = check_expand(data, buffer, 0, 0);
 	free(*buffer);
-	/*
-	tmp = ft_strjoin(tmp, "\n");
-	if (!tmp)
-		free_all_and_exit(data, "malloc");
-	*/
 	g_exit_status = last_status;
 	return (tmp);
+}
+
+static int	len_buf(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (i == 0)
+		return (1);
+	return (i);
 }
 
 static void	writing_here_doc(t_data *data, char *delimiter, int fd)
@@ -55,8 +62,7 @@ static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 			sig_unexpected_eof(delimiter);
 			break ;
 		}
-		buffer[ft_strlen(buffer) - 1] = '\0';
-		if (!ft_strcmp(delimiter, buffer))
+		if (!ft_strncmp(delimiter, buffer, len_buf(buffer)))
 			break ;
 		if (ft_strchr(buffer, '$'))
 			buffer = expand_in_hd(data, &buffer);
