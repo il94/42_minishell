@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:25:42 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/27 14:58:38 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 15:32:07 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static void	exec_loop(t_data *data, t_cmd *commands)
 		if (!launch_command(data, cmd))
 			break ;
 		if (cmd->child_cmd)
-		{
-			printf("\n=========CHILD============\n");
 			exec_loop(data, cmd->child_cmd);
-		}
 		cmd = cmd->next;
 	}
 }
