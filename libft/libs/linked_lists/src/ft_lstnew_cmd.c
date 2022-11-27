@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 15:43:31 by ilyes             #+#    #+#             */
-/*   Updated: 2022/11/21 16:41:17 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/25 19:54:15 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_cmd	*ft_lstnew_cmd(void)
 	element = malloc(sizeof(*element));
 	if (!element)
 		return (NULL);
+	element->pid = -42;
 	element->input = NULL;
 	element->output = NULL;
 	element->command = NULL;

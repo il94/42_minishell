@@ -51,6 +51,7 @@ typedef struct s_lex
 
 typedef struct s_cmd
 {
+	int				pid;
 	t_fd			*input;
 	t_fd			*output;
 	t_deli			delimiter;
@@ -82,6 +83,7 @@ void		ft_lstclear_cmd(t_cmd **lst);
 void		ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 
 /* for t_lex */
+char		**ft_lst_lex_to_array(t_lex *lst_lex);
 t_lex		*ft_lstnew_lex_dup(char *str);
 t_lex		*ft_lstnew_lex(char *str);
 void		ft_lstclear_lex(t_lex **lst);

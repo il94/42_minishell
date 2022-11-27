@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd_arg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:21:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/22 14:31:09 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/26 15:15:14 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,23 @@ static t_lex	*parsing_args(t_data *data, t_cmd *command, \
 void	parser_cmd_arg(t_data *data, t_cmd *cmd)
 {
 	t_lex	*lst_cmd_arg;
+	t_lex	*args_first_el;
 
 	lst_cmd_arg = NULL;
 	lst_cmd_arg = parsing_cmd(data, cmd, cmd->command);
-	get_all_paths(data);
+	if (cmd->command)
+	{
+		args_first_el = ft_lstnew_lex_dup(ft_strdup(cmd->command));
+		if (!args_first_el)
+		{
+			ft_lstclear_lex(&lst_cmd_arg);
+			free_all_and_exit(data, "malloc");
+		}
+		args_first_el->next = cmd->args;
+		if (cmd->args)
+			cmd->args->prev = args_first_el;
+		cmd->args = args_first_el;
+	}
 	if (cmd->args || lst_cmd_arg)
 		cmd->args = parsing_args(data, cmd, cmd->args, lst_cmd_arg);
 }

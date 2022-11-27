@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input_output.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:03:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/22 16:04:20 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/24 20:34:54 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static void	parsing_file_name(t_data *data, t_fd *file)
 	if (!file)
 		return ;
 	if (file->file
-		&& (ft_strchr(file->file, '\"') || ft_strchr(file->file, '\'')
-			|| ft_strchr(file->file, '$') || ft_strchr(file->file, '*')))
+		&& (file->operator != L_DOUBLE_CHEVRON
+			&& (ft_strchr(file->file, '\"') || ft_strchr(file->file, '\'')
+			|| ft_strchr(file->file, '$') || ft_strchr(file->file, '*'))))
 		lst = check_str(data, file->file);
 	if (!lst)
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/23 18:23:56 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/26 23:22:37 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 extern int	g_exit_status;
 
@@ -31,7 +32,8 @@ void	ft_print_fd(t_fd *fd);
 void	print_cmd(t_cmd *commands, char *state);
 char	*expand(char *to_find, t_lex *env);
 void	replace_sig_int(int signum);
-void	replace_sig_int_heredoc(int signum);
+void	sig_int_heredoc_child(int signum);
+void	sig_int_heredoc_parent(int signum);
 
 /*============================================================================*/
 
@@ -105,12 +107,14 @@ char	**get_bin_paths(t_data *data);
 void	get_all_paths(t_data *data);
 
 /* parser_open_files.c */
-void    open_files(t_data *data, t_cmd *cmd);
+void	generate_pipe(t_data *data, t_fd *file, t_cmd *cmd);
+void	open_files(t_data *data, t_cmd *cmd);
 
 
 /*expand*/
 char	*check_expand(t_data *data, char **str, int quotes, int index);
 char	*expand(char *to_find, t_lex *env);
+char	*return_env_var(t_data *data, char *str, int *index, char **tmp);
 
 /* parser.c */
 void	parser(t_data *data, t_cmd *command, int is_child);
@@ -126,6 +130,31 @@ char	*put_in_quotes(char *name, int i, int j, int quotes);
 
 /* parser_here_doc.c */
 void	generate_here_doc(t_data *data, t_fd *file);
+
+/*exec_redir.c*/
+void	dup2_r_and_w(t_fd *in, t_fd *out);
+void	close_all_fd(t_cmd *command);
+void	close_fd(t_cmd *command);
+int		verif_files_fd (t_fd *in, t_fd *out);
+
+/*exec_wait.c*/
+int		wait_process(t_cmd *commands);
+
+/*exec_builtins.c*/
+int		builtins_parent(t_data *data, t_cmd *cmd);
+int		builtins_child(t_data *data, t_cmd *cmd);
+int		is_builtin(char *cmd);
+
+/*exec_launch_command_utils.c*/
+char	**get_env_in_array(t_data *data);
+char	**get_args_in_array(t_data *data, t_lex *lst_args, char **free_if_l);
+int		check_cmd_and_fds(t_cmd *command);
+
+/*exec_launch_command.c*/
+int	launch_command(t_data *data, t_cmd *command);
+
+/* exec.c */
+void	exec(t_data *data, t_cmd *commands);
 
 /* minishell.c */
 void	minishell(t_data *data);

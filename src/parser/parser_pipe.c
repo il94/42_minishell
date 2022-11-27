@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   parser_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 01:35:09 by ilyes             #+#    #+#             */
-/*   Updated: 2022/11/25 18:30:50 by auzun            ###   ########.fr       */
+/*   Created: 2022/11/25 17:42:31 by auzun             #+#    #+#             */
+/*   Updated: 2022/11/25 17:55:07 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linked_lists.h"
+#include "../include/minishell.h"
 
-int	ft_lstsize(t_list *lst)
+void	generate_pipe(t_data *data, t_fd *file, t_cmd *cmd)
 {
-	int	i;
+	int	pipe_fd[2];
 
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
+	if (pipe(pipe_fd) == -1)
+		free_all_and_exit(data, "pipe");
+	file->fd = pipe_fd[1];
+	if (cmd && cmd->next);
+		cmd->next->input->fd = pipe_fd[0];
 }
