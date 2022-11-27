@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/26 23:22:37 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 18:34:31 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <errno.h>
 
 extern int	g_exit_status;
@@ -93,6 +94,7 @@ void	lexer(t_data *data);
 /*============================================================================*/
 
 /*dir utils*/
+int		is_dir(char *path);
 t_lex	*send_dir_content(char *path, int only_dir, int *err);
 char	*concate_paths(char *path, char *finded);
 
@@ -161,6 +163,7 @@ void	minishell(t_data *data);
 
 /* error.c */
 int		msg_error(char *err);
+void	cmd_error(int status, char *cmd);
 
 /* utils.c */
 char	*get_deli_char(t_deli r);

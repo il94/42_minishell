@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/27 13:46:44 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 16:09:33 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	exec_command(t_data *data, t_cmd *command)
 	{
 		envp = get_env_in_array(data);
 		args = get_args_in_array(data, command->args, envp);
-		execve(command->command, args, envp);
+		if (execve(command->command, args, envp))
+			cmd_error(errno, command->command);
 		if (envp)
 			ft_free_array(envp);
 		ft_free_array(args);

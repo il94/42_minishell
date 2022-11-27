@@ -6,37 +6,58 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:24:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/25 17:54:19 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 18:57:09 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void open_files_loop(t_data *data, t_fd *lst_file, \
+static int	open_file(t_data *data, t_fd *file, \
 	 int is_output, t_cmd *cmd)
 {
-	t_fd *lst;  
+	if (file->operator == L_CHEVRON)
+			file->fd = open(file->file, O_RDONLY, 0644);
+	else if (file->operator == L_DOUBLE_CHEVRON)
+	{
+		generate_here_doc(data, file);
+		if (g_exit_status)
+			return (1);
+	}
+	else if(file->operator == PIPE_D && is_output)
+		generate_pipe(data, file, cmd);
+	else if (file->operator == R_CHEVRON)
+		file->fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (file->operator == R_DOUBLE_CHEVRON)
+		file->fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (file->file && file->fd < 0)
+	{
+		msg_error("minishell: ");
+		perror(file->file);
+		return (0);
+	}
+	return (2);
+}
+
+static int	open_files_loop(t_data *data, t_fd *lst_file, \
+	 int is_output, t_cmd *cmd)
+{
+	t_fd	*lst;
+	int		is_opened;
+
 	lst = lst_file;
 	while (lst)
 	{
-		if (lst->operator == L_CHEVRON)
-			lst->fd = open(lst->file, O_RDONLY, 0644);
-	   	else if (lst->operator == L_DOUBLE_CHEVRON)
+		if (lst->file && is_output && is_dir(lst->file))
 		{
-			generate_here_doc(data, lst);
-			if (g_exit_status)
-				return ;
+			cmd_error(126, lst->file);
+			return (0);
 		}
-		else if(lst->operator == PIPE_D && is_output)
-			generate_pipe(data, lst, cmd);
-		else if (lst->operator == R_CHEVRON)
-			lst->fd = open(lst->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (lst->operator == R_DOUBLE_CHEVRON)
-			lst->fd = open(lst->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (lst->file && lst->fd < 0)
-			perror(lst->file);
+		is_opened = open_file(data, lst, is_output, cmd);
+		if (is_opened != 2)
+			return (is_opened);
 		lst = lst->next;
 	}
+	return (1);
 }
 
 void	open_files(t_data *data, t_cmd *cmd)
@@ -46,14 +67,15 @@ void	open_files(t_data *data, t_cmd *cmd)
 	lst_cmd = cmd;
 	while (lst_cmd)
 	{
-		if (lst_cmd->input)
-			open_files_loop(data, lst_cmd->input, 0, lst_cmd);
+		if (lst_cmd->input && !open_files_loop(data, lst_cmd->input, 0, lst_cmd))
+			lst_cmd = lst_cmd->next;
 		if (g_exit_status)
 			return ;
-		if (lst_cmd->output)
+		if (lst_cmd && lst_cmd->output)
 			open_files_loop(data, lst_cmd->output, 1, lst_cmd);
 		if (g_exit_status)
 			return ;
-		lst_cmd = lst_cmd->next;
+		if (lst_cmd)
+			lst_cmd = lst_cmd->next;
 	}
 }

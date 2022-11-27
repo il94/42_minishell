@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:14:06 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/25 23:27:54 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 17:39:49 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_cmd(t_cmd *commands, char *state)
 	}
 	if (commands->command)
 	{		
-		printf("Command = %s", commands->command);
+		printf("Command = [%s]", commands->command);
 		printf("\npid = %d", commands->pid);
 		printf("\n-----\n");
 	}

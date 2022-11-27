@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:56:35 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/27 18:34:15 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,15 @@ int	is_there_el_outside_quotes_v2(char *str, char *el)
 		i++;
 	}
 	return (0);
+}
+
+int	is_dir(char *path)
+{
+	struct stat	statbuf;
+
+	if (stat(path, &statbuf) != 0)
+		return (0);
+	return (S_ISDIR(statbuf.st_mode));
 }
 
 // t_lex	*add_lst_to_lst(t_lex *lst, t_lex *to_add)
