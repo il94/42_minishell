@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 21:32:13 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 00:51:40 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ int	red_light(t_data *data, t_cmd *command)
 		if (g_exit_status && command->prev->delimiter == AND)
 			return (1);
 		else if (!g_exit_status && command->prev->delimiter == OR)
-				return (1);
+		{
+			printf("ssadddddddddddt\n");
+			return (1);
+		}
+		else if (g_exit_status && command->prev->delimiter == OR)
+			g_exit_status = 0;
 	}
 	return (0);
 }
@@ -60,7 +65,7 @@ void	green_light(t_data *data, t_cmd *command)
 		free_data_struct(data);
 		if (data->start_env)
 			free_lexer_struct(&(data->start_env));
-		exit (0);
+		exit (g_exit_status);
 	}
 	else
 		builtins_parent(data, command);

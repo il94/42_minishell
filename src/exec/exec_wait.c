@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait.c                                             :+:      :+:    :+:   */
+/*   exec_wait.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:24:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 19:04:03 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 00:42:49 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	wait_process(t_cmd *commands)
 {
 	t_cmd	*cmd;
-	int		return_v;
+	int		status_code;
+	int		wstatus;
 
-	return_v = 0;
 	if (!commands)
 		return (0);
 	cmd = commands;
@@ -28,9 +28,11 @@ int	wait_process(t_cmd *commands)
 		if (cmd->pid != -42)
 		{
 			//printf("%d\n", cmd->pid);
-			waitpid(cmd->pid, &g_exit_status, 0);
-			if (WIFEXITED(g_exit_status))
-				g_exit_status = WEXITSTATUS(g_exit_status);
+			waitpid(cmd->pid, &wstatus, 0);
+			if (WIFEXITED(wstatus))
+				status_code = WEXITSTATUS(wstatus);
+			if (status_code != 0)
+				g_exit_status = status_code;
 			printf("[%d]\n", g_exit_status);
 			/*if (return_v)
 				return (return_v);*/

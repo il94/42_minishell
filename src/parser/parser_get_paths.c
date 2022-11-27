@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:11:29 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/26 20:32:00 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/26 23:23:14 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,34 @@ char	**get_bin_paths(t_data *data)
 	return (bin_paths);
 }
 
-void	get_all_paths(t_data *data)
+static void	get_paths(t_data *data, t_cmd *command, char **bin_paths)
 {
-	char	**bin_paths;
-	int		i;
+	t_cmd	*cmd;
 
-	bin_paths = get_bin_paths(data);
-	i = 0;
-	while (bin_paths && data->commands)
+	cmd = command;
+	while (bin_paths && cmd)
 	{
-		if (data->commands->command && !is_builtin(data->commands->command))
+		if (cmd->child_cmd)
+			get_paths(data, cmd->child_cmd, bin_paths);
+		if (cmd->command && !is_builtin(cmd->command))
 		{
-			data->commands->command = get_command_path(data->commands->command, bin_paths);
-			if (!data->commands->command)
+			cmd->command = get_command_path(cmd->command, bin_paths);
+			if (!cmd->command)
 			{
 				ft_free_array(bin_paths);
 				free_all_and_exit(data, "malloc");
 			}
 		}
-		data->commands = data->commands->next;
+		cmd = cmd->next;
 	}
-	data->commands = data->start_cmd;
+}
+
+void	get_all_paths(t_data *data)
+{
+	char	**bin_paths;
+
+	bin_paths = get_bin_paths(data);
+	get_paths(data, data->start_cmd, bin_paths);
 	if (bin_paths)
 		ft_free_array(bin_paths);
 }
