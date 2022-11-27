@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/27 16:09:33 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 19:52:55 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	exec_command(t_data *data, t_cmd *command)
 	char	**args;
 	char	**envp;
 
-	if (!check_cmd_and_fds(command))
+	if (!check_cmd_and_fds(data, command))
 		return ;
 	dup2_r_and_w(command->input, command->output);
 	close_all_fd(data->commands);

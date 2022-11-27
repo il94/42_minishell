@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:52:30 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 23:41:18 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 20:15:15 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,33 @@ char	**get_args_in_array(t_data *data, t_lex *lst_args, char **free_if_l)
 	return (args);
 }
 
-int	check_cmd_and_fds(t_cmd *command)
+static int	check_cmd(t_data *data, t_cmd *cmd)
+{
+	t_lex	*bin_paths;
+
+	if (is_builtin(cmd->command))
+		return (1);
+	bin_paths = ft_lststrncmp_lex(&data->env, "PATH=", 5);
+	if(cmd->command && !ft_strcmp(cmd->command, "."))
+		g_exit_status = 2;
+	else if (bin_paths && cmd->command && !ft_strcmp(cmd->command, ".."))
+		g_exit_status = 2;
+	else if (cmd->command && is_dir(cmd->command))
+		g_exit_status = 126;
+	else if (cmd->command && bin_paths
+			&& (!ft_strchr(cmd->command, '/')
+				|| access(cmd->command, X_OK)))
+			g_exit_status = 127;
+	else if(cmd->command && !bin_paths
+			&& (!ft_strchr(cmd->command, '/')
+				|| access(cmd->command, X_OK)))
+			g_exit_status = 1;
+	else
+		return (1);
+	return (0);
+}
+
+int	check_cmd_and_fds(t_data *data, t_cmd *command)
 {
 	if (!verif_files_fd(command->input, command->output))
 	{
@@ -48,12 +74,7 @@ int	check_cmd_and_fds(t_cmd *command)
 	}
 	if (!command->command)
 		return (0);
-	if ( !is_builtin(command->command)
-		&& (!ft_strchr(command->command, '/')
-			|| access(command->command, X_OK)))
-	{
-		g_exit_status = 127;
+	if (!check_cmd(data, command))
 		return (0);
-	}
 	return (1);
 }

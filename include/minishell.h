@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/27 18:34:31 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 19:52:38 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int		is_builtin(char *cmd);
 /*exec_launch_command_utils.c*/
 char	**get_env_in_array(t_data *data);
 char	**get_args_in_array(t_data *data, t_lex *lst_args, char **free_if_l);
-int		check_cmd_and_fds(t_cmd *command);
+int		check_cmd_and_fds(t_data *data, t_cmd *command);
 
 /*exec_launch_command.c*/
 int	launch_command(t_data *data, t_cmd *command);

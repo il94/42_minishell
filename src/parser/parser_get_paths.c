@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:11:29 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/27 18:40:36 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/27 20:08:25 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,12 @@ static void	verif_paths(t_cmd *command, char **bin_paths)
 		else if (cmd->command && is_dir(cmd->command))
 			cmd_error(126, cmd->command);
 		else if (cmd->command && bin_paths
-			&& access(cmd->command, X_OK))
+			&& (!ft_strchr(cmd->command, '/')
+				|| access(cmd->command, X_OK)))
 			cmd_error(127, cmd->command);
 		else if(cmd->command && !bin_paths
-			&& access(cmd->command, X_OK))
+			&& (!ft_strchr(cmd->command, '/')
+				|| access(cmd->command, X_OK)))
 			cmd_error(1, cmd->command);
 		cmd = cmd->next;
 	}
