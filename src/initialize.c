@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:56:57 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:43:54 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:21:23 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	initialize_data(t_data *data, char **envp)
 {
+	data->prev_exit_status = 0;
 	data->commands = NULL;
 	data->start_cmd = NULL;
 	data->lexer = NULL;

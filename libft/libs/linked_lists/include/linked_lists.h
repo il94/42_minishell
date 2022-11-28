@@ -64,6 +64,7 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
+	int		prev_exit_status;
 	t_cmd	*commands;
 	t_cmd	*start_cmd;
 	t_lex	*lexer;

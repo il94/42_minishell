@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:56:55 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/27 18:01:53 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/28 13:57:43 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	cmd_error(int status, char *cmd)
 	if (status == 127)
 		msg_error(": command not found\n");
 	else if (status == 1)
-		msg_error(": no shuch file or directory\n");
+		msg_error(": no such file or directory\n");
 	else if (status == 2)
 		msg_error(": filename argument required\n");
 	else if (status == 126)
@@ -37,3 +37,4 @@ void	cmd_error(int status, char *cmd)
 		msg_error("\n");
 	}
 }
+

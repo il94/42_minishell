@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:39 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 22:43:49 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/28 15:44:19 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*expand_var(t_data *data, char *var_name, char *var_name_next)
 	e_status = NULL;
 	if (!ft_strcmp(var_name, "?"))
 	{
-		e_status = ft_itoa(g_exit_status);
+		e_status = ft_itoa(data->prev_exit_status);
 		if (!e_status)
 		{
 			free(var_name);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/27 19:52:38 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/28 15:36:14 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	close_fd(t_cmd *command);
 int		verif_files_fd (t_fd *in, t_fd *out);
 
 /*exec_wait.c*/
-int		wait_process(t_cmd *commands);
+int 	wait_process(t_cmd *commands, int *prev_exit_status);
 
 /*exec_builtins.c*/
 int		builtins_parent(t_data *data, t_cmd *cmd);

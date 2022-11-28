@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:25:42 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/27 20:17:09 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/28 15:39:11 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	exec(t_data *data, t_cmd *commands)
 {
 	exec_loop(data, commands);
 	close_fd(commands);
-	wait_process(commands);
-	printf("{%d}\n", g_exit_status);
+	wait_process(commands, &data->prev_exit_status);
+	printf("actuel = {%d}\n", g_exit_status);
+	printf("prev =   {%d}\n", data->prev_exit_status);
 }

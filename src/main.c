@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/27 16:18:25 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/28 16:58:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,16 @@ void	minishell_test(t_data *data, char **av)
 
 	while (1)
 	{
+		data->prev_exit_status = g_exit_status;
+		g_exit_status = 0;
 		data->prompt = readline("\x1b[33msalam khey> \x1b[0m");
+		if (g_exit_status >= 130)
+		{
+			data->prev_exit_status = g_exit_status;
+			g_exit_status = 0;
+		}
 		if (!data->prompt)
 			free_all_and_exit(data, "exit");
-		g_exit_status = 0;
 		if (!ft_strcmp(data->prompt, "stop"))
 		{
 			free(data->prompt);
@@ -66,7 +72,8 @@ void	minishell_test(t_data *data, char **av)
 				parser(data, data->commands, 0);
 				if (!g_exit_status)
 					print_cmd(data->commands, "PARENT");
-				exec(data, data->commands);
+				// if (!g_exit_status)
+					exec(data, data->commands);
 			}
 			// if (!ft_strncmp(data->prompt, "echo", 4))
 			// 	echo(data->commands->args);
@@ -92,6 +99,7 @@ void	minishell_test(t_data *data, char **av)
 			// 	signal(SIGINT, replace_sig_int);
 			// }
 		}
+		
 		free_data_struct(data);
 	}
 }
