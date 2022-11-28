@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_wait.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:24:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/28 16:51:27 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:59:10 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ int	wait_process(t_cmd *commands, int *prev_exit_status)
 			waitpid(cmd->pid, &wstatus, 0);
 			if (WIFEXITED(wstatus))
 				status_code = WEXITSTATUS(wstatus);
-			//if (status_code != 0)
-			g_exit_status = status_code;
+			if (g_exit_status != 130 && g_exit_status != 131)
+				g_exit_status = status_code;
+			printf("wt = {%d}\n", g_exit_status);
 			cmd->pid = -42;
 		}
 		if (cmd->child_cmd)

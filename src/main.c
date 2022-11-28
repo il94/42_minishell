@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/28 16:58:55 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:45:27 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	g_exit_status;
+
+void	replace_sig_quit(int signum)
+{
+	(void)signum;
+	g_exit_status = 131;
+	msg_error("Quit (core dumped)\n");
+}
 
 void	sig_int_heredoc_child(int signum)
 {

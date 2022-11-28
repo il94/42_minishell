@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/28 15:36:14 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/28 19:55:57 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*expand(char *to_find, t_lex *env);
 void	replace_sig_int(int signum);
 void	sig_int_heredoc_child(int signum);
 void	sig_int_heredoc_parent(int signum);
+void	replace_sig_quit(int signum);
 
 /*============================================================================*/
 

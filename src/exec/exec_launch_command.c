@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_launch_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/28 15:36:52 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:43:55 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	red_light(t_data *data, t_cmd *command)
 	return (0);
 }
 
+
 void	green_light(t_data *data, t_cmd *command)
 {
 	command->pid = fork();
@@ -58,7 +59,8 @@ void	green_light(t_data *data, t_cmd *command)
 		free_all_and_exit(data, "fork");
 	if (command->pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
+		/*signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);*/
 		exec_command(data, command);
 		free_data_struct(data);
 		if (data->start_env)
