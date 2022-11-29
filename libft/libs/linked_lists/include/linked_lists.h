@@ -99,6 +99,7 @@ t_lex		**last_el(t_lex **lst);
 t_lex		*ft_array_to_lst_lex(char **array);
 t_lex		*ft_lststrncmp_lex(t_lex **lst, char *to_find, int n);
 t_lex		*ft_lstlast_lex(t_lex *lst);
+t_lex		*ft_lststrrncmp_lex(t_lex **lst, char *to_find);
 
 // void		ft_lstadd_front(t_list **lst, t_list *new);
 // t_list	*ft_lstlast(t_list *lst);

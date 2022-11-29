@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:10:33 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/23 11:12:31 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 08:45:41 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int	search_closing_parenthese(t_lex *lexer)
 		if (!is_there(QUOTES, lexer->str[0]) && is_there(lexer->str, ')'))
 			closed++;
 		if (closed > opened)
-			return (0);
+			return (1);
 		lexer = lexer->next;
 	}
-	return (closed == opened);
+	return (closed - opened);
 }

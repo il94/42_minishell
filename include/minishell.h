@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/28 19:55:57 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/29 09:13:39 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		unset(t_data *data, t_lex *args);
 
 /* builtins.c */
 int		echo_detect_n_flag(t_lex *args);
-int		echo(t_lex *args);
+int 	echo(t_data *data, t_lex *args);
 void	cd_modify_pwd_values(t_data *data);
 int		cd(t_data *data, t_lex *args);
 int		pwd(t_lex *args);

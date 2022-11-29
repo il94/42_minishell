@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/23 11:10:30 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:29:50 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ int	concat_quotes(t_lex **lexer)
 		ft_strlcpy(quote, &(*lexer)->str[ft_strlen((*lexer)->str) - 1], 2);
 		if (!search_closing_quote((*lexer)->next, quote))
 		{
+			ft_lstprint_lex(*lexer);
 			g_exit_status = 2;
-			printf("ERROR AUOTE\n");
+			msg_error("minishell: syntax error (minishell) invalid use of quotes\n");
 			return (1);
 		}
 		while (ft_strcmp((*lexer)->next->str, quote))
@@ -97,6 +98,9 @@ int	concat_env(t_lex **lexer)
 				return (0);
 			ft_lstdelone_lex((*lexer)->next);
 		}
+		if ((*lexer)->prev && !ft_iswhitespace((*lexer)->prev->str[0]))
+			concat_element(lexer, TRUE);
+		
 	}
 	return (1);
 }
@@ -105,7 +109,7 @@ int	concat_lexer(t_data *data)
 {
 	int		return_value;
 
-	return_value = 1;
+	ft_lstprint_lex(data->lexer);
 	while (data->lexer)
 	{
 		if (!concat_env(&(data->lexer)) || !concat_quotes(&(data->lexer))
@@ -117,10 +121,20 @@ int	concat_lexer(t_data *data)
 		data->lexer = (data->lexer)->next;
 	}
 	data->lexer = data->start_lex;
-	if (!search_closing_parenthese(data->lexer))
+	printf("================================================\n");
+	ft_lstprint_lex(data->lexer);
+	printf("================================================\n");
+	return_value = search_closing_parenthese(data->lexer);
+	if (return_value < 0)
 	{
-		// g_exit_status = ?;
-		printf("ERROR\n");
+		g_exit_status = 2;
+		msg_error("minishell: syntax error (minishell) invalid use of parentheses\n");
+		return (0);
+	}
+	else if (return_value > 0)
+	{
+		g_exit_status = 2;
+		msg_error("minishell: syntax error (minishell) invalid use of parentheses\n");
 		return (0);
 	}
 	return (1);

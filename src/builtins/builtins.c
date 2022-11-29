@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/28 14:19:19 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:32:56 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	echo_detect_n_flag(t_lex *args)
 	return (0);
 }
 
-int	echo(t_lex *args)
+int	echo(t_data *data, t_lex *args)
 {
 	t_bool	newline;
 

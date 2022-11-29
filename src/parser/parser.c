@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/28 16:19:05 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 08:51:40 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	unexpected_token(t_deli token, int v_mini)
 
 	deli = get_deli_char(token);
 	if (!deli)
-		msg_error("minishell: syntax error near unexpected token `('\n");
+		msg_error("minishell: syntax error near unexpected token `('\n"); //faire gafffe au sens de la parenthese ou balec
+		// msg_error("minishell: parentheses have to contain '&&' or '||' tokens\n"); //a confirmer
 	else if (!v_mini)
 		msg_error("minishell: syntax error near unexpected token `");
 	else
