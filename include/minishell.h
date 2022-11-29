@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/29 09:13:39 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:47:09 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		concat_element(t_lex **lexer, t_bool is_prev);
 int		is_token(t_lex *element);
 t_redi	get_redi(t_lex *element);
 t_deli	get_delimiter(t_lex *element);
-int		search_closing_quote(t_lex *lexer, char *quote);
+int		search_closing_quote(t_lex *lexer);
 int 	search_closing_parenthese(t_lex *lexer);
 
 /* lexer_child.c */
