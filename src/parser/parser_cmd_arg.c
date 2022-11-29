@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:21:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 14:33:04 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/29 19:14:17 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void	parser_cmd_arg(t_data *data, t_cmd *cmd)
 
 	lst_cmd_arg = NULL;
 	lst_cmd_arg = parsing_cmd(data, cmd, cmd->command);
+	if ((cmd->args || lst_cmd_arg))
+		cmd->args = parsing_args(data, cmd, cmd->args, lst_cmd_arg);
 	if (cmd->command)
 	{
 		args_first_el = ft_lstnew_lex_dup(ft_strdup(cmd->command));
@@ -119,6 +121,4 @@ void	parser_cmd_arg(t_data *data, t_cmd *cmd)
 			cmd->args->prev = args_first_el;
 		cmd->args = args_first_el;
 	}
-	if (cmd->args && cmd->args->next)
-		cmd->args->next = parsing_args(data, cmd, cmd->args, lst_cmd_arg);
 }

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 14:45:57 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/29 15:00:38 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ static void	exit_loop(t_data *data, char *new_str, char *str)
 	free_all_and_exit(data, "malloc");
 }
 
+static int	can_expand(char **str, int quotes, int n)
+{
+	if ((*str)[n] == '$' && ((*str)[n + 1]
+			&& !is_there("\'\" ", (*str)[n + 1])
+			&& (ft_isalnum((*str)[n + 1]) || is_there("?*_", (*str)[n + 1])))
+			&& ((!quotes || quotes == '\"') || g_exit_status == 42))
+		return (1);
+	return (0);
+}
+
 char	*check_expand(t_data *data, char **str, int quotes, int n)
 {
 	char	*new_str;
@@ -76,9 +86,7 @@ char	*check_expand(t_data *data, char **str, int quotes, int n)
 			exit_loop(data, new_str, (*str));
 		if (!(*str)[n])
 			break ;
-		if ((*str)[n] == '$' && ((*str)[n + 1] && !is_there("\'\" ", (*str)[n + 1])
-			&& (ft_isalnum((*str)[n + 1]) || is_there("?*_", (*str)[n + 1])))
-			&& ((!quotes || quotes == '\"') || g_exit_status == 42))
+		if (can_expand(str, quotes, n))
 		{
 			if (!return_env_var(data, &(*str)[n], &n, &tmp))
 				exit_loop(data, new_str, (*str));
