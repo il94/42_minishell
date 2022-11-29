@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/29 13:29:50 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:50:17 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,8 @@ int	concat_quotes(t_lex **lexer)
 			&& !ft_iswhitespace((*lexer)->prev->str[0]))
 			concat_element(lexer, TRUE);
 		ft_strlcpy(quote, &(*lexer)->str[ft_strlen((*lexer)->str) - 1], 2);
-		if (!search_closing_quote((*lexer)->next, quote))
-		{
-			ft_lstprint_lex(*lexer);
-			g_exit_status = 2;
-			msg_error("minishell: syntax error (minishell) invalid use of quotes\n");
+		if (!ft_lststrncmp_lex(&(*lexer)->next, quote, 1))
 			return (1);
-		}
 		while (ft_strcmp((*lexer)->next->str, quote))
 			concat_element(lexer, FALSE);
 		concat_element(lexer, FALSE);
@@ -64,7 +59,7 @@ int	concat_quotes(t_lex **lexer)
 	else if ((*lexer)->prev && !ft_iswhitespace((*lexer)->str[0])
 		&& is_there(QUOTES,
 			(*lexer)->prev->str[ft_strlen((*lexer)->prev->str) - 1]))
-		concat_element(lexer, TRUE);
+		concat_element(lexer, TRUE);		
 	return (1);
 }
 
@@ -109,7 +104,6 @@ int	concat_lexer(t_data *data)
 {
 	int		return_value;
 
-	ft_lstprint_lex(data->lexer);
 	while (data->lexer)
 	{
 		if (!concat_env(&(data->lexer)) || !concat_quotes(&(data->lexer))
@@ -121,9 +115,6 @@ int	concat_lexer(t_data *data)
 		data->lexer = (data->lexer)->next;
 	}
 	data->lexer = data->start_lex;
-	printf("================================================\n");
-	ft_lstprint_lex(data->lexer);
-	printf("================================================\n");
 	return_value = search_closing_parenthese(data->lexer);
 	if (return_value < 0)
 	{
@@ -136,6 +127,11 @@ int	concat_lexer(t_data *data)
 		g_exit_status = 2;
 		msg_error("minishell: syntax error (minishell) invalid use of parentheses\n");
 		return (0);
+	}
+	if (!search_closing_quote(data->lexer))
+	{
+		g_exit_status = 2;
+		msg_error("minishell: syntax error (minishell) invalid use of quotes\n");
 	}
 	return (1);
 }

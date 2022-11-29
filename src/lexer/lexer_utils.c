@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:10:33 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/29 08:45:41 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:49:10 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ t_deli	get_delimiter(t_lex *element)
 	return (NOTHING_D);
 }
 
-int	search_closing_quote(t_lex *lexer, char *quote)
+int	search_closing_quote(t_lex *lexer)
 {
 	while (lexer)
 	{
-		if (!ft_strcmp(lexer->str, quote))
-			return (1);
+		if (is_in_quotes(&lexer->str[0], &lexer->str[ft_strlen(lexer->str)]))
+			return (0);
 		lexer = lexer->next;
 	}
-	return (0);
+	return (1);
 }
 
 int	search_closing_parenthese(t_lex *lexer)
