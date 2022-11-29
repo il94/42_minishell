@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 08:51:40 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 21:30:49 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ static int	is_invalid_child(t_cmd *command)
 	if (!command || !command->child_cmd)
 		return (1);
 	cmd = command->child_cmd;
-	if (command->command && cmd)
+	if ((command->command && cmd)
+		|| ((command->input || command->output) && cmd))
 		is_invalid = 1;
-	while (cmd)
+	while (cmd && !is_invalid)
 	{
 		if (cmd->delimiter == PIPE_D)
 			is_invalid = 1;
@@ -117,8 +118,6 @@ void	parser(t_data *data, t_cmd *command, int is_child)
 	while (cmd)
 	{
 		parser_input_output(data, cmd);
-		if (g_exit_status)
-			return ;
 		parser_cmd_arg(data, cmd);
 		if (cmd->child_cmd)
 			parser(data, cmd->child_cmd, 1);
