@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/29 13:06:47 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:10:32 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	minishell_test(t_data *data, char **av)
 				lexer(data);
 				parser(data, data->commands, 0);
 				// if (!g_exit_status)
-				// 	print_cmd(data->commands, "PARENT");
+				print_cmd(data->commands, "PARENT");
 				// if (!g_exit_status)
 					exec(data, data->commands);
 			}

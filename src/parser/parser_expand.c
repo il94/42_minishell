@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 13:35:25 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/29 14:16:44 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*check_expand(t_data *data, char **str, int quotes, int n)
 			free((*str));
 			(*str) = tmp;
 		}
-		else if (/*(*str)[n++] == '$' && !is_there("\'\"", (*str)[n])*/ (*str)[n++] == '$' && (!is_there("\'\"", (*str)[n]) || quotes))
+		else if ((*str)[n++] == '$' /*&& (!is_there("\'\"", (*str)[n]) || quotes)*/)
 			dont_expand(data, &new_str);
 	}
 	return (new_str);
