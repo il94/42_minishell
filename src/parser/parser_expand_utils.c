@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:39 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/28 15:44:19 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:25:47 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*add_el_to_var(char *str, char *var_name, int *index_str)
 
 	index_var_name = 0;
 	while (str[(*index_str)] && (ft_isalnum(str[(*index_str)])
-			|| str[(*index_str)] == '_' || str[(*index_str)] == '?'))
+			|| is_there("?*_", str[(*index_str)])))
 	{
 		var_name[index_var_name++] = str[(*index_str)];
 		if (str[(*index_str)++] == '?')
