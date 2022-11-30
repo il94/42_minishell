@@ -46,7 +46,7 @@ OBJ_DIR = obj/
 #                                   SOURCES                                    #
 #==============================================================================#
 
-SRC =	main.c minishell/utils/initialize.c minishell/utils/free_memory.c minishell/minishell.c minishell/utils/utils.c minishell/utils/error.c \
+SRC =	main.c minishell/minishell.c minishell/utils/initialize.c minishell/utils/free_memory.c minishell/utils/utils.c minishell/utils/error.c \
 		minishell/utils/temp.c \
 		\
 		minishell/lexer/lexer.c minishell/lexer/lexer_utils.c minishell/lexer/lexer_initialize.c \
