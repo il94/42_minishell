@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:44:13 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:19:54 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*expand dans le parser pour plus de faciliter chakalito si redi == $ on voit ca
-dans le parser si addcmd == $ dans le parser et si il y a plus d'un arg on met
-le rest au debut de la liste d'argument
-si add arg == $ alors on ajoute dans arg a la fin
-
-verif les '()' non fermes dans lex_init....
-*/
 
 void	get_lexer(t_data *data)
 {
@@ -43,7 +35,7 @@ void	lexer(t_data *data)
 		define_delimiter(data);
 		define_redi(data);
 		if (g_exit_status)
-			break;
+			break ;
 		define_argument(data);
 		define_command(data);
 		define_child(data);

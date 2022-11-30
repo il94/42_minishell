@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:02:18 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/22 22:13:27 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 17:23:26 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	define_child(t_data *data)
 {
 	t_cmd	*current_cmd;
-	t_lex	*temp;
 
 	if (!data->lexer || !data->commands)
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_initialize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/29 16:50:17 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:20:38 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	concat_quotes(t_lex **lexer)
 	else if ((*lexer)->prev && !ft_iswhitespace((*lexer)->str[0])
 		&& is_there(QUOTES,
 			(*lexer)->prev->str[ft_strlen((*lexer)->prev->str) - 1]))
-		concat_element(lexer, TRUE);		
+		concat_element(lexer, TRUE);
 	return (1);
 }
 
@@ -95,7 +95,6 @@ int	concat_env(t_lex **lexer)
 		}
 		if ((*lexer)->prev && !ft_iswhitespace((*lexer)->prev->str[0]))
 			concat_element(lexer, TRUE);
-		
 	}
 	return (1);
 }

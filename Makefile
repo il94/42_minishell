@@ -54,7 +54,7 @@ SRC =	main.c minishell/minishell.c \
 		\
 		minishell/lexer/lexer.c minishell/lexer/lexer_utils.c minishell/lexer/lexer_initialize.c \
 		minishell/lexer/lexer_delimiter.c minishell/lexer/lexer_redi.c minishell/lexer/lexer_command.c \
-		minishell/lexer/lexer_argument.c minishell/lexer/lexer_child.c \
+		minishell/lexer/lexer_argument.c minishell/lexer/lexer_child.c minishell/lexer/lexer_initialize_utils.c\
 		\
 		minishell/parser/parser_wildcard.c minishell/parser/parser.c minishell/parser/parser_wildcard_utils.c \
 		minishell/parser/parser_dir_utils.c minishell/parser/parser_expand_utils.c \
