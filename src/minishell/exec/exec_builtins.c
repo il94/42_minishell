@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:13:17 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 15:05:47 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:04:04 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	is_builtin_parent(char *cmd)
+{
+	if (!cmd)
+		return (0);
+	if (!ft_strcmp(cmd, "exit"))
+		return (1);
+	else if (!ft_strcmp(cmd, "cd"))
+		return (1);
+	else if (!ft_strcmp(cmd, "export"))
+		return (1);
+	else if (!ft_strcmp(cmd, "unset"))
+		return (1);
+	return (0);
+}
 
 int	is_builtin(char *cmd)
 {
@@ -33,30 +48,28 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	builtins_parent(t_data *data, t_cmd *cmd)
+void	builtins_parent(t_data *data, t_cmd *cmd)
 {
 	if (!cmd->command)
-		return (0);
+		return ;
 	if (!ft_strcmp(cmd->command, "export"))
-		return (exporc(data, cmd->args->next));
+		exporc(data, cmd->args->next);
 	else if (!ft_strcmp(cmd->command, "unset"))
-		return (unset(data, cmd->args->next));
+		unset(data, cmd->args->next);
 	else if (!ft_strcmp(cmd->command, "exit"))
-		return (ixit(data, cmd->args->next));
+		ixit(data, cmd->args->next);
 	else if (!ft_strcmp(cmd->command, "cd"))
-		return (cd(data, cmd->args->next));
-	return (0);
+		cd(data, cmd->args->next);
 }
 
-int	builtins_child(t_data *data, t_cmd *cmd)
+void	builtins_child(t_data *data, t_cmd *cmd)
 {
 	if (!cmd->command)
-		return (0);
+		return ;
 	if (!ft_strcmp(cmd->command, "env"))
-		return (env(data, cmd->args->next));
+		env(data, cmd->args->next);
 	else if (!ft_strcmp(cmd->command, "pwd"))
-		return (pwd(data, cmd->args->next));
+		pwd(data, cmd->args->next);
 	else if (!ft_strcmp(cmd->command, "echo"))
-		return (echo(data, cmd->args->next));
-	return (0);
+		echo(data, cmd->args->next);
 }

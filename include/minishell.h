@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 15:06:04 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:25:05 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,20 @@ void	replace_sig_quit(int signum);
 /*============================================================================*/
 
 /* builtins_env.c */
-int		exporc_normal_mode(t_data *data, t_lex *args, int i);
-int		exporc_append_mode(t_data *data, t_lex *args, int i);
-int		exporc(t_data *data, t_lex *args);
-int		unset(t_data *data, t_lex *args);
+void		exporc_normal_mode(t_data *data, t_lex *arg, int i);
+void		exporc_append_mode(t_data *data, t_lex *arg, int i);
+int     	exporc_parsing_argument(t_lex *arg, int i);
+void		exporc(t_data *data, t_lex *arg);
+void		unset(t_data *data, t_lex *args);
 
 /* builtins.c */
-int		echo_detect_n_flag(t_lex *args);
-int 	echo(t_data *data, t_lex *args);
-void	cd_modify_pwd_values(t_data *data);
-int		cd(t_data *data, t_lex *args);
-int		pwd(t_data *data, t_lex *args);
-int		env(t_data *data, t_lex *args);
-int		ixit(t_data *data, t_lex *args);
+int		    echo_detect_n_flag(t_lex *args);
+void 	    echo(t_data *data, t_lex *args);
+void	    cd_modify_pwd_values(t_data *data);
+void		cd(t_data *data, t_lex *args);
+void		pwd(t_data *data, t_lex *args);
+void		env(t_data *data, t_lex *args);
+void		ixit(t_data *data, t_lex *args);
 
 /*============================================================================*/
 
@@ -141,11 +142,12 @@ void	close_fd(t_cmd *command);
 int		verif_files_fd (t_fd *in, t_fd *out);
 
 /*exec_wait.c*/
-int 	wait_process(t_cmd *commands, int *prev_exit_status);
+void    wait_process(t_cmd *commands, int *prev_exit_status);
 
 /*exec_builtins.c*/
-int		builtins_parent(t_data *data, t_cmd *cmd);
-int		builtins_child(t_data *data, t_cmd *cmd);
+void	builtins_parent(t_data *data, t_cmd *cmd);
+void	builtins_child(t_data *data, t_cmd *cmd);
+int 	is_builtin_parent(char *cmd);
 int		is_builtin(char *cmd);
 
 /*exec_launch_command_utils.c*/
@@ -160,6 +162,7 @@ int	launch_command(t_data *data, t_cmd *command);
 void	exec(t_data *data, t_cmd *commands);
 
 /* minishell.c */
+void	read_prompt(t_data *data);
 void	minishell(t_data *data);
 
 /* error.c */

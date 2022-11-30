@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input_output.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:03:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 21:32:02 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 17:51:50 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static void	ambiguous_redirect(t_fd *file, t_lex *lst)
 {
-	msg_error("minishell: ");
-	msg_error(file->file);
-	msg_error(": ambiguous redirect\n");
+	ft_printf_fd(2, "minishell: %s: ambiguous redirect\n", file->file);
 	ft_lstclear_lex(&lst);
 	if (file->file)
 		free(file->file);

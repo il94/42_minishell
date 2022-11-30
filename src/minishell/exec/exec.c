@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:25:42 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 14:03:42 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 20:44:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	replace_sig_quit(int signum)
 {
 	(void)signum;
 	g_exit_status = 131;
-	msg_error("Quit (core dumped)\n");
+	ft_printf_fd(2, "Quit (core dumped)\n");
 }
 
 void	replace_sig_int_exe(int signum)
 {
 	(void)signum;
 	g_exit_status = 130;
-	msg_error("\n");
+	ft_printf_fd(2, "\n");
 }
 
 static void	exec_loop(t_data *data, t_cmd *commands)

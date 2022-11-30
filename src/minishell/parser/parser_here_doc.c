@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_here_doc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 06:12:24 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 01:14:27 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 18:33:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	sig_unexpected_eof(char *delimiter)
 {
-	msg_error("\nminishell: ");
-	msg_error("warning: here-document delimited by end-of-file (wanted `");
-	msg_error(delimiter);
-	msg_error("')\n");
+	ft_printf_fd(2, "\nminishell: warning: here-document delimited by ");
+	ft_printf_fd(2, "end-of-file (wanted `%s')\n", delimiter);
 }
 
 static char	*expand_in_hd(t_data *data, char **buffer)
@@ -53,7 +51,7 @@ static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 	buffer = NULL;
 	while (1)
 	{
-		ft_printf("> ");
+		printf("> ");
 		buffer = ft_get_next_line(STDIN_FILENO);
 		if (g_exit_status == 130)
 			break ;

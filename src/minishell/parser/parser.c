@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 12:52:34 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 18:30:39 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@ static void	unexpected_token(t_deli token, int v_mini)
 
 	deli = get_deli_char(token);
 	if (!deli)
-		msg_error("minishell: syntax error near unexpected token `('\n");
+		ft_printf_fd(2, "minishell: syntax error near unexpected token `('\n");
 	else if (!v_mini)
-		msg_error("minishell: syntax error near unexpected token `");
+		ft_printf_fd(2, "minishell: syntax error near unexpected token `");
 	else
-		msg_error \
-			("minishell: syntax error (minishell) near unexpected token `");
+		ft_printf_fd(2,
+			"minishell: syntax error (minishell) near unexpected token `");
 	if (deli)
-	{
-		msg_error(deli);
-		msg_error("'\n");
-	}
+		ft_printf_fd(2, "%s'\n", deli);
 	define_exit_status(NULL, 2);
 }
 
@@ -78,8 +75,8 @@ static int	is_invalid_child(t_cmd *command)
 	}
 	if (is_invalid)
 	{
-		msg_error("minishell: syntax error (minishell) ");
-		msg_error("invalid use of parentheses\n");
+		ft_printf_fd(2,
+			"minishell: syntax error (minishell) invalid use of parentheses\n");
 		define_exit_status(NULL, 2);
 	}
 	return (is_invalid);

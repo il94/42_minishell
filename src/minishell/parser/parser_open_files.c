@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_open_files.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:24:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 12:48:20 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 17:41:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	open_file(t_data *data, t_fd *file, \
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file->file && file->fd < 0)
 	{
-		msg_error("minishell: ");
+		ft_printf_fd(2, "minishell: ");
 		perror(file->file);
 		return (0);
 	}

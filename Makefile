@@ -50,7 +50,7 @@ SRC =	main.c minishell/minishell.c \
 		\
 		minishell/utils/initialize.c minishell/utils/free_memory.c \
 		minishell/utils/utils.c minishell/utils/error.c \
-		minishell/utils/temp.c minishell/utils/is_there.c\
+		minishell/utils/is_there.c\
 		\
 		minishell/lexer/lexer.c minishell/lexer/lexer_utils.c minishell/lexer/lexer_initialize.c \
 		minishell/lexer/lexer_delimiter.c minishell/lexer/lexer_redi.c minishell/lexer/lexer_command.c \
@@ -68,7 +68,8 @@ SRC =	main.c minishell/minishell.c \
 		\
 		minishell/exec/exec.c minishell/exec/exec_redir.c minishell/exec/exec_wait.c minishell/exec/exec_launch_command.c\
 		minishell/exec/exec_builtins.c minishell/exec/exec_launch_command_utils.c\
-		minishell/builtins/builtins.c minishell/builtins/builtins_env.c \
+		minishell/builtins/builtins.c minishell/builtins/builtins_cd.c minishell/builtins/builtins_echo.c \
+		minishell/builtins/builtins_export.c
 		\
 
 #==============================================================================#

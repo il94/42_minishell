@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_initialize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 17:20:38 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 19:15:58 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ int	concat_env(t_lex **lexer)
 
 int	concat_lexer(t_data *data)
 {
-	int		return_value;
-
 	while (data->lexer)
 	{
 		if (!concat_env(&(data->lexer)) || !concat_quotes(&(data->lexer))
@@ -114,23 +112,18 @@ int	concat_lexer(t_data *data)
 		data->lexer = (data->lexer)->next;
 	}
 	data->lexer = data->start_lex;
-	return_value = search_closing_parenthese(data->lexer);
-	if (return_value < 0)
+	if (search_closing_parenthese(data->lexer))
 	{
 		g_exit_status = 2;
-		msg_error("minishell: syntax error (minishell) invalid use of parentheses\n");
-		return (0);
-	}
-	else if (return_value > 0)
-	{
-		g_exit_status = 2;
-		msg_error("minishell: syntax error (minishell) invalid use of parentheses\n");
+		ft_printf_fd(2,
+			"minishell: syntax error (minishell) invalid use of parentheses\n");
 		return (0);
 	}
 	if (!search_closing_quote(data->lexer))
 	{
 		g_exit_status = 2;
-		msg_error("minishell: syntax error (minishell) invalid use of quotes\n");
+		ft_printf_fd(2,
+			"minishell: syntax error (minishell) invalid use of quotes\n");
 	}
 	return (1);
 }

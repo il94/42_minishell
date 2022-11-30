@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   temp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:14:06 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/27 17:39:49 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:21:10 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	print_cmd(t_cmd *commands, char *state)
 	printf("==================%s=============\n", state);
 	if (commands->input)
 	{
-		// printf("Input = %d", commands->input->operator);
-		// printf("\n-----\n");
 		printf("Input = ");
 		ft_print_fd(commands->input);
 		printf("\n-----\n");
@@ -37,8 +35,6 @@ void	print_cmd(t_cmd *commands, char *state)
 	}
 	if (commands->output)
 	{
-		// printf("Output = %d", commands->output->operator);
-		// printf("\n-----\n");
 		printf("Output = ");
 		ft_print_fd(commands->output);
 		printf("\n-----\n");

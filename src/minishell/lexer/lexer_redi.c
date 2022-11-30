@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:36:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:45:39 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:30:02 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static void	*near_unexpected_token(t_data *data, t_lex *temp, char *token)
 {
-	msg_error("minishell: syntax error near unexpected token `");
-	msg_error(token);
-	msg_error("'\n");
+	ft_printf_fd(2, "minishell: syntax error near unexpected token `%s'\n",
+		token);
 	define_exit_status(NULL, 2);
 	data->lexer = temp;
 	return (NULL);

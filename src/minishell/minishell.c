@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 14:36:01 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 21:35:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	read_prompt(t_data *data)
+{
+	get_lexer(data);
+	if (data->lexer)
+	{
+		lexer(data);
+		if (!g_exit_status)
+			parser(data, data->commands, 0);
+		if (!g_exit_status)
+			exec(data, data->commands);
+	}
+}
 
 void	minishell(t_data *data)
 {
@@ -18,7 +31,7 @@ void	minishell(t_data *data)
 	{
 		data->prev_exit_status = g_exit_status;
 		g_exit_status = 0;
-		data->prompt = readline("\x1b[33msalam khey> \x1b[0m");
+		data->prompt = readline("\x1b[35mfi\x1b[34mni\x1b[36ms\x1b[32mhe\x1b[33mll\x1b[31m> \x1b[0m");
 		if (g_exit_status >= 130)
 		{
 			data->prev_exit_status = g_exit_status;
@@ -29,15 +42,7 @@ void	minishell(t_data *data)
 		if (data->prompt[0] != '\0')
 		{	
 			add_history(data->prompt);
-			get_lexer(data);
-			if (data->lexer)
-			{
-				lexer(data);
-				if (!g_exit_status)
-					parser(data, data->commands, 0);
-				if (!g_exit_status)
-					exec(data, data->commands);
-			}
+			read_prompt(data);
 		}
 		free_data_struct(data);
 	}
