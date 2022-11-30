@@ -6,11 +6,13 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:14:06 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 21:21:10 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:37:36 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+/*\*/
 
 void	print_cmd(t_cmd *commands, char *state)
 {
@@ -59,3 +61,5 @@ void	ft_print_fd(t_fd *fd)
 		fd = fd->next;
 	}
 }
+
+/**/
