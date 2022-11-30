@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/29 21:12:53 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 15:06:04 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		echo_detect_n_flag(t_lex *args);
 int 	echo(t_data *data, t_lex *args);
 void	cd_modify_pwd_values(t_data *data);
 int		cd(t_data *data, t_lex *args);
-int		pwd(t_lex *args);
+int		pwd(t_data *data, t_lex *args);
 int		env(t_data *data, t_lex *args);
 int		ixit(t_data *data, t_lex *args);
 

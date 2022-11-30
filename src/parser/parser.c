@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 21:30:49 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 12:52:34 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static void	unexpected_token(t_deli token, int v_mini)
 
 	deli = get_deli_char(token);
 	if (!deli)
-		msg_error("minishell: syntax error near unexpected token `('\n"); //faire gafffe au sens de la parenthese ou balec
-		// msg_error("minishell: parentheses have to contain '&&' or '||' tokens\n"); //a confirmer
+		msg_error("minishell: syntax error near unexpected token `('\n");
 	else if (!v_mini)
 		msg_error("minishell: syntax error near unexpected token `");
 	else
@@ -74,7 +73,7 @@ static int	is_invalid_child(t_cmd *command)
 		if (cmd->delimiter == PIPE_D)
 			is_invalid = 1;
 		if (is_invalid || (cmd->child_cmd && is_invalid_child(cmd->child_cmd)))
-			break;
+			break ;
 		cmd = cmd->next;
 	}
 	if (is_invalid)
@@ -82,9 +81,8 @@ static int	is_invalid_child(t_cmd *command)
 		msg_error("minishell: syntax error (minishell) ");
 		msg_error("invalid use of parentheses\n");
 		define_exit_status(NULL, 2);
-		return (1);
 	}
-	return (0);
+	return (is_invalid);
 }
 
 static void	invalid_child(t_cmd *command)
@@ -92,7 +90,7 @@ static void	invalid_child(t_cmd *command)
 	t_cmd	*cmd;
 
 	cmd = command;
-	while(cmd)
+	while (cmd)
 	{
 		if (cmd->child_cmd)
 			is_invalid_child(cmd);

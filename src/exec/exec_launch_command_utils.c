@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:52:30 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 20:12:38 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 12:56:42 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ static int	check_cmd(t_data *data, t_cmd *cmd)
 	if (is_builtin(cmd->command))
 		return (1);
 	bin_paths = ft_lststrncmp_lex(&data->env, "PATH=", 5);
-	if(cmd->command && !ft_strcmp(cmd->command, "."))
+	if (cmd->command && !ft_strcmp(cmd->command, "."))
 		g_exit_status = 2;
 	else if (bin_paths && cmd->command && !ft_strcmp(cmd->command, ".."))
 		g_exit_status = 2;
 	else if (cmd->command && is_dir(cmd->command))
 		g_exit_status = 126;
 	else if (cmd->command && bin_paths
-			&& (!ft_strchr(cmd->command, '/')
-				|| access(cmd->command, X_OK)))
+		&& (!ft_strchr(cmd->command, '/')
+			|| access(cmd->command, X_OK)))
 			g_exit_status = 127;
-	else if(cmd->command && !bin_paths
-			&& (!ft_strchr(cmd->command, '/')
-				|| access(cmd->command, X_OK)))
+	else if (cmd->command && !bin_paths
+		&& (!ft_strchr(cmd->command, '/')
+			|| access(cmd->command, X_OK)))
 			g_exit_status = 1;
 	else
 		return (1);

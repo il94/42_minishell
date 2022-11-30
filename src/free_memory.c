@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:12:37 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/23 15:05:19 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:34:58 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ void	free_all_and_exit(t_data *data, char *str_error)
 	if (str_error)
 	{
 		if (!ft_strcmp(str_error, "exit"))
+		{
+			printf("exit\n");
 			exit (g_exit_status);
+		}
 		else
 			perror(str_error);
 	}

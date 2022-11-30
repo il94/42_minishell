@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_wait.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:24:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 08:35:10 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 12:54:17 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	wait_process(t_cmd *commands, int *prev_exit_status)
 				status_code = WEXITSTATUS(wstatus);
 			if (g_exit_status != 130 && g_exit_status != 131)
 				g_exit_status = status_code;
-			// printf("wt = {%d}\n", g_exit_status);
 			cmd->pid = -42;
 		}
 		if (cmd->child_cmd)

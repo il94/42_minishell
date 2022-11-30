@@ -6,20 +6,13 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/29 20:14:45 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 15:05:25 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	g_exit_status;
-
-void	replace_sig_quit(int signum)
-{
-	(void)signum;
-	g_exit_status = 131;
-	msg_error("Quit (core dumped)\n");
-}
 
 void	sig_int_heredoc_child(int signum)
 {
@@ -45,75 +38,6 @@ void	replace_sig_int(int signum)
 	g_exit_status = 130;
 }
 
-void	minishell_test(t_data *data, char **av)
-{
-	t_lex	*new;
-	t_lex	*lst;
-
-	while (1)
-	{
-		data->prev_exit_status = g_exit_status;
-		g_exit_status = 0;
-		data->prompt = readline("\x1b[33msalam khey> \x1b[0m");
-		if (g_exit_status >= 130)
-		{
-			data->prev_exit_status = g_exit_status;
-			g_exit_status = 0;
-		}
-		if (!data->prompt)
-			free_all_and_exit(data, "exit");
-		if (!ft_strcmp(data->prompt, "stop"))
-		{
-			free(data->prompt);
-			data->prompt = NULL;
-			break ;
-		}
-		if (data->prompt[0] != '\0')
-		{	
-			add_history(data->prompt);
-			get_lexer(data);
-			// ft_lstprint_lex(data->lexer);
-			if (data->lexer)
-			{
-				lexer(data);
-				parser(data, data->commands, 0);
-				printf("%d\n", g_exit_status);
-				// if (!g_exit_status)
-				print_cmd(data->commands, "PARENT");
-				// if (!g_exit_status)
-				//ft_lstprint_lex(data->commands->args);
-				if (!g_exit_status)
-					exec(data, data->commands);
-			}
-			// if (!ft_strncmp(data->prompt, "echo", 4))
-			// 	echo(data->commands->args);
-			// else if (!ft_strncmp(data->prompt, "cd", 2))
-			// 	cd(data, data->commands->args);
-			// else if (!ft_strncmp(data->prompt, "pwd", 3))
-			// 	pwd(data->commands->args);
-			// else if (!ft_strncmp(data->prompt, "env", 3))
-			// 	env(data, data->commands->args);
-			// else if (!ft_strncmp(data->prompt, "export", 6))
-			// 	exporc(data, data->commands->args);
-			// else if (!ft_strncmp(data->prompt, "unset", 5))
-			// 	unset(data, data->commands->args);
-			// else if (!ft_strncmp(data->prompt, "exit", 4))
-			// 	ixit(data, data->commands->args);
-			// else if (!ft_strncmp(data->prompt, "boucle", 4))
-			// {
-			// 	signal(SIGINT, SIG_DFL);
-			// 	while (1)
-			// 	{
-			// 		printf("debug\n");
-			// 	}
-			// 	signal(SIGINT, replace_sig_int);
-			// }
-		}
-		
-		free_data_struct(data);
-	}
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
@@ -124,8 +48,8 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, replace_sig_int);
 	g_exit_status = 0;
 	initialize_data(&data, envp);
-	// minishell(&data);
-	minishell_test(&data, av);
+	minishell(&data);
+	//minishell_test(&data, av);
 	if (data.start_env)
 		free_lexer_struct(&data.start_env);
 	free_data_struct(&data);

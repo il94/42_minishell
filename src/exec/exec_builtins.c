@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:13:17 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 09:14:05 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:05:47 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	builtins_child(t_data *data, t_cmd *cmd)
 	if (!ft_strcmp(cmd->command, "env"))
 		return (env(data, cmd->args->next));
 	else if (!ft_strcmp(cmd->command, "pwd"))
-		return (pwd(cmd->args->next));
+		return (pwd(data, cmd->args->next));
 	else if (!ft_strcmp(cmd->command, "echo"))
 		return (echo(data, cmd->args->next));
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:32:14 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/27 18:34:15 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 15:57:55 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_deli_char(t_deli r)
 void	define_exit_status(char *to_print, int error_code)
 {
 	if (to_print)
-		printf("%s", to_print);
+		msg_error(to_print);
 	g_exit_status = error_code;
 }
 

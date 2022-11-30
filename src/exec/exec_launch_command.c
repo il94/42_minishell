@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/28 21:43:55 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 14:03:29 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	exec_command(t_data *data, t_cmd *command)
 int	red_light(t_data *data, t_cmd *command)
 {
 	if (command && (command->prev && (command->prev->delimiter == AND
-			|| command->prev->delimiter == OR)))
+				|| command->prev->delimiter == OR)))
 	{
 		wait_process(data->commands, &data->prev_exit_status);
 		if (g_exit_status && command->prev->delimiter == AND)
@@ -51,7 +51,6 @@ int	red_light(t_data *data, t_cmd *command)
 	return (0);
 }
 
-
 void	green_light(t_data *data, t_cmd *command)
 {
 	command->pid = fork();
@@ -59,8 +58,6 @@ void	green_light(t_data *data, t_cmd *command)
 		free_all_and_exit(data, "fork");
 	if (command->pid == 0)
 	{
-		/*signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);*/
 		exec_command(data, command);
 		free_data_struct(data);
 		if (data->start_env)

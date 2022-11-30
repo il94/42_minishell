@@ -6,14 +6,14 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:24:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/29 21:36:18 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 12:48:20 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 static int	open_file(t_data *data, t_fd *file, \
-	 int is_output, t_cmd *cmd)
+	int is_output, t_cmd *cmd)
 {
 	if (file->file && file->operator == L_CHEVRON)
 			file->fd = open(file->file, O_RDONLY, 0644);
@@ -23,7 +23,7 @@ static int	open_file(t_data *data, t_fd *file, \
 		if (g_exit_status)
 			return (1);
 	}
-	else if(file->operator == PIPE_D && is_output)
+	else if (file->operator == PIPE_D && is_output)
 		generate_pipe(data, file, cmd);
 	else if (file->file && file->operator == R_CHEVRON)
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -39,7 +39,7 @@ static int	open_file(t_data *data, t_fd *file, \
 }
 
 static int	open_files_loop(t_data *data, t_fd *lst_file, \
-	 int is_output, t_cmd *cmd)
+	int is_output, t_cmd *cmd)
 {
 	t_fd	*lst;
 	int		is_opened;
@@ -60,12 +60,13 @@ static int	open_files_loop(t_data *data, t_fd *lst_file, \
 
 void	open_files(t_data *data, t_cmd *cmd)
 {
-	t_cmd *lst_cmd;
+	t_cmd	*lst_cmd;
 
 	lst_cmd = cmd;
 	while (lst_cmd)
 	{
-		if (lst_cmd->input && !open_files_loop(data, lst_cmd->input, 0, lst_cmd))
+		if (lst_cmd->input
+			&& !open_files_loop(data, lst_cmd->input, 0, lst_cmd))
 			lst_cmd = lst_cmd->next;
 		if (g_exit_status)
 			return ;
