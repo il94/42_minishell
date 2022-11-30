@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:56:55 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/28 13:57:43 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:14:27 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,9 @@ void	cmd_error(int status, char *cmd)
 	}
 }
 
+void	define_exit_status(char *to_print, int error_code)
+{
+	if (to_print)
+		msg_error(to_print);
+	g_exit_status = error_code;
+}
