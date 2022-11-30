@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:50:11 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/21 16:48:51 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:09:55 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	aplly_star(t_lex *to_find, t_lex dir_file, int index, int in_star)
 	quotes = 0;
 	while (to_find)
 	{
-		if (index > ft_strlen(dir_file.str))
+		if (index > (int)ft_strlen(dir_file.str))
 			return (0);
 		else if (verif_quotes(&to_find, &quotes))
 			quotes = quotes;

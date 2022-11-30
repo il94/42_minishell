@@ -6,14 +6,12 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:25:21 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/21 16:44:25 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:33:50 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* la meme fonction que define command avec une petite diff qui est qu on stock
-tout dans un t_lex... pour faciliter la tache....*/
 int	define_argument(t_data *data)
 {
 	t_lex	*temp;

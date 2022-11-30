@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:42:47 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 18:32:41 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:32:22 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,12 @@
 
 int	g_exit_status;
 
-void	sig_int_heredoc_child(int signum)
-{
-	(void)signum;
-	write(2, "\n", 1);
-	close(0);
-	g_exit_status = 130;
-}
-
-void	sig_int_heredoc_parent(int signum)
-{
-	(void)signum;
-	g_exit_status = 130;
-}
-
-void	replace_sig_int(int signum)
-{
-	(void)signum;
-	rl_on_new_line();
-	write(2, "\n", 1);
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_exit_status = 130;
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
 
-	// if (!isatty(0))
-	// 	return (write(2, "t nul\n" ,6), -1);
+	(void)ac;
+	(void)av;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, replace_sig_int);
 	g_exit_status = 0;

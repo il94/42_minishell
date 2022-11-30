@@ -6,13 +6,13 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 19:15:58 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:32:25 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	concat_ampersand(t_lex **lexer)
+static int	concat_ampersand(t_lex **lexer)
 {
 	if (!ft_strcmp((*lexer)->str, "&"))
 	{
@@ -39,7 +39,7 @@ int	concat_ampersand(t_lex **lexer)
 	return (1);
 }
 
-int	concat_quotes(t_lex **lexer)
+static int	concat_quotes(t_lex **lexer)
 {
 	char	quote[2];
 
@@ -63,7 +63,7 @@ int	concat_quotes(t_lex **lexer)
 	return (1);
 }
 
-int	concat_tokens(t_lex **lexer)
+static int	concat_tokens(t_lex **lexer)
 {
 	char	token[2];
 
@@ -81,7 +81,7 @@ int	concat_tokens(t_lex **lexer)
 	return (1);
 }
 
-int	concat_env(t_lex **lexer)
+static int	concat_env(t_lex **lexer)
 {
 	if (!ft_strcmp((*lexer)->str, "$"))
 	{

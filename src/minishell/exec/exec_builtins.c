@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:13:17 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 21:04:04 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:02:10 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	builtins_child(t_data *data, t_cmd *cmd)
 	if (!cmd->command)
 		return ;
 	if (!ft_strcmp(cmd->command, "env"))
-		env(data, cmd->args->next);
+		env(data);
 	else if (!ft_strcmp(cmd->command, "pwd"))
-		pwd(data, cmd->args->next);
+		pwd(data);
 	else if (!ft_strcmp(cmd->command, "echo"))
-		echo(data, cmd->args->next);
+		echo(cmd->args->next);
 }

@@ -6,38 +6,11 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:16:35 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/21 16:47:48 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:14:03 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
-{
-	int		index;
-	char	*rvalue;
-
-	index = 0;
-	while (path && *path && *path != '*')
-		new_path[index++] = *(path++);
-	new_path[index++] = *path;
-	new_path[index--] = '\0';
-	if (new_path[index] == '*')
-	{
-		while (index >= 0 && new_path[index] != '/')
-			new_path[index--] = '\0';
-	}
-	rvalue = ft_strjoin(new_path, finded);
-	free(new_path);
-	if (!rvalue)
-		return (NULL);
-	while (*path && *path != '/')
-		path++;
-	if (!path)
-		return (rvalue);
-	rvalue = ft_strjoin(rvalue, path);
-	return (rvalue);
-}*/
 
 static char	*add_path(char *new_path, char *path, int *index2)
 {
@@ -95,11 +68,9 @@ static char	*add_el_to_new_path(char *new_path, char *path, char *finded)
 
 char	*concate_paths(char *path, char *finded)
 {
-	int		index;
 	char	*rvalue;
 	char	*new_path;
 
-	index = 0;
 	new_path = malloc((ft_strlen(path) + 1) * sizeof(char));
 	if (!new_path)
 		return (NULL);

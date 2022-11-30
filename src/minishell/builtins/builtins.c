@@ -6,13 +6,13 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 21:19:37 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:59:50 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	pwd(t_data *data, t_lex *args)
+void	pwd(t_data *data)
 {
 	char	*str;
 
@@ -23,7 +23,7 @@ void	pwd(t_data *data, t_lex *args)
 	free(str);
 }
 
-void	env(t_data *data, t_lex *args)
+void	env(t_data *data)
 {
 	if (data->env)
 		ft_lstprint_lex(data->env);

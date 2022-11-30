@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_get_paths.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:11:29 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 12:46:44 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 22:21:42 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*get_command_path(char *path, char **bin_paths)
+static char	*get_command_path(char *path, char **bin_paths)
 {
 	char	*command_path;
 	int		i;
@@ -37,7 +37,7 @@ char	*get_command_path(char *path, char **bin_paths)
 	return (path);
 }
 
-char	**get_bin_paths(t_data *data)
+static char	**get_bin_paths(t_data *data)
 {
 	char	**bin_paths;
 	t_lex	*paths;

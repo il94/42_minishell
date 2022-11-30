@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 18:01:48 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:08:15 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	dell_occur_in_lst(t_lex **head_lst, \
 	}
 }
 
-static int	add_occur_to_list(int *err, t_lex **head_lst, \
-	t_lex **head_paths, t_lex **paths)
+static int	add_occur_to_list(t_lex **head_lst, t_lex **head_paths, \
+	t_lex **paths)
 {
 	t_lex	*lst;
 	t_lex	*new;
@@ -103,7 +103,7 @@ t_lex	*wildiwonkard(t_data *data, t_lex *path, t_lex *lst_str)
 		if (is_there_wildcard(paths->str))
 			head_lst = find_occurrences(paths, &err);
 		if (err == -2
-			|| !add_occur_to_list(&err, &head_lst, &head_paths, &paths))
+			|| !add_occur_to_list(&head_lst, &head_paths, &paths))
 			clear_wildi(data, head_paths, head_lst, lst_str);
 		if (paths && !is_there_wildcard(paths->str))
 			paths = paths->next;

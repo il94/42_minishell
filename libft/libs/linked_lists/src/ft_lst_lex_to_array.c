@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst_lex_to_array.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/25 22:57:12 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 23:23:56 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ char	**ft_lst_lex_to_array(t_lex *lst_lex)
 	array = add_el_to_array(lst, array, size);
 	return (array);
 }
-

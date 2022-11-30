@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:36:53 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 18:30:02 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:00:20 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	*reload_lexer(t_data *data, t_lex *temp)
 	return (NULL);
 }
 
-char	*find_file(t_data *data)
+static char	*find_file(t_data *data)
 {
 	char	*file;
 	t_redi	r;
@@ -57,7 +57,7 @@ char	*find_file(t_data *data)
 	return (file);
 }
 
-t_fd	*define_fd(t_data *data)
+static t_fd	*define_fd(t_data *data)
 {
 	t_fd	*el;
 	int		redi;
@@ -75,7 +75,6 @@ t_fd	*define_fd(t_data *data)
 
 int	define_redi(t_data *data)
 {
-	t_fd	*new_redi;
 	t_redi	redi;
 
 	redi = get_redi(data->lexer);

@@ -6,15 +6,12 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:54:26 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/21 16:44:43 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:33:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* pour verifier si lst->str == a commande
-	je regarde les el precedant en sautant les (whitespaces)
-	si el = a redi c est pas bon*/
 int	define_command(t_data *data)
 {
 	t_lex	*temp;

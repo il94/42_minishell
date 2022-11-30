@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 18:30:39 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:02:47 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	empty_cmd(t_cmd *command, int is_child)
 			&& (!cmd->input || cmd->input->operator == PIPE_R)
 			&& (!cmd->output || cmd->output->operator == PIPE_R))
 		{
-			if (cmd->delimiter != NOTHING_D || is_child && !cmd->prev)
+			if ((cmd->delimiter != NOTHING_D) || (is_child && !cmd->prev))
 				unexpected_token(cmd->delimiter, 0);
 			else if (cmd->prev)
 				unexpected_token(cmd->prev->delimiter, 1);

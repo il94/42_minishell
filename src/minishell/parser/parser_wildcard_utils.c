@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:22:34 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/21 16:48:59 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:04:52 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static t_lex	*lst_of_occurrences(char *path, int *err, \
 	t_lex *to_find, int dir_only)
 {
 	t_lex	*r_value;
-	t_lex	*dir_file;
-	t_lex	*tmp;
 
 	if (!to_find)
 	{

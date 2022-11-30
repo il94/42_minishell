@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:01 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 15:00:38 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 23:10:10 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*add_unsuspect_char(char *last, char *next, int *index, int *quotes)
 	return (rvalue);
 }
 
-static void	*dont_expand(t_data *data, char **new_str)
+static void	dont_expand(t_data *data, char **new_str)
 {
 	char	*tmp;
 
@@ -75,9 +75,7 @@ char	*check_expand(t_data *data, char **str, int quotes, int n)
 {
 	char	*new_str;
 	char	*tmp;
-	int		index_new;
 
-	index_new = 0;
 	new_str = NULL;
 	while ((*str)[n])
 	{

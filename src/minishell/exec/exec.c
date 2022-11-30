@@ -6,13 +6,13 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:25:42 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 20:44:28 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:38:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	replace_sig_quit(int signum)
+/* void	replace_sig_quit(int signum)
 {
 	(void)signum;
 	g_exit_status = 131;
@@ -24,7 +24,7 @@ void	replace_sig_int_exe(int signum)
 	(void)signum;
 	g_exit_status = 130;
 	ft_printf_fd(2, "\n");
-}
+} */
 
 static void	exec_loop(t_data *data, t_cmd *commands)
 {

@@ -6,17 +6,11 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 06:12:24 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 18:33:44 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:11:54 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	sig_unexpected_eof(char *delimiter)
-{
-	ft_printf_fd(2, "\nminishell: warning: here-document delimited by ");
-	ft_printf_fd(2, "end-of-file (wanted `%s')\n", delimiter);
-}
 
 static char	*expand_in_hd(t_data *data, char **buffer)
 {
@@ -46,7 +40,6 @@ static int	len_buf(char *str)
 static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 {
 	char	*buffer;
-	char	*tmp;
 
 	buffer = NULL;
 	while (1)

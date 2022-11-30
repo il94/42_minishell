@@ -46,31 +46,39 @@ OBJ_DIR = obj/
 #                                   SOURCES                                    #
 #==============================================================================#
 
-SRC =	main.c minishell/minishell.c \
+SRC =	main.c \
 		\
-		minishell/utils/initialize.c minishell/utils/free_memory.c \
-		minishell/utils/utils.c minishell/utils/error.c \
-		minishell/utils/is_there.c\
+		minishell/minishell.c \
 		\
-		minishell/lexer/lexer.c minishell/lexer/lexer_utils.c minishell/lexer/lexer_initialize.c \
-		minishell/lexer/lexer_delimiter.c minishell/lexer/lexer_redi.c minishell/lexer/lexer_command.c \
-		minishell/lexer/lexer_argument.c minishell/lexer/lexer_child.c minishell/lexer/lexer_initialize_utils.c\
+		minishell/builtins/builtins.c minishell/builtins/builtins_export.c \
+		minishell/builtins/builtins_echo.c minishell/builtins/builtins_cd.c \
 		\
-		minishell/parser/parser_wildcard.c minishell/parser/parser.c minishell/parser/parser_wildcard_utils.c \
-		minishell/parser/parser_dir_utils.c minishell/parser/parser_expand_utils.c \
-		minishell/parser/parser_expand.c minishell/parser/parser_wildcard_algo.c minishell/parser/parser_dir.c \
-		minishell/parser/parser_ft_wildcard.c minishell/parser/parser_ft_expand.c \
+		minishell/exec/exec.c minishell/exec/exec_launch_command_utils.c \
+		minishell/exec/exec_wait.c minishell/exec/exec_launch_command.c \
+		minishell/exec/exec_builtins.c minishell/exec/exec_redir.c \
+		\
+		minishell/lexer/lexer.c minishell/lexer/lexer_utils.c \
+		minishell/lexer/lexer_initialize.c minishell/lexer/lexer_delimiter.c \
+		minishell/lexer/lexer_redi.c minishell/lexer/lexer_command.c \
+		minishell/lexer/lexer_argument.c minishell/lexer/lexer_child.c \
+		minishell/lexer/lexer_initialize_utils.c \
+		\
+		minishell/parser/parser.c minishell/parser/parser_wildcard.c \
+		minishell/parser/parser_wildcard_utils.c \
+		minishell/parser/parser_expand_utils.c \
+		minishell/parser/parser_wildcard_algo.c minishell/parser/parser_dir.c \
+		minishell/parser/parser_ft_wildcard.c minishell/parser/parser_expand.c \
 		minishell/parser/parser_check_str.c minishell/parser/parser_cmd_arg.c \
-		minishell/parser/parser_input_output.c minishell/parser/parser_get_paths.c \
-		minishell/parser/parser_ft_put_in_quotes.c minishell/parser/parser_ft_take_off_quotes.c \
-		minishell/parser/parser_open_files.c minishell/parser/parser_here_doc.c \
-		minishell/parser/parser_pipe.c\
+		minishell/parser/parser_input_output.c minishell/parser/parser_pipe.c \
+		minishell/parser/parser_get_paths.c minishell/parser/parser_ft_expand.c\
+		minishell/parser/parser_ft_put_in_quotes.c \
+		minishell/parser/parser_ft_take_off_quotes.c \
+		minishell/parser/parser_open_files.c \
+		minishell/parser/parser_here_doc.c minishell/parser/parser_dir_utils.c \
 		\
-		minishell/exec/exec.c minishell/exec/exec_redir.c minishell/exec/exec_wait.c minishell/exec/exec_launch_command.c\
-		minishell/exec/exec_builtins.c minishell/exec/exec_launch_command_utils.c\
-		minishell/builtins/builtins.c minishell/builtins/builtins_cd.c minishell/builtins/builtins_echo.c \
-		minishell/builtins/builtins_export.c
-		\
+		minishell/utils/utils.c minishell/utils/initialize.c \
+		minishell/utils/free_memory.c minishell/utils/error.c \
+		minishell/utils/is_there.c minishell/utils/signals.c \
 
 #==============================================================================#
 #                                   HEADERS                                    #
@@ -91,16 +99,17 @@ OBJ = $(addprefix ${OBJ_DIR}, ${SRC:.c=.o})
 
 all : $(NAME)
 
-
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEAD_NAME)
 	mkdir -p ${@D}
-	$(CC) $(DFLAGS) $(MEM) $(INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(DFLAGS) $(MEM) $(INC) -c $< -o $@
 
 $(NAME) : $(OBJ)
 	$(MAKE_SILENT) -C libft
 	echo "$(YELLOW)Making Minishell$(END)"
-	$(CC) $(OBJ) $(INC_LIBFT) $(INC) $(MEM) -o $(NAME) -lreadline -g
+	$(CC) $(CFLAGS) $(OBJ) $(INC_LIBFT) $(INC) $(MEM) -o $(NAME) -lreadline -g
 	echo "$(GREEN)Done$(END)"
+
+bonus : all
 
 clean :
 	$(MAKE_SILENT) fclean -C libft
@@ -116,5 +125,5 @@ fclean : clean
 re : fclean
 	$(MAKE_SILENT) all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re bonus
 .SILENT :

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:24:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 17:41:28 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:17:00 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	open_file(t_data *data, t_fd *file, \
 		if (g_exit_status)
 			return (1);
 	}
-	else if (file->operator == PIPE_D && is_output)
+	else if (file->operator == PIPE_R && is_output)
 		generate_pipe(data, file, cmd);
 	else if (file->file && file->operator == R_CHEVRON)
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -42,7 +42,6 @@ static int	open_files_loop(t_data *data, t_fd *lst_file, \
 	int is_output, t_cmd *cmd)
 {
 	t_fd	*lst;
-	int		is_opened;
 
 	lst = lst_file;
 	while (lst)

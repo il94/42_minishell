@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_ft_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/26 21:34:22 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 23:16:48 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*cut_there(char *str, int start, int end)
 {
 	char	*cuted;
 	int		i;
-	int		len;
 
 	if (!str || !str[start] || !str[end])
 		return (NULL);
@@ -38,8 +37,8 @@ t_lex	*create_new_el(char *str, int *start, int *end)
 	t_lex	*new;
 
 	new = NULL;
-	if (!str[(*end) + 1]
-		|| (str[*end] == ' ') && !is_in_quotes(str, &str[*end]))
+	if ((!str[(*end) + 1]
+			|| (str[*end] == ' ')) && !is_in_quotes(str, &str[*end]))
 	{
 		if ((str[*end] == ' ') && !is_in_quotes(str, &str[*end]))
 			new = ft_lstnew_lex_dup(cut_there(str, *start, (*end) - 1));
@@ -52,7 +51,7 @@ t_lex	*create_new_el(char *str, int *start, int *end)
 	return (new);
 }
 
-t_lex	*add_new_el_to_lst(t_data *data, t_lex **new, t_lex **lst, char *str)
+void	add_new_el_to_lst(t_data *data, t_lex **new, t_lex **lst, char *str)
 {
 	if (!(*new) || !(*new)->str)
 	{
@@ -78,8 +77,8 @@ t_lex	*split_str(t_data *data, char *str)
 	new = NULL;
 	while (str[end])
 	{
-		if (!str[end + 1]
-			|| (str[end] == ' ') && !is_in_quotes(str, &str[end]))
+		if ((!str[end + 1]
+				|| (str[end] == ' ')) && !is_in_quotes(str, &str[end]))
 		{
 			new = create_new_el(str, &start, &end);
 			add_new_el_to_lst(data, &new, &lst, str);

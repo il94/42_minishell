@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_check_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:14:05 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/24 20:25:44 by auzun            ###   ########.fr       */
+/*   Updated: 2022/11/30 22:54:19 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*expand :
-	si entre double quotes on va chercher la variable dans env
-	si entre simple quotes on fait rien
-	*/
 
 static t_lex	*put_lst_in_lst(t_lex **new, t_lex **curr, int is_last)
 {
@@ -96,7 +91,7 @@ static t_lex	*check_wildcard(t_data *data, t_lex *lst_str)
 	return (lst_str);
 }
 
-static t_lex	*take_off_quotes_in_lst(t_data *data, t_lex *lst)
+static t_lex	*take_off_quotes_in_lst_lex(t_data *data, t_lex *lst)
 {
 	t_lex	*tmp;
 
@@ -134,7 +129,7 @@ t_lex	*check_str(t_data *data, char *str)
 		if (!lst_str || !lst_str->str)
 			free_all_and_exit(data, "malloc");
 	}
-	lst_str = take_off_quotes_in_lst(data, lst_str);
+	lst_str = take_off_quotes_in_lst_lex(data, lst_str);
 	lst_str = check_wildcard(data, lst_str);
 	return (lst_str);
 }

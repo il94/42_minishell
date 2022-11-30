@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser__ft_wildcard.c                              :+:      :+:    :+:   */
+/*   parser_ft_wildcard.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:34:12 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/21 16:46:36 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:09:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	take_off_quotes_in_lst(t_data *data, t_lex **lst, \
+static void	take_off_quotes_in_lst_void(t_data *data, t_lex **lst, \
 		t_lex **path, t_lex **lst_lst)
 {
 	t_lex	*tmp;
@@ -57,7 +57,6 @@ static void	take_off_invalid_matches(t_lex **h_matches)
 t_lex	*ft_wildcard(t_data *data, t_lex *path, t_lex *lst_str)
 {
 	t_lex	*matches;
-	t_lex	*tmp;
 
 	if (!is_there_wildcard(path->str))
 	{
@@ -73,7 +72,7 @@ t_lex	*ft_wildcard(t_data *data, t_lex *path, t_lex *lst_str)
 	matches = wildiwonkard(data, path, lst_str);
 	if (!matches)
 		return (NULL);
-	take_off_quotes_in_lst(data, &matches, &path, &lst_str);
+	take_off_quotes_in_lst_void(data, &matches, &path, &lst_str);
 	take_off_invalid_matches(&matches);
 	return (matches);
 }
