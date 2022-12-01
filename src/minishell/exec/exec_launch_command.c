@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 14:03:29 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/01 15:12:39 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	exec_command(t_data *data, t_cmd *command)
 	if (!check_cmd_and_fds(data, command))
 		return ;
 	dup2_r_and_w(command->input, command->output);
+	close_all_fd(data->commands);
 	if (is_builtin(command->command))
 		builtins_child(data, command);
 	else
 	{
-		close_all_fd(data->commands);
 		envp = get_env_in_array(data);
 		args = get_args_in_array(data, command->args, envp);
 		if (execve(command->command, args, envp))

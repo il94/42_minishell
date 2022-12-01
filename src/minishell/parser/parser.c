@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 23:02:47 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/01 15:01:00 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	unexpected_token(t_deli token, int v_mini)
 
 	deli = get_deli_char(token);
 	if (!deli)
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `('\n");
+		ft_printf_fd(2, "minishell: syntax error near unexpected token `)'\n");
 	else if (!v_mini)
 		ft_printf_fd(2, "minishell: syntax error near unexpected token `");
 	else
