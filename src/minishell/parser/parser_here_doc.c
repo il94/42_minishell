@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_here_doc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 06:12:24 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 23:11:54 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:46:41 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 	buffer = NULL;
 	while (1)
 	{
-		printf("> ");
+		ft_printf("> ");
 		buffer = ft_get_next_line(STDIN_FILENO);
 		if (g_exit_status == 130)
 			break ;

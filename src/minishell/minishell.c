@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 21:35:28 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:44:31 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	minishell(t_data *data)
 	{
 		data->prev_exit_status = g_exit_status;
 		g_exit_status = 0;
-		data->prompt = readline("\x1b[35mfi\x1b[34mni\x1b[36ms\x1b[32mhe\x1b[33mll\x1b[31m> \x1b[0m");
+		data->prompt = readline("minishell> ");
 		if (g_exit_status >= 130)
 		{
 			data->prev_exit_status = g_exit_status;

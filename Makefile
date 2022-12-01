@@ -76,9 +76,11 @@ SRC =	main.c \
 		minishell/parser/parser_open_files.c \
 		minishell/parser/parser_here_doc.c minishell/parser/parser_dir_utils.c \
 		\
+		minishell/signals/signals.c minishell/signals/signals_heredoc.c \
+		\
 		minishell/utils/utils.c minishell/utils/initialize.c \
 		minishell/utils/free_memory.c minishell/utils/error.c \
-		minishell/utils/is_there.c minishell/utils/signals.c \
+		minishell/utils/is_there.c \
 
 #==============================================================================#
 #                                   HEADERS                                    #

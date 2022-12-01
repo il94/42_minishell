@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:42:59 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 23:30:24 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:58:01 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # define BUFFER_SIZE 5
 
-int		while_get_next_line(char *line, char *buffer, int fd);
+int		while_get_next_line(char **line, char *buffer, int fd);
 char	*ft_get_next_line(int fd);
 int		ft_strchr_gnl(char *s, int c);
 void	remove_last_line(char *buffer);
