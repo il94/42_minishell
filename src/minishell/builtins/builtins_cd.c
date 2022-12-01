@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:18:51 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 21:18:58 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:00:09 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	cd(t_data *data, t_lex *args)
 	}
 	if (!chdir(args->str))
 	{
-		cd_modify_pwd_values(data);
+		if (data->env)
+			cd_modify_pwd_values(data);
 		return ;
 	}
 	g_exit_status = 1;

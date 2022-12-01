@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:25:42 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/01 14:34:34 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/01 16:14:56 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/* void	replace_sig_quit(int signum)
-{
-	(void)signum;
-	g_exit_status = 131;
-	ft_printf_fd(2, "Quit (core dumped)\n");
-}
-
-void	replace_sig_int_exe(int signum)
-{
-	(void)signum;
-	g_exit_status = 130;
-	ft_printf_fd(2, "\n");
-} */
 
 static void	exec_loop(t_data *data, t_cmd *commands)
 {

@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:18:11 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 23:00:03 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:54:26 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	echo(t_lex *args)
 	}
 	while (args && args->str)
 	{
-		if (args->str[0])
+		if (args->str)
 		{
 			printf("%s", args->str);
-			if (args->next && args->next->str[0])
+			if (args->next && args->next->str)
 				printf(" ");
 		}
 		args = args->next;
