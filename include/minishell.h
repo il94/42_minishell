@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 23:22:03 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:14:11 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,9 @@ t_lex	*find_occurrences(t_lex *paths, int *err);
 
 /* parser_wildcard.c */
 t_lex	*wildiwonkard(t_data *data, t_lex *path, t_lex *lst_str);
+
+/* parser_utils.c */
+int		is_there_in_out(t_cmd *cmd);
 
 /* parser.c */
 void	parser(t_data *data, t_cmd *command, int is_child);

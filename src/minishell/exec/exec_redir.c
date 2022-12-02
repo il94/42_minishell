@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:15:50 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/01 21:13:11 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:21:46 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int	verif_files_fd(t_fd *in, t_fd *out)
 
 static void	dup2_and_close(t_fd *fd_in, t_fd *fd_out)
 {
-	if (fd_in->fd >= 0)
+	if (fd_in && fd_in->fd >= 0)
 	{
 		dup2(fd_in->fd, 0);
 		close(fd_in->fd);
 		fd_in->fd = -1;
 	}
-	if (fd_in->fd >= 0)
+	if (fd_out && fd_out->fd >= 0)
 	{
 		dup2(fd_out->fd, 1);
 		close(fd_out->fd);

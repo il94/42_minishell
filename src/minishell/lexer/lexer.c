@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:58:21 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 22:47:42 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:44:55 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	lexer(t_data *data)
 	data->start_cmd = data->commands;
 	while (data->lexer)
 	{
+		define_child(data);
 		define_delimiter(data);
 		define_redi(data);
 		if (g_exit_status)
 			break ;
 		define_argument(data);
 		define_command(data);
-		define_child(data);
 		if (data->lexer)
 			data->lexer = data->lexer->next;
 	}

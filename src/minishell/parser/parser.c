@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/01 15:01:00 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/02 15:16:19 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	is_invalid_child(t_cmd *command)
 		return (1);
 	cmd = command->child_cmd;
 	if ((command->command && cmd)
-		|| ((command->input || command->output) && cmd))
+		|| (is_there_in_out(command) && cmd))
 		is_invalid = 1;
 	while (cmd && !is_invalid)
 	{
