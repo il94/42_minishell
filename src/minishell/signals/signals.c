@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:48:10 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/01 14:37:06 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/03 00:48:54 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	replace_sig_quit(int signum)
 void	replace_sig_int_exe(int signum)
 {
 	(void)signum;
-	g_exit_status = 130;
 	ft_printf_fd(2, "\n");
 }
 

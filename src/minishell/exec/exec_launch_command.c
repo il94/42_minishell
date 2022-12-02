@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/02 20:04:53 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/03 00:32:53 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec_command(t_data *data, t_cmd *command)
 
 	if (!check_cmd_and_fds(data, command))
 		return ;
-	dup2_r_and_w(command->input, command->output);
+	dup2_r_and_w(data, command->input, command->output);
 	if (is_builtin(command->command))
 		builtins_child(data, command);
 	else
@@ -29,6 +29,7 @@ void	exec_command(t_data *data, t_cmd *command)
 		args = get_args_in_array(data, command->args, envp);
 		if (execve(command->command, args, envp))
 			cmd_error(errno, command->command);
+		ft_printf_fd(2, "JE TE BWXAJFADSLKJF\n");
 		if (envp)
 			ft_free_array(envp);
 		ft_free_array(args);
@@ -58,6 +59,8 @@ void	green_light(t_data *data, t_cmd *command)
 		free_all_and_exit(data, "fork");
 	if (command->pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		exec_command(data, command);
 		free_data_struct(data);
 		if (data->start_env)

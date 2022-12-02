@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:56:55 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 18:00:46 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/03 00:52:40 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@ int	msg_error(char *err)
 {
 	write(2, err, ft_strlen(err));
 	return (1);
+}
+
+void	unexpected_token(t_deli token, int v_mini)
+{
+	char	*deli;
+
+	deli = get_deli_char(token);
+	if (!deli)
+		ft_printf_fd(2, "minishell: syntax error near unexpected token `)'\n");
+	else if (!v_mini)
+		ft_printf_fd(2, "minishell: syntax error near unexpected token `");
+	else
+		ft_printf_fd(2,
+			"minishell: syntax error (minishell) near unexpected token `");
+	if (deli)
+		ft_printf_fd(2, "%s'\n", deli);
+	define_exit_status(NULL, 2);
 }
 
 void	cmd_error(int status, char *cmd)

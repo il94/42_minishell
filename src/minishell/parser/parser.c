@@ -6,28 +6,11 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/02 20:39:27 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/03 00:52:34 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static void	unexpected_token(t_deli token, int v_mini)
-{
-	char	*deli;
-
-	deli = get_deli_char(token);
-	if (!deli)
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `)'\n");
-	else if (!v_mini)
-		ft_printf_fd(2, "minishell: syntax error near unexpected token `");
-	else
-		ft_printf_fd(2,
-			"minishell: syntax error (minishell) near unexpected token `");
-	if (deli)
-		ft_printf_fd(2, "%s'\n", deli);
-	define_exit_status(NULL, 2);
-}
 
 static void	empty_cmd(t_cmd *command, int is_child)
 {

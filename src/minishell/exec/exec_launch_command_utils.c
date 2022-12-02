@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:52:30 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 12:56:42 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/02 23:17:11 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ static int	check_cmd(t_data *data, t_cmd *cmd)
 	else
 		return (1);
 	return (0);
+}
+
+void	set_parent_new_in_out(t_data *data, int in, int out)
+{
+	data->parent_in_fd = in;
+	data->parent_out_fd = out;
 }
 
 int	check_cmd_and_fds(t_data *data, t_cmd *command)

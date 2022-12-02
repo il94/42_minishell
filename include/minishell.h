@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/02 21:56:01 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/03 00:53:05 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	builtins_parent(t_data *data, t_cmd *cmd);
 void	builtins_child(t_data *data, t_cmd *cmd);
 
 /* exec_launch_command_utils.c */
+void	set_parent_new_in_out(t_data *data, int in, int out);
 char	**get_env_in_array(t_data *data);
 char	**get_args_in_array(t_data *data, t_lex *lst_args, char **free_if_l);
 int		check_cmd_and_fds(t_data *data, t_cmd *command);
@@ -71,7 +72,7 @@ int		launch_command(t_data *data, t_cmd *command);
 
 /* exec_redir.c */
 int		verif_files_fd(t_fd *in, t_fd *out);
-void	dup2_r_and_w(t_fd *in, t_fd *out);
+void	dup2_r_and_w(t_data *data, t_fd *in, t_fd *out);
 void	close_fd(t_cmd *command);
 void	close_all_fd(t_cmd *command);
 
@@ -194,6 +195,7 @@ void	parser(t_data *data);
 /*============================================================================*/
 
 /* error.c */
+void	unexpected_token(t_deli token, int v_mini);
 int		msg_error(char *err);
 void	cmd_error(int status, char *cmd);
 void	define_exit_status(char *to_print, int error_code);
@@ -206,6 +208,7 @@ void	free_data_struct(t_data *data);
 void	free_all_and_exit(t_data *data, char *str_error);
 
 /* initialize.c */
+void	set_parent_default_in_out(t_data *data);
 void	initialize_data(t_data *data, char **envp);
 
 /* is_there.c */

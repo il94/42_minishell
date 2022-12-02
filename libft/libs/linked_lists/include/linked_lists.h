@@ -51,27 +51,29 @@ typedef struct s_lex
 
 typedef struct s_cmd
 {
+	struct s_cmd	*prev;
 	int				pid;
 	t_fd			*input;
-	t_fd			*output;
-	t_deli			delimiter;
 	char			*command;
 	t_lex			*args;
 	struct s_cmd	*child_cmd;
+	t_fd			*output;
+	t_deli			delimiter;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
 }					t_cmd;
 
 typedef struct s_data
 {
+	int		parent_in_fd;
+	int		parent_out_fd;
 	int		prev_exit_status;
+	char	*prompt;
 	t_cmd	*commands;
 	t_cmd	*start_cmd;
 	t_lex	*lexer;
 	t_lex	*start_lex;
 	t_lex	*env;
 	t_lex	*start_env;
-	char	*prompt;
 }			t_data;
 
 /* for t_fd */
