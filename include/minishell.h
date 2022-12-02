@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/02 15:14:11 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/02 16:44:44 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,5 +231,8 @@ void	minishell(t_data *data);
 
 /* main.c */
 int		main(int ac, char **av, char **envp);
+
+void	ft_print_fd(t_fd *fd);
+void	print_cmd(t_cmd *commands, char *state);
 
 #endif

@@ -81,7 +81,7 @@ SRC =	main.c \
 		minishell/utils/utils.c minishell/utils/initialize.c \
 		minishell/utils/free_memory.c minishell/utils/error.c \
 		minishell/utils/is_there.c \
-
+		../other/temp.c \
 #==============================================================================#
 #                                   HEADERS                                    #
 #==============================================================================#

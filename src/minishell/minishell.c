@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:01:04 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/02 15:45:30 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/02 16:58:27 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	read_prompt(t_data *data)
 		lexer(data);
 		if (!g_exit_status)
 			parser(data, data->commands, 0);
+		print_cmd(data->commands, "PARENT");
 		if (!g_exit_status)
 			exec(data, data->commands);
 	}
