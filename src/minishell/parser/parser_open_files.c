@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_open_files.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:24:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 23:17:00 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:39:05 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ void	open_files(t_data *data, t_cmd *cmd)
 	lst_cmd = cmd;
 	while (lst_cmd)
 	{
-		if (lst_cmd->input
-			&& !open_files_loop(data, lst_cmd->input, 0, lst_cmd))
-			lst_cmd = lst_cmd->next;
+		if (lst_cmd->child_cmd)
+			open_files(data, lst_cmd->child_cmd);
+		if (lst_cmd->input)
+			open_files_loop(data, lst_cmd->input, 0, lst_cmd);
 		if (g_exit_status)
 			return ;
-		if (lst_cmd && lst_cmd->output)
+		if (lst_cmd->output)
 			open_files_loop(data, lst_cmd->output, 1, lst_cmd);
 		if (g_exit_status)
 			return ;
-		if (lst_cmd)
-			lst_cmd = lst_cmd->next;
+		lst_cmd = lst_cmd->next;
 	}
 }

@@ -71,7 +71,7 @@ SRC =	main.c \
 		minishell/parser/parser_check_str.c minishell/parser/parser_cmd_arg.c \
 		minishell/parser/parser_input_output.c minishell/parser/parser_pipe.c \
 		minishell/parser/parser_get_paths.c minishell/parser/parser_ft_expand.c\
-		minishell/parser/parser_ft_put_in_quotes.c \
+		minishell/parser/parser_ft_put_in_quotes.c minishell/parser/parser_cmd_arg_utils.c\
 		minishell/parser/parser_ft_take_off_quotes.c \
 		minishell/parser/parser_open_files.c minishell/parser/parser_utils.c\
 		minishell/parser/parser_here_doc.c minishell/parser/parser_dir_utils.c \

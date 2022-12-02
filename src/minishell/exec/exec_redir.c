@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:15:50 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/02 16:38:57 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:02:17 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	close_fd(t_cmd *command)
 	fd = command->input;
 	while (fd)
 	{
-		if (fd->fd > 0)
+		if (fd->fd > -1)
 		{
 			close(fd->fd);
 			fd->fd = -1;
@@ -96,7 +96,7 @@ void	close_fd(t_cmd *command)
 	fd = command->output;
 	while (fd)
 	{
-		if (fd->fd > 0)
+		if (fd->fd > -1)
 		{
 			close(fd->fd);
 			fd->fd = -1;
@@ -112,6 +112,8 @@ void	close_all_fd(t_cmd *command)
 	cmd = command;
 	while (cmd)
 	{
+		if (cmd->child_cmd)
+			close_fd(cmd->child_cmd);
 		close_fd(cmd);
 		cmd = cmd->next;
 	}

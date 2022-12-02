@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_launch_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/02 16:39:28 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:04:53 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	exec_command(t_data *data, t_cmd *command)
 	if (!check_cmd_and_fds(data, command))
 		return ;
 	dup2_r_and_w(command->input, command->output);
-	close_all_fd(data->commands);
 	if (is_builtin(command->command))
 		builtins_child(data, command);
 	else
 	{
+		close_all_fd(data->commands);
 		envp = get_env_in_array(data);
 		args = get_args_in_array(data, command->args, envp);
 		if (execve(command->command, args, envp))
@@ -40,7 +40,7 @@ int	red_light(t_data *data, t_cmd *command)
 	if (command && (command->prev && (command->prev->delimiter == AND
 				|| command->prev->delimiter == OR)))
 	{
-		wait_process(data->commands, &data->prev_exit_status);
+		wait_process(data->commands);
 		if (g_exit_status && command->prev->delimiter == AND)
 			return (1);
 		else if (!g_exit_status && command->prev->delimiter == OR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd_arg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:21:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 23:10:56 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 21:54:17 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_lex	*parsing_cmd(t_data *data, t_cmd *command, char *cmd)
 	if (!lst)
 		return (NULL);
 	free(command->command);
+	if (lst && !(*lst->str))
+		return (switch_cmd_w_head_arg(data, command, lst));
 	command->command = ft_strdup(lst->str);
 	if (!command->command)
 	{
@@ -80,7 +82,6 @@ static t_lex	*parsing_args(t_data *data, t_lex *args, t_lex *before)
 		add_before_to_args(before, &args, &lst);
 	else
 		lst = args;
-	tmp_arg = NULL;
 	while (lst)
 	{
 		if (lst && lst->str && (ft_strchr(lst->str, '\"')
@@ -88,7 +89,9 @@ static t_lex	*parsing_args(t_data *data, t_lex *args, t_lex *before)
 				|| ft_strchr(lst->str, '*')))
 		{
 			tmp_arg = check_str(data, lst->str);
-			if (tmp_arg)
+			if (tmp_arg && !(*tmp_arg->str))
+				switch_head_arg_w_next_arg(&tmp_arg, &lst, &args);
+			else if (tmp_arg)
 				add_el_to_arg(&tmp_arg, &lst, &args);
 		}
 		else

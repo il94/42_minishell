@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 03:58:16 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/02 15:16:19 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/02 20:39:27 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	invalid_child(t_cmd *command)
 	}
 }
 
-void	parser(t_data *data, t_cmd *command, int is_child)
+void	parser_sieve(t_data *data, t_cmd *command, int is_child)
 {
 	t_cmd	*cmd;
 
@@ -115,10 +115,19 @@ void	parser(t_data *data, t_cmd *command, int is_child)
 		parser_input_output(data, cmd);
 		parser_cmd_arg(data, cmd);
 		if (cmd->child_cmd)
-			parser(data, cmd->child_cmd, 1);
+			parser_sieve(data, cmd->child_cmd, 1);
+		if (g_exit_status)
+			return ;
 		cmd = cmd->next;
 	}
-	open_files(data, command);
+}
+
+void	parser(t_data *data)
+{
+	parser_sieve(data, data->start_cmd, 0);
+	if (g_exit_status)
+		return ;
+	open_files(data, data->start_cmd);
 	if (g_exit_status)
 		return ;
 	get_all_paths(data);

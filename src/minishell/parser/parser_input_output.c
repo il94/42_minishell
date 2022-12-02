@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input_output.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 04:03:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 17:51:50 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 21:11:37 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	parsing_file_name(t_data *data, t_fd *file)
 		lst = check_str(data, file->file);
 	if (!lst)
 		return (1);
-	if (lst->next)
+	if (lst->next || (lst->str && !(*lst->str)))
 	{
 		ambiguous_redirect(file, lst);
 		return (0);

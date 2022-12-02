@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_get_paths.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 19:11:29 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 22:21:42 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:39:56 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	verif_paths(t_cmd *command, char **bin_paths)
 	{
 		if (cmd->child_cmd)
 			verif_paths(cmd->child_cmd, bin_paths);
-		if (is_builtin(cmd->command))
+		else if (is_builtin(cmd->command))
 			;
 		else if (cmd->command && !ft_strcmp(cmd->command, "."))
 			cmd_error(2, cmd->command);
