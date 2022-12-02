@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/02 15:14:11 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/02 21:56:01 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void	close_fd(t_cmd *command);
 void	close_all_fd(t_cmd *command);
 
 /* exec_wait.c */
-void	wait_process(t_cmd *commands, int *prev_exit_status);
+void	wait_process(t_cmd *commands);
 
 /* exec.c */
-void	exec(t_data *data, t_cmd *commands);
+void	exec(t_data *data);
 
 /*============================================================================*/
 
@@ -119,6 +119,10 @@ void	lexer(t_data *data);
 
 /* parser_check_str.c */
 t_lex	*check_str(t_data *data, char *str);
+
+/* parser_cmd_arg_utils.c */
+void	switch_head_arg_w_next_arg(t_lex **el, t_lex **cur, t_lex **args);
+t_lex	*switch_cmd_w_head_arg(t_data *data, t_cmd *command, t_lex *lst);
 
 /* parser_cmd_arg.c */
 t_lex	*parsing_cmd(t_data *data, t_cmd *command, char *cmd);
@@ -184,7 +188,8 @@ t_lex	*wildiwonkard(t_data *data, t_lex *path, t_lex *lst_str);
 int		is_there_in_out(t_cmd *cmd);
 
 /* parser.c */
-void	parser(t_data *data, t_cmd *command, int is_child);
+void	parser_sieve(t_data *data, t_cmd *command, int is_child);
+void	parser(t_data *data);
 
 /*============================================================================*/
 

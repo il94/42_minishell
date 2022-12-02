@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:25:42 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/01 16:14:56 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:41:57 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static void	exec_loop(t_data *data, t_cmd *commands)
 	}
 }
 
-void	exec(t_data *data, t_cmd *commands)
+void	exec(t_data *data)
 {
 	signal(SIGQUIT, &replace_sig_quit);
 	signal(SIGINT, &replace_sig_int_exe);
-	exec_loop(data, commands);
-	close_fd(commands);
-	wait_process(commands, &data->prev_exit_status);
+	exec_loop(data, data->commands);
+	close_all_fd(data->commands);
+	wait_process(data->commands);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &replace_sig_int);
 }
