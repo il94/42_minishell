@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:24:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/03 00:46:34 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/03 01:43:42 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static void	catch_child_status(int wstatus, char *command)
 		if (status_code == 2)
 			g_exit_status = 130;
 		else if (status_code == 3)
+		{
 			g_exit_status = 131;
+			if (WCOREDUMP(wstatus))
+				ft_printf_fd(2, "Quit (core dumped)\n");
+		}
 		return ;
 	}
 	else if (WIFEXITED(wstatus))
