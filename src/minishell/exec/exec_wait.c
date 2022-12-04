@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:24:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/04 17:08:35 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 17:21:26 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	catch_child_status(int wstatus, t_cmd *command, t_cmd *last)
 				ft_printf_fd(2, "Quit");
 				if (WCOREDUMP(wstatus))
 					ft_printf_fd(2, " (core dumped)");
-				ft_printf_fd(2, "\n");		
+				ft_printf_fd(2, "\n");
 			}
 		}
 		return ;

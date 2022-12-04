@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 17:10:37 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 17:23:42 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	close_fd(t_cmd *command);
 void	close_all_fd(t_cmd *command);
 
 /* exec_utils.c */
+void	put_parent_pipe(t_data *data, t_cmd *cmd);
+void	reset_parent_in_out(t_data *data, t_cmd *cmd);
 t_cmd	*get_last_cmd(t_cmd *cmd);
 
 /* exec_wait.c */
