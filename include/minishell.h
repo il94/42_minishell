@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/03 00:53:05 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/04 17:10:37 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,11 @@ void	dup2_r_and_w(t_data *data, t_fd *in, t_fd *out);
 void	close_fd(t_cmd *command);
 void	close_all_fd(t_cmd *command);
 
+/* exec_utils.c */
+t_cmd	*get_last_cmd(t_cmd *cmd);
+
 /* exec_wait.c */
-void	wait_process(t_cmd *commands);
+void	wait_process(t_data *data, t_cmd *commands, t_cmd *last);
 
 /* exec.c */
 void	exec(t_data *data);
@@ -218,12 +221,13 @@ int		is_there_wildcard(char *str);
 int		is_there_el_outside_quotes(char *str, char el);
 int		is_there_el_outside_quotes_v2(char *str, char *el);
 
-/* signals.c */
-void	replace_sig_quit(int signum);
-void	replace_sig_int_exe(int signum);
+/* signals_heredoc.c */
 void	sig_unexpected_eof(char *delimiter);
 void	sig_int_heredoc_child(int signum);
 void	sig_int_heredoc_parent(int signum);
+
+/* signals.c */
+void	replace_sig_int_exe(int signum);
 void	replace_sig_int(int signum);
 
 /* utils.c */

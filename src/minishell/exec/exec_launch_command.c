@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_launch_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/03 00:32:53 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/04 16:56:42 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	red_light(t_data *data, t_cmd *command)
 	if (command && (command->prev && (command->prev->delimiter == AND
 				|| command->prev->delimiter == OR)))
 	{
-		wait_process(data->commands);
+		wait_process(data, data->commands, get_last_cmd(data->commands));
 		if (g_exit_status && command->prev->delimiter == AND)
 			return (1);
 		else if (!g_exit_status && command->prev->delimiter == OR)

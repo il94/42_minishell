@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_lstlast_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 21:48:10 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 17:09:18 by ilandols         ###   ########.fr       */
+/*   Created: 2022/04/21 02:57:18 by ilyes             #+#    #+#             */
+/*   Updated: 2022/12/04 16:40:24 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/linked_lists.h"
 
-void	replace_sig_int_exe(int signum)
+t_cmd	*ft_lstlast_cmd(t_cmd *lst)
 {
-	(void)signum;
-	ft_printf_fd(2, "\n");
-}
+	t_cmd	*temp;
 
-void	replace_sig_int(int signum)
-{
-	(void)signum;
-	rl_on_new_line();
-	write(2, "\n", 1);
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_exit_status = 130;
+	if (lst)
+	{
+		temp = lst;
+		while (temp->next)
+			temp = temp->next;
+		return (temp);
+	}
+	else
+		return (lst);
 }

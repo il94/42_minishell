@@ -84,6 +84,7 @@ t_fd		*ft_lstnew_fd(void);
 t_cmd		*ft_lstnew_cmd(void);
 void		ft_lstclear_cmd(t_cmd **lst);
 void		ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
+t_cmd		*ft_lstlast_cmd(t_cmd *lst);
 
 /* for t_lex */
 char		**ft_lst_lex_to_array(t_lex *lst_lex);

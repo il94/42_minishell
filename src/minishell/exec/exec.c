@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:25:42 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/03 01:36:23 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/04 17:09:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static void	exec_loop(t_data *data, t_cmd *commands, int is_child)
 
 void	exec(t_data *data)
 {
-	signal(SIGQUIT, &replace_sig_quit);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &replace_sig_int_exe);
 	exec_loop(data, data->commands, 0);
 	close_all_fd(data->commands);
-	wait_process(data->commands);
+	wait_process(data, data->commands, get_last_cmd(data->commands));
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &replace_sig_int);
 }
