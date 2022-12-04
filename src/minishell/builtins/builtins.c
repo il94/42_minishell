@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 22:59:50 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:00:40 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ void	unset(t_data *data, t_lex *args)
 		ft_lstdelone_lex(target);
 }
 
-void	ixit(t_data *data, t_lex *args)
+void	ixit(t_data *data, t_lex *args, int in_child)
 {
-	printf("exit\n");
+	if (!in_child)
+		ft_printf_fd(2, "exit\n");
 	if (args)
 	{
 		if (!ft_str_isdigit(args->str))

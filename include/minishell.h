@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 17:23:42 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 17:56:09 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	exporc(t_data *data, t_lex *arg);
 void	pwd(t_data *data);
 void	env(t_data *data);
 void	unset(t_data *data, t_lex *args);
-void	ixit(t_data *data, t_lex *args);
+void	ixit(t_data *data, t_lex *args, int in_child);
 
 /*============================================================================*/
 
 /* exec_builtins.c */
-int		is_builtin_parent(char *cmd);
 int		is_builtin(char *cmd);
+int		is_builtin_parent(t_data *data, t_cmd *last, char *cmd);
 void	builtins_parent(t_data *data, t_cmd *cmd);
 void	builtins_child(t_data *data, t_cmd *cmd);
 

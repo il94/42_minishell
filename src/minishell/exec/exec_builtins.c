@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:13:17 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 23:02:10 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 17:52:58 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_builtin_parent(char *cmd)
+int	is_builtin_parent(t_data *data, t_cmd *last, char *cmd)
 {
 	if (!cmd)
 		return (0);
-	if (!ft_strcmp(cmd, "exit"))
+	if (!ft_strcmp(cmd, "exit")
+		&& data->commands == last)
 		return (1);
 	else if (!ft_strcmp(cmd, "cd"))
 		return (1);
@@ -56,8 +57,9 @@ void	builtins_parent(t_data *data, t_cmd *cmd)
 		exporc(data, cmd->args->next);
 	else if (!ft_strcmp(cmd->command, "unset"))
 		unset(data, cmd->args->next);
-	else if (!ft_strcmp(cmd->command, "exit"))
-		ixit(data, cmd->args->next);
+	else if (!ft_strcmp(cmd->command, "exit")
+		&& data->commands == get_last_cmd(data->commands))
+		ixit(data, cmd->args->next, 0);
 	else if (!ft_strcmp(cmd->command, "cd"))
 		cd(data, cmd->args->next);
 }
@@ -72,4 +74,7 @@ void	builtins_child(t_data *data, t_cmd *cmd)
 		pwd(data);
 	else if (!ft_strcmp(cmd->command, "echo"))
 		echo(cmd->args->next);
+	else if (!ft_strcmp(cmd->command, "exit")
+		&& data->commands != get_last_cmd(data->commands))
+		ixit(data, cmd->args->next, 1);
 }

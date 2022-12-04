@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_wait.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:24:02 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/04 17:21:26 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:00:55 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	catch_child_status(int wstatus, t_cmd *command, t_cmd *last)
+static void	catch_child_status(t_data *data, int wstatus, \
+	t_cmd *command, t_cmd *last)
 {
 	int	status_code;
 
@@ -37,7 +38,7 @@ static void	catch_child_status(int wstatus, t_cmd *command, t_cmd *last)
 	}
 	else if (WIFEXITED(wstatus))
 		status_code = WEXITSTATUS(wstatus);
-	if (!is_builtin_parent(command->command))
+	if (!is_builtin_parent(data, last, command->command))
 		g_exit_status = status_code;
 }
 
@@ -55,7 +56,7 @@ void	wait_process(t_data *data, t_cmd *commands, t_cmd *last)
 		if (cmd->pid != -42)
 		{
 			waitpid(cmd->pid, &wstatus, 0);
-			catch_child_status(wstatus, cmd, last);
+			catch_child_status(data, wstatus, cmd, last);
 			cmd->pid = -42;
 		}
 		if (cmd->child_cmd)
