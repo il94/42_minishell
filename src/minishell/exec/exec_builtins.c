@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:13:17 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/04 17:52:58 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/04 18:48:07 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	is_builtin_parent(t_data *data, t_cmd *last, char *cmd)
 {
-	if (!cmd)
+	if (!cmd || (last && data->commands != last))
 		return (0);
-	if (!ft_strcmp(cmd, "exit")
-		&& data->commands == last)
+	if (!ft_strcmp(cmd, "exit"))
 		return (1);
 	else if (!ft_strcmp(cmd, "cd"))
 		return (1);
@@ -49,22 +48,21 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-void	builtins_parent(t_data *data, t_cmd *cmd)
+void	builtins_parent(t_data *data, t_cmd *cmd, t_cmd *last)
 {
-	if (!cmd->command)
+	if (!cmd->command || data->commands != last)
 		return ;
 	if (!ft_strcmp(cmd->command, "export"))
 		exporc(data, cmd->args->next);
 	else if (!ft_strcmp(cmd->command, "unset"))
 		unset(data, cmd->args->next);
-	else if (!ft_strcmp(cmd->command, "exit")
-		&& data->commands == get_last_cmd(data->commands))
+	else if (!ft_strcmp(cmd->command, "exit"))
 		ixit(data, cmd->args->next, 0);
 	else if (!ft_strcmp(cmd->command, "cd"))
 		cd(data, cmd->args->next);
 }
 
-void	builtins_child(t_data *data, t_cmd *cmd)
+void	builtins_child(t_data *data, t_cmd *cmd, t_cmd *last)
 {
 	if (!cmd->command)
 		return ;
@@ -74,7 +72,14 @@ void	builtins_child(t_data *data, t_cmd *cmd)
 		pwd(data);
 	else if (!ft_strcmp(cmd->command, "echo"))
 		echo(cmd->args->next);
-	else if (!ft_strcmp(cmd->command, "exit")
-		&& data->commands != get_last_cmd(data->commands))
+	if (data->commands == last)
+		return ;
+	else if (!ft_strcmp(cmd->command, "exit"))
 		ixit(data, cmd->args->next, 1);
+	else if (!ft_strcmp(cmd->command, "cd"))
+		cd(data, cmd->args->next);
+	else if (!ft_strcmp(cmd->command, "unset"))
+		unset(data, cmd->args->next);
+	else if (!ft_strcmp(cmd->command, "export"))
+		exporc(data, cmd->args->next);
 }

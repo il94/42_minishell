@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 17:56:09 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/04 18:41:39 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ixit(t_data *data, t_lex *args, int in_child);
 
 /* exec_builtins.c */
 int		is_builtin(char *cmd);
+void	builtins_child(t_data *data, t_cmd *cmd, t_cmd *last);
+void	builtins_parent(t_data *data, t_cmd *cmd, t_cmd *last);
 int		is_builtin_parent(t_data *data, t_cmd *last, char *cmd);
-void	builtins_parent(t_data *data, t_cmd *cmd);
-void	builtins_child(t_data *data, t_cmd *cmd);
 
 /* exec_launch_command_utils.c */
 void	set_parent_new_in_out(t_data *data, int in, int out);

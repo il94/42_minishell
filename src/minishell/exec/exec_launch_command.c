@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_launch_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/04 16:56:42 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:44:33 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exec_command(t_data *data, t_cmd *command)
 		return ;
 	dup2_r_and_w(data, command->input, command->output);
 	if (is_builtin(command->command))
-		builtins_child(data, command);
+		builtins_child(data, command, get_last_cmd(data->commands));
 	else
 	{
 		close_all_fd(data->commands);
@@ -68,7 +68,7 @@ void	green_light(t_data *data, t_cmd *command)
 		exit (g_exit_status);
 	}
 	else
-		builtins_parent(data, command);
+		builtins_parent(data, command, get_last_cmd(data->commands));
 }
 
 int	launch_command(t_data *data, t_cmd *command)
