@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
 /*   Updated: 2022/12/04 21:43:15 by ilandols         ###   ########.fr       */
@@ -45,9 +45,10 @@ void	unset(t_data *data, t_lex *args)
 		unset(data, args->next);
 }
 
-void	ixit(t_data *data, t_lex *args)
+void	ixit(t_data *data, t_lex *args, int in_child)
 {
-	printf("exit\n");
+	if (!in_child)
+		ft_printf_fd(2, "exit\n");
 	if (args)
 	{
 		if ((!is_there("+-", args->str[0]) && !ft_str_isdigit(args->str))
