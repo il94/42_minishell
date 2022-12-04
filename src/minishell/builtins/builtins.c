@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:59:18 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 22:59:50 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 21:43:15 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	unset(t_data *data, t_lex *args)
 		ft_lstclear_lex(&data->env);
 	else if (target)
 		ft_lstdelone_lex(target);
+	if (args->next)
+		unset(data, args->next);
 }
 
 void	ixit(t_data *data, t_lex *args)
@@ -48,7 +50,8 @@ void	ixit(t_data *data, t_lex *args)
 	printf("exit\n");
 	if (args)
 	{
-		if (!ft_str_isdigit(args->str))
+		if ((!is_there("+-", args->str[0]) && !ft_str_isdigit(args->str))
+			|| (is_there("+-", args->str[0]) && !ft_str_isdigit(&args->str[1])))
 		{
 			ft_printf_fd(2, "minishell: exit: %s: numeric argument required\n",
 				args->str);

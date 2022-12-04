@@ -6,13 +6,13 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:18:11 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/02 16:07:03 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:32:49 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	echo_detect_n_flag(t_lex *args)
+static int	echo_detect_n_flag(t_lex *args)
 {
 	int	i;
 

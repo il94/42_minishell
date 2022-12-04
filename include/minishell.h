@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 17:23:42 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:33:13 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,13 @@ extern int	g_exit_status;
 /*============================================================================*/
 
 /* builtins_cd.c */
-void	cd_modify_pwd_values(t_data *data);
 void	cd(t_data *data, t_lex *args);
 
 /* builtins_echo.c */
-int		echo_detect_n_flag(t_lex *args);
 void	echo(t_lex *args);
 
 /* builtins_export.c */
-void	exporc_normal_mode(t_data *data, t_lex *arg, int i);
-void	exporc_append_mode(t_data *data, t_lex *arg, int i);
-int		exporc_parsing_argument(t_lex *arg, int i);
-void	exporc(t_data *data, t_lex *arg);
+void	exporc(t_data *data, t_lex *args);
 
 /* builtins.c */
 void	pwd(t_data *data);
