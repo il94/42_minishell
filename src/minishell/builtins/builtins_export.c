@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_env.c                                     :+:      :+:    :+:   */
+/*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:46:50 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 21:19:22 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:31:33 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	exporc_normal_mode(t_data *data, t_lex *arg, int i)
+static void	exporc_print_msg_error(char *str)
+{
+	g_exit_status = 1;
+	ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", str);
+}
+
+static void	exporc_normal_mode(t_data *data, t_lex *arg, int i)
 {
 	t_lex	*current;
 	t_lex	*new;
@@ -26,7 +32,7 @@ void	exporc_normal_mode(t_data *data, t_lex *arg, int i)
 	ft_lstadd_back_lex(&data->env, new);
 }
 
-void	exporc_append_mode(t_data *data, t_lex *arg, int i)
+static void	exporc_append_mode(t_data *data, t_lex *arg, int i)
 {
 	char	*arg_append_mode;
 	t_lex	*current;
@@ -50,43 +56,37 @@ void	exporc_append_mode(t_data *data, t_lex *arg, int i)
 		ft_lstadd_back_lex(&data->env, new);
 }
 
-int	exporc_parsing_argument(t_lex *arg, int i)
+static int	exporc_parsing_argument(t_lex *arg, int i)
 {
 	if ((!ft_isalnum(arg->str[i]) && arg->str[i] != '+' && arg->str[i] != '_')
 		|| (arg->str[i] == '+' && arg->str[i + 1] != '='))
-	{
-		g_exit_status = 1;
-		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
-			arg->str);
 		return (0);
-	}
 	return (1);
 }
 
-void	exporc(t_data *data, t_lex *arg)
+void	exporc(t_data *data, t_lex *args)
 {
 	int		i;
+	t_bool	error;
 
-	if (!arg || !arg->str)
+	error = FALSE;
+	if (!args || !args->str)
 		return (define_exit_status(NULL, 0));
-	if (arg->str[0] == '=' || ft_isdigit(arg->str[0]))
-	{
-		g_exit_status = 1;
-		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
-			arg->str);
-		return ;
-	}
 	i = 0;
-	while (arg->str[i] && arg->str[i] != '=')
-	{
-		if (!exporc_parsing_argument(arg, i))
-			return ;
+	while (args->str[i] && args->str[i] != '='
+		&& exporc_parsing_argument(args, i))
 		i++;
+	if (i == 0)
+		error = TRUE;
+	if (args->str[i])
+	{
+		if (!error && args->str[i - 1] == '+')
+			exporc_append_mode(data, args, i);
+		else if (!error)
+			exporc_normal_mode(data, args, i);
+		else
+			exporc_print_msg_error(args->str);
 	}
-	if (!arg->str[i])
-		return ;
-	if (arg->str[i - 1] == '+')
-		exporc_append_mode(data, arg, i);
-	else
-		exporc_normal_mode(data, arg, i);
+	if (args->next)
+		exporc(data, args->next);
 }
