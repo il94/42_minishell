@@ -6,13 +6,13 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:18:51 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/01 16:00:09 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:33:00 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	cd_modify_pwd_values(t_data *data)
+static void	cd_modify_pwd_values(t_data *data)
 {
 	t_lex	*pwd;
 	t_lex	*oldpwd;
