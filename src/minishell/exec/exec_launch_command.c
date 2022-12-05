@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:26:57 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/04 18:44:33 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/05 01:18:53 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	exec_command(t_data *data, t_cmd *command)
 		args = get_args_in_array(data, command->args, envp);
 		if (execve(command->command, args, envp))
 			cmd_error(errno, command->command);
-		ft_printf_fd(2, "JE TE BWXAJFADSLKJF\n");
 		if (envp)
 			ft_free_array(envp);
 		ft_free_array(args);

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 18:41:39 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/04 21:34:07 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,16 @@ void	green_light(t_data *data, t_cmd *command);
 int		launch_command(t_data *data, t_cmd *command);
 
 /* exec_redir.c */
-int		verif_files_fd(t_fd *in, t_fd *out);
-void	dup2_r_and_w(t_data *data, t_fd *in, t_fd *out);
 void	close_fd(t_cmd *command);
 void	close_all_fd(t_cmd *command);
+int		verif_files_fd(t_fd *in, t_fd *out);
+void	dup2_r_and_w(t_data *data, t_fd *in, t_fd *out);
 
 /* exec_utils.c */
-void	put_parent_pipe(t_data *data, t_cmd *cmd);
-void	reset_parent_in_out(t_data *data, t_cmd *cmd);
 t_cmd	*get_last_cmd(t_cmd *cmd);
+void	put_parent_pipe(t_data *data, t_cmd *cmd);
+t_fd	*get_cmd_in_or_out(t_fd *file, int is_input);
+void	reset_parent_in_out(t_data *data, t_cmd *cmd);
 
 /* exec_wait.c */
 void	wait_process(t_data *data, t_cmd *commands, t_cmd *last);
