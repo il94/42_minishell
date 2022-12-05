@@ -3,26 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:00:42 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 17:23:20 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/04 21:33:22 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+t_fd	*get_cmd_in_or_out(t_fd *file, int is_input)
+{
+	t_fd	*fd;
+
+	fd = NULL;
+	if (is_input)
+	{
+		fd = file;
+		while (fd && fd->next)
+			fd = fd->next;
+	}
+	else
+	{
+		fd = file;
+		while (fd
+			&& (fd->next && fd->next->operator != PIPE_R))
+			fd = fd->next;
+	}
+	return (fd);
+}
+
 void	put_parent_pipe(t_data *data, t_cmd *cmd)
 {
-	int	in;
-	int	out;
+	int		in;
+	int		out;
+	t_fd	*fd;
 
 	in = -1;
 	out = -1;
-	if (cmd->input && cmd->input->operator == PIPE_R)
-		in = cmd->input->fd;
-	if (cmd->output && cmd->output->operator == PIPE_R)
-		out = cmd->output->fd;
+	fd = get_cmd_in_or_out(cmd->input, 1);
+	if (fd && fd->fd > -1)
+		in = fd->fd;
+	fd = get_cmd_in_or_out(cmd->output, 0);
+	if (fd && fd->fd > -1)
+		out = fd->fd;
 	set_parent_new_in_out(data, in, out);
 }
 

@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:11:41 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/02 21:06:39 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/04 19:00:36 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_lex	*ft_expand(t_data *data, char *str)
 	char	*expanded;
 	char	*dup_str;
 
-	if (!str || !ft_strchr(str, '$') || !data->env)
+	if (!str || !ft_strchr(str, '$'))
 		return (NULL);
 	dup_str = ft_strdup(str);
 	if (!dup_str)

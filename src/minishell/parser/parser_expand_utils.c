@@ -6,7 +6,7 @@
 /*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 14:38:39 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/29 14:07:56 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/04 19:01:33 by auzun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*expand(char *to_find, t_lex *env)
 {
+	if (!env)
+		return (NULL);
 	if (*to_find == '$')
 		to_find++;
 	while (env && (ft_strncmp(to_find, env->str, ft_strlen(to_find))
