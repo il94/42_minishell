@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:24:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/06 15:02:40 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/06 16:41:56 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	open_file(t_data *data, t_fd *file, \
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (file->file && file->operator == R_DOUBLE_CHEVRON)
 		file->fd = open(file->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (!file->file)
+	else if (!file->file && file->operator != PIPE_R)
 		return (0);
 	if (file->file && file->fd < 0)
 	{
