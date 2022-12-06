@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_here_doc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 06:12:24 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/01 13:46:41 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/06 15:04:04 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ static char	*expand_in_hd(t_data *data, char **buffer)
 	return (tmp);
 }
 
-static int	len_buf(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (i == 0)
-		return (1);
-	return (i);
-}
-
 static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 {
 	char	*buffer;
@@ -53,8 +41,10 @@ static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 			sig_unexpected_eof(delimiter);
 			break ;
 		}
-		if (!ft_strncmp(delimiter, buffer, len_buf(buffer)))
+		buffer[ft_strlen(buffer) - 1] = '\0';
+		if (!ft_strcmp(delimiter, buffer))
 			break ;
+		buffer[ft_strlen((buffer))] = '\n';
 		if (ft_strchr(buffer, '$'))
 			buffer = expand_in_hd(data, &buffer);
 		write(fd, buffer, ft_strlen(buffer));
@@ -62,7 +52,6 @@ static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 	}
 	if (buffer)
 		free(buffer);
-	close(fd);
 }
 
 void	generate_here_doc(t_data *data, t_fd *file)
@@ -82,6 +71,7 @@ void	generate_here_doc(t_data *data, t_fd *file)
 		close(fd_here_doc[0]);
 		signal(SIGINT, sig_int_heredoc_child);
 		writing_here_doc(data, file->file, fd_here_doc[1]);
+		close(fd_here_doc[1]);
 		free_all_and_exit(data, NULL);
 	}
 	wait(NULL);

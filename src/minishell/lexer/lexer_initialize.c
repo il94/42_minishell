@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:34:48 by ilandols          #+#    #+#             */
-/*   Updated: 2022/11/30 22:32:25 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/06 13:20:54 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,11 @@ static int	concat_ampersand(t_lex **lexer)
 		if ((*lexer)->next && (!is_there("<>|()", (*lexer)->next->str[0])
 				&& !ft_iswhitespace((*lexer)->next->str[0])
 				&& ft_strcmp((*lexer)->next->str, "&&")))
-		{
-			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-			if (!(*lexer)->str)
-				return (0);
-			ft_lstdelone_lex((*lexer)->next);
-		}
+			concat_element(lexer, FALSE);
 		if ((*lexer)->prev && (!is_there("<>|()", (*lexer)->prev->str[0])
 				&& !ft_iswhitespace((*lexer)->prev->str[0])
 				&& ft_strcmp((*lexer)->prev->str, "&&")))
-		{
-			*lexer = (*lexer)->prev;
-			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-			if (!(*lexer)->str)
-				return (0);
-			ft_lstdelone_lex((*lexer)->next);
-		}
+			concat_element(lexer, TRUE);
 	}
 	return (1);
 }
@@ -71,12 +60,7 @@ static int	concat_tokens(t_lex **lexer)
 	{
 		ft_strlcpy(token, (*lexer)->str, 2);
 		if ((*lexer)->next && !ft_strcmp((*lexer)->next->str, token))
-		{
-			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-			if (!(*lexer)->str)
-				return (0);
-			ft_lstdelone_lex((*lexer)->next);
-		}
+			concat_element(lexer, FALSE);
 	}
 	return (1);
 }
@@ -87,15 +71,13 @@ static int	concat_env(t_lex **lexer)
 	{
 		concat_quotes(lexer);
 		if ((*lexer)->next && ft_isprint((*lexer)->next->str[0]))
-		{
-			(*lexer)->str = ft_strjoin_free((*lexer)->str, (*lexer)->next->str);
-			if (!(*lexer)->str)
-				return (0);
-			ft_lstdelone_lex((*lexer)->next);
-		}
+			concat_element(lexer, FALSE);
 		if ((*lexer)->prev && !ft_iswhitespace((*lexer)->prev->str[0]))
 			concat_element(lexer, TRUE);
 	}
+	else if ((*lexer)->prev
+		&& (*lexer)->prev->str[ft_strlen((*lexer)->prev->str) - 1] == '$')
+		concat_element(lexer, TRUE);
 	return (1);
 }
 

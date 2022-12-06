@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 21:34:07 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/06 15:27:28 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void	generate_here_doc(t_data *data, t_fd *file);
 int		parser_input_output(t_data *data, t_cmd *cmd);
 
 /* parser_open_files.c */
-void	open_files(t_data *data, t_cmd *cmd);
+int		open_files(t_data *data, t_cmd *cmd);
 
 /* parser_pipe.c */
 void	generate_pipe(t_data *data, t_fd *file, t_cmd *cmd);
@@ -241,8 +241,5 @@ void	minishell(t_data *data);
 
 /* main.c */
 int		main(int ac, char **av, char **envp);
-
-void	ft_print_fd(t_fd *fd);
-void	print_cmd(t_cmd *commands, char *state);
 
 #endif

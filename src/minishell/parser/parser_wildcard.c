@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:34:36 by auzun             #+#    #+#             */
-/*   Updated: 2022/11/30 23:08:15 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:09:37 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,6 @@ static void	clear_wildi(t_data *data, t_lex *head_paths, \
 		free_lexer_struct(&head_lst);
 	free_all_and_exit(data, "malloc");
 }
-
-// static void	verif_err(t_data *data, t_lex *head_paths,
-// 	t_lex *head_lst, int err)
-// {
-// 	if (err == -2)
-// 		clear_wildi(data, head_paths, head_lst, 1);
-// 	if (err == -1)
-// 		printf("empty directory\n");
-// 	if (err == 0)
-// 		printf("invalid path\n");
-// }
 
 t_lex	*wildiwonkard(t_data *data, t_lex *path, t_lex *lst_str)
 {
