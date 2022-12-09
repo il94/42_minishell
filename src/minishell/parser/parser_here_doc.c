@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 06:12:24 by auzun             #+#    #+#             */
-/*   Updated: 2022/12/06 15:04:04 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:22:17 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 	buffer = NULL;
 	while (1)
 	{
-		ft_printf("> ");
-		buffer = ft_get_next_line(STDIN_FILENO);
+		buffer = readline("> ");
 		if (g_exit_status == 130)
 			break ;
 		else if (!buffer)
@@ -41,13 +40,12 @@ static void	writing_here_doc(t_data *data, char *delimiter, int fd)
 			sig_unexpected_eof(delimiter);
 			break ;
 		}
-		buffer[ft_strlen(buffer) - 1] = '\0';
 		if (!ft_strcmp(delimiter, buffer))
 			break ;
-		buffer[ft_strlen((buffer))] = '\n';
 		if (ft_strchr(buffer, '$'))
 			buffer = expand_in_hd(data, &buffer);
 		write(fd, buffer, ft_strlen(buffer));
+		write(fd, "\n", 1);
 		free(buffer);
 	}
 	if (buffer)

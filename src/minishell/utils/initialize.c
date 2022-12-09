@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auzun <auzun@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:56:57 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/02 22:55:25 by auzun            ###   ########.fr       */
+/*   Updated: 2022/12/08 18:27:51 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	check_standard_input(int ac)
+{
+	if (ac > 1)
+	{
+		ft_printf_fd(2, "Error: To many arguments\n");
+		return (0);
+	}
+	if (!isatty(0))
+	{
+		ft_printf_fd(2, "Error: Invalid STDIN\n");
+		return (0);
+	}
+	return (1);
+}
 
 void	set_parent_default_in_out(t_data *data)
 {

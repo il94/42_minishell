@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:43:09 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/06 15:27:28 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:36:13 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ void	free_data_struct(t_data *data);
 void	free_all_and_exit(t_data *data, char *str_error);
 
 /* initialize.c */
+int		check_standard_input(int ac);
 void	set_parent_default_in_out(t_data *data);
 void	initialize_data(t_data *data, char **envp);
 

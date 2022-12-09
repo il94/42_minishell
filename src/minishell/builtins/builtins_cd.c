@@ -6,7 +6,7 @@
 /*   By: ilandols <ilandols@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:18:51 by ilandols          #+#    #+#             */
-/*   Updated: 2022/12/04 20:33:00 by ilandols         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:25:13 by ilandols         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,24 @@ static void	cd_modify_pwd_values(t_data *data)
 
 	oldpwd = ft_lststrncmp_lex(&data->env, "OLDPWD", 3);
 	pwd = ft_lststrncmp_lex(&data->env, "PWD", 3);
-	free(oldpwd->str);
-	oldpwd->str = ft_strjoin("OLD", pwd->str);
-	if (!oldpwd->str)
-		free_all_and_exit(data, "malloc");
-	free(pwd->str);
-	str = getcwd(NULL, 0);
-	if (!str)
-		free_all_and_exit(data, "getcwd");
-	pwd->str = ft_strjoin("PWD=", str);
-	free(str);
-	if (!pwd->str)
-		free_all_and_exit(data, "malloc");
+	if (oldpwd && pwd)
+	{
+		free(oldpwd->str);
+		oldpwd->str = ft_strjoin("OLD", pwd->str);
+		if (!oldpwd->str)
+			free_all_and_exit(data, "malloc");
+	}
+	if (pwd)
+	{
+		free(pwd->str);
+		str = getcwd(NULL, 0);
+		if (!str)
+			free_all_and_exit(data, "getcwd");
+		pwd->str = ft_strjoin("PWD=", str);
+		free(str);
+		if (!pwd->str)
+			free_all_and_exit(data, "malloc");
+	}
 }
 
 void	cd(t_data *data, t_lex *args)
